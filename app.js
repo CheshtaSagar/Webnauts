@@ -1,31 +1,82 @@
 //entry point of the project
-var express= require('express');
-var path= require('path');
-var mongoose= require('mongoose');
-var config= require('./config/database');
-var bodyParser= require('body-parser');
-var session = require('express-session');
-var expressValidator = require('express-validator');
-var expressMessages = require('express-messages');
+const express= require('express');
+const path= require('path');
+const mongoose= require('mongoose');
+const config= require('./config/database');
+const bodyParser= require('body-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
 
-//connect to dbs
-mongoose.connect(config.database);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('connected to mongoDb..');
-});
 
-var app=express();
+// const expressLayouts = require('express-ejs-layouts');
+// const expressValidator = require('express-validator');
+// const expressMessages = require('express-messages');
+
+// Passport Config
+require('./config/passport')(passport);
+
+//connect to db compass
+// mongoose.connect(config.database);
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('connected to mongoDb..');
+// });
+
+// DB Config
+const db = require('./config/database').mongoURI;
+
+// Connect to MongoDB atlas server
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true ,useUnifiedTopology: true}
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+
+const app=express();
 
 //setting up template engine
-app.set('view engine','ejs');
+//app.use(expressLayouts);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// Express body parser
+app.use(express.urlencoded({ extended: true }));
+
+//Express session middleware
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+//Express middleware to connect flash
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 //for using static files
 app.use(express.static('/public'));
 
-var pages = require('./routes/pages.js');//taking to pages.js in routes
-app.use('/', pages);
+//setting routes
+app.use('/', require('./routes/index'));
+app.use('/developers', require('./routes/developers'));
+
 
 app.listen(3000);
 console.log('server is running at port 3000');
