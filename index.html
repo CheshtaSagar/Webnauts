@@ -5,62 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<style>
-    *
-    {
-    margin:0;
-    padding:0;
-    }
-     .carousel-inner img{
-        width:100%;
-        height:600px;
-        }
-        .flip-card {
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
-}
-
-/* This container is needed to position the front and back side */
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Position the front and back side */
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-
-/* Style the front side (fallback if image is missing) */
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-
-/* Style the back side */
-.flip-card-back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateY(180deg);
-}
-
-</style>
+     <link rel="stylesheet" href="/">
 </head>
 <body>
 
@@ -68,8 +13,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <a class="navbar-brand" href="#">
             <img src="/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-            Job
+            InfiniteJobs
           </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -105,15 +51,32 @@
       </nav>
       <div>
           <div class="container-fluid mt-4 mb-3 bg-dark">
+
+
+
+  
               <h1 class="text-center text-capitalize mt-4 display-4 text-white">PROVIDING JOBS FOR CREATIVE MINDS</h1>
           </div>
       </div>
 
 <div>
+
     <h1 class="text-center text-danger font-weight-bold display-4 text-capitalize">1,000+ browse jobs</h1>
 </div>
 
 <section class="mt-4 mb-5">
+
+<div class="jumbotron">
+  <h1 class="display-3">Hello, Developers!</h1>
+  <p class=" display-2 lead">Searching For Jobs ? </p>
+  <hr class="my-4">
+  <p class="text-capitalize font-weight-bold">So Now your search is over because we came up with a great solution.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+
+<section class=" mb-5">
     <div id="demo" class="carousel slide" data-ride="carousel">
 
   <!-- Indicators -->
