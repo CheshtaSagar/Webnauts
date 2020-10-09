@@ -71,11 +71,13 @@ app.use(function(req, res, next) {
 });
 
 //for using static files
-app.use(express.static('/public'));
+app.use(express.static('public'));
+
 
 //setting routes
 app.use('/', require('./routes/index'));
 app.use('/developers', require('./routes/developers'));
+app.use('/companies', require('./routes/companies'));
 
 
 app.listen(3000);

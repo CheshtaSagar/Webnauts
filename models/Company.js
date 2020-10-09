@@ -1,13 +1,15 @@
-//Developer Schema
-
 const mongoose = require('mongoose');
 
-const DeveloperSchema = new mongoose.Schema({
+const CompanySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
     email: {
+        type: String,
+        required: true
+    },
+    companyName: {
         type: String,
         required: true
     },
@@ -19,9 +21,8 @@ const DeveloperSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-   
 });
 
-const Developer = mongoose.model('Developer', DeveloperSchema);
+const Company = mongoose.model('Company', CompanySchema);
 
-module.exports = Developer;
+module.exports = Company;
