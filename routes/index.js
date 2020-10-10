@@ -16,6 +16,15 @@ router.get('/developerProfile', ensureAuthenticated, (req, res) =>{
     'user':req.user
   })
 });
+
+
+//for portfolio page
+router.get('/developerPortfolio', function(req,res)
+{
+res.render('developerPortfolio');
+});
+
+
 //company profile
 router.get('/companyProfile', ensureAuthenticated, (req, res) =>{
   res.render('companyProfile',{

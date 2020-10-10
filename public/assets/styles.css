@@ -52,3 +52,16 @@
   color: white;
   transform: rotateY(180deg);
 }
+/*for developer profile*/
+#Section1,#Section2{
+  padding-top: 5px;
+  margin:6px;
+  border-radius: 3px;
+}
+#Section1{
+  background-color: rgb(43, 39, 39);
+}
+#Section2
+{
+  background-color: rgb(255, 255, 255);
+}

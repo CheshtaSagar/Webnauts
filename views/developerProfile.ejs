@@ -5,15 +5,176 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
-    integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+
   <title></title>
 </head>
    <body>
-    <h1 class="mt-4">Dashboard</h1>
-    <p class="lead mb-3">Welcome <%= user.name%>  </p>
-    <a href="/developers/logout" class="btn btn-secondary">Logout</a>
+     <!--Navbar imported--->
+    <%- include ('partials/nav') %>
+
+
+
+    <!---edit profile body-->
+    <div class="container-fluid">
+
+      <div class="row">
+        <!----> 
+        <!---->
+        <!--for side nav bar-->
+        <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+          <button type="button" class="btn btn-dark btn-block " ><a href="/developerProfile" style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+          <button type="button" class="btn btn-dark btn-block"><a href="#" style="text-decoration: none; color: rgb(255, 255, 255);">Job Section</a></button>
+          <button type="button" class="btn btn-dark btn-block" ><a href="/developerPortfolio" style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+          <button type="button" class="btn btn-dark btn-block"><a href="/developers/logout" style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+        
+        </div>
+        <!---->
+        <!---->
+        <!---->
+  
+  
+        <!---->
+        <!---->
+        <!--for edit profile form--->
+        <div class="col-md-8" id="Section2"  >
+          <h4>Edit Your Profile</h4>
+          <!--to change profile picture or to be inserted dynamically-->
+          <div><img src="/images/developerIcon.jpg"  height="100" style="border-radius: 20px;"></div>
+          <h6>Upload file to change picture</h6>
+          <input type="file" data-file_types="jpg|jpeg|png">
+  
+          <!---->
+          <!---->
+          <!---to be inserted dynamically using ejs-->
+          <h2><%= user.name%></h2>
+          <!---->
+          <!---->
+          <!---->
+  
+          <form>
+           <!--to change name--> 
+            <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="name" class="form-control" id="name" aria-describedby="na" placeholder="<%= user.name%>">
+            </div>
+  
+            <!--to change address--> 
+            <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="name" aria-describedby="na" placeholder="Address">
+            </div>
+            <div class="row">
+  
+              <!--to change dob--> 
+             <div class="col-md-1 col-xl-6">
+            <div class="form-group">
+              <label for="dob">Date Of Birth</label>
+              <input type="date" class="form-control" id="dob" aria-describedby="na" placeholder="Date Of Birth">
+            </div>
+            </div>
+             <!--to specify gender--> 
+            <div class="col-md-1 col-xl-6">
+              <div class="form-group">
+                <label for="Gender">Gender</label>
+                <select class="form-control" id="Gender">
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+          </div>
+  
+  
+  
+          <!---->
+          <!---->
+          <!---->
+          <!--to be inserted dynamically using ejs-->
+           <!--email address--> 
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="<%= user.email%>">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+              <label for="phno">Phone Number</label>
+              <input type="tel" class="form-control" id="phno" aria-describedby="na" placeholder="Phone Number">
+            </div>
+            <!---->
+            <!---->
+            <!---->
+            <!---->
+  
+  
+  
+            <div class="row">
+              <!--Work Experience--> 
+             <div class="col-md-1 col-xl-6">
+              <div class="form-group">
+                <label for="WorkExperience">Work Experience</label>
+                <select class="form-control" id="Work Experience">
+                  <option>Fresher</option>
+                  <option>1 Year</option>
+                  <option>2 Years</option>
+                  <option>3 Years</option>
+                  <option>4 Years</option>
+                  <option>5 Years</option>
+                  <option>More than 5 Years</option>
+                </select>
+              </div>
+             </div>
+             <!--Qualification--> 
+             <div class="col-md-1 col-xl-6">
+              <div class="form-group">
+                <label for="Qualification">Qualification</label>
+                <select class="form-control" id="Qualification">
+                  <option>Under-Graduate</option>
+                  <option>Post-Graduate</option>
+                  <option>PhD</option>
+                  <option>Diploma</option>
+                  <option>Others</option>
+                </select>
+              </div>
+            </div>
+            </div>
+  
+             <!--for storig links--> 
+            <div class="row">
+             <div class="col-md-1 col-xl-6">
+              <div class="form-group">
+                <label for="linkenin">LinkedIn</label>
+                <input type="url" class="form-control" id="linkedIn">
+              </div>
+             </div>
+           
+             <div class="col-md-1 col-xl-6">
+              <div class="form-group">
+                <label for="github">Github</label>
+                <input type="url" class="form-control" id="github">
+              </div>
+             </div>
+           
+            </div>
+  
+            <div class="form-group">
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <!--For updating--> 
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>  
+        </div>
+      
+  
+      </div>
+    </div>
+    <!-------->
+
+    
   </body>
     <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
