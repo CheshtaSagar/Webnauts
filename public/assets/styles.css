@@ -65,3 +65,14 @@
 {
   background-color: rgb(255, 255, 255);
 }
+
+/*For CompanyProfile*/
+.CompanyDetails{
+  
+  font: outline;
+  padding:15px;
+  margin: 9px;
+  background-color: rgba(51, 201, 5, 0.877);
+  border-radius: 15px;
+
+}
