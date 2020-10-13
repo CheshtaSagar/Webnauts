@@ -23,16 +23,16 @@
 
         <%- include ('partials/messages') %>
 
-        <form action="/developers/register" method="POST">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="name" id="name" name="name" class="form-control" placeholder="Enter Name"
-              value="<%= typeof name != 'undefined' ? name : '' %>" />
-          </div>
+        <form action="/register" method="POST">
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="Enter Email"
               value="<%= typeof email != 'undefined' ? email : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="name">User Type</label>
+            <input type="name" id="userType" name="userType" class="form-control" placeholder="Enter User type (company or developer)"
+              value="<%= typeof userType != 'undefined' ? name : '' %>" />
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -48,7 +48,7 @@
             Register
           </button>
         </form>
-        <p class="lead mt-4">Have An Account? <a href="/developers/login">Login</a></p>
+        <p class="lead mt-4">Have An Account? <a href="/login">Login</a></p>
       </div>
     </div>
   </div>

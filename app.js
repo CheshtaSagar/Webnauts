@@ -15,6 +15,7 @@ const passport = require('passport');
 
 // Passport Config
 require('./config/passport')(passport);
+//const passport1=require('./config/passport');
 
 //connect to db compass
 // mongoose.connect(config.database);
@@ -76,8 +77,8 @@ app.use(express.static('public'));
 
 //setting routes
 app.use('/', require('./routes/index'));
-app.use('/developers', require('./routes/developers'));
-app.use('/companies', require('./routes/companies'));
+//app.use('/developers', require('./routes/developers'));
+//app.use('/companies', require('./routes/companies'));
 
 
 app.listen(3000);

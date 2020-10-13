@@ -1,53 +1,18 @@
-const Company = require("../models/Company");
-const Developer = require("../models/Developer");
-
-//add this if we want to protect our dashboard or profile
 module.exports = {
-    //fot developer
-    ensureAuthenticated: function(req, res, next) {
-      {
-      if (req.isAuthenticated()) {
-        return next();
-      }
-      req.flash('error_msg', 'Please log in to view that resource');
-      res.redirect('/developers/login');
+  ensureAuthenticated: function(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
     }
-    
-}   
-    ,
-    //for developer
-    forwardAuthenticated: function(req, res, next) {
-      
-      {
-      if (!req.isAuthenticated()) {
-        return next();
-      }
-      res.redirect('/developerProfile');      
+    req.flash('error_msg', 'Please log in to view that resource');
+    res.redirect('/login');
+  },
+  forwardAuthenticated: function(req, res,user, next) {
+    if (!req.isAuthenticated()) {
+      return next();
     }
+    if(req.user.userType==='developer')
+    res.redirect('/developerProfile');
+    else
+    res.redirect('/companyProfile');     
   }
-
-  ,
-    //for company
-    ensureAuthenticated1: function(req, res, next) {
-      {
-      if (req.isAuthenticated()) {
-        return next();
-      }
-      req.flash('error_msg', 'Please log in to view that resource');
-      res.redirect('/companies/companyLogin');
-    }
-    
-}   
-    ,
-    //for company
-    forwardAuthenticated1: function(req, res, next) {
-      
-      {
-      if (!req.isAuthenticated()) {
-        return next();
-      }
-      res.redirect('/companyProfile');      
-    }
-  }
-
-  };
+};

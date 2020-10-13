@@ -1,86 +1,40 @@
 const LocalStrategy = require('passport-local').Strategy;
-const mongoose =require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// Load developer model
-const Developer = require('../models/Developer');
-const Company=require('../models/Company');
+// Load User model
+const User = require('../models/User');
 
 module.exports = function(passport) {
   passport.use(
     new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-      // Match developer with email
-      if(Developer)
-     {
-      Developer.findOne({
+      // Match user with email
+      User.findOne({
         email: email
-      }).then(developer => {
-        if (!developer) {
+      }).then(user => {
+        if (!user) {
           return done(null, false, { message: 'That email is not registered' });
         }
 
         // Match password
-        bcrypt.compare(password, developer.password, (err, isMatch) => {     ////developer.passworg is hashed one stored in db
+        bcrypt.compare(password, user.password, (err, isMatch) => {     ////user.pass is hashed one store in db
           if (err) throw err;
           if (isMatch) {
-            return done(null, developer);
+            return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });
           }
         });
       });
-    }
-      ///if this is a request for company ,then match company with email
-    else
-    {
-      Company.findOne({
-        email: email
-      }).then(company => {
-        if (!company) {
-          return done(null, false, { message: 'That email is not registered' });
-        }
-
-        // Match password
-        bcrypt.compare(password,company.password, (err, isMatch) => {     ////company.password is hashed one stored in db
-          if (err) throw err;
-          if (isMatch) {
-            return done(null, company);
-          } else {
-            return done(null, false, { message: 'Password incorrect' });
-          }
-        });
-      });
-    }
     })
   );
-  
-  if(Developer)
-  {
-  passport.serializeUser(function(developer, done) {
-    done(null, developer.id);
-  });
-  }
-  if(Company)
-  {
-    passport.serializeUser(function(company, done) {
-      done(null, company.id);
-    });
-  }
 
-  if(Developer)
-  {
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
   passport.deserializeUser(function(id, done) {
-    Developer.findById(id, function(err, developer) {
-      done(err, developer);
+    User.findById(id, function(err, user) {
+      done(err, user);
     });
   });
-}
-if(Company)
-{
-    passport.deserializeUser(function(id, done) {
-    Company.findById(id, function(err, company) {
-    done(err, company);
-    });
-  });
-}
 };
