@@ -54,9 +54,10 @@
 }
 /*for developer profile*/
 #Section1,#Section2{
-  padding-top: 5px;
-  margin:6px;
+  padding-top: 10px;
+  margin:20px;
   border-radius: 3px;
+
 }
 #Section1{
   background-color: rgb(43, 39, 39);
@@ -72,7 +73,11 @@
   font: outline;
   padding:15px;
   margin: 9px;
-  background-color: rgba(51, 201, 5, 0.877);
+  background-color: rgba(65, 248, 9, 0.877);
   border-radius: 15px;
+
+}
+#postedJobs,#search{
+  padding:15px;
 
 }

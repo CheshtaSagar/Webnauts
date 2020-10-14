@@ -1,3 +1,4 @@
+<!-------Company profile that appears after login-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,11 +19,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
-                <button type="button" class="btn btn-dark btn-block"><a href="#"
+                <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/editProfile"
+                <button type="button" class="btn btn-dark btn-block"><a href="/company"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="#"
+                <button type="button" class="btn btn-dark btn-block"><a href="/postJob"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
@@ -43,18 +44,24 @@
                 <!--Company details to be imported from db-->
                 <div class="row ">
                     <div class="col">
+                        
                         <div class="CompanyDetails" id="Details">
-                            <h3>CompanyName</h3>
+                            <!--------img to be dynamically added-->
+                            <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
+                            <h3><%=user.email%> </h3>
                             <h5>Company Address</h5>
                             <h6>Website</h6>
                             <h6>Contact Info</h6>
                         </div>
                     </div>
                 </div>
-
-
+               
+                <div style="padding: 10px; margin: 2px;">
+                <h5 >Jobs Posted</h5> 
+            </div>
                 <!---jobs to be taken from db-->
-                <div class="row">
+                <div class="row" id="postedJobs">
+                    
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
@@ -107,7 +114,7 @@
                 </div>
 
                 <!--to search developers -->
-                <div class="row">
+                <div class="row" id="search">
 
                     <div class="container">
                         <div>

@@ -4,11 +4,9 @@ const mongoose= require('mongoose');
 const bcrypt= require('bcryptjs');//for storing encrypted password
 const passport = require('passport');
 const User = require('../models/User');
-//const { ensureAuthenticated } = require('../config/auth');
-//const { ensureAuthenticated1 } = require('../config/companyauth');
 
 
-
+//rendering home page
 router.get('/',  (req, res) =>
 {
 res.render('index');
@@ -128,18 +126,7 @@ router.get('/profile', (req, res) =>{
     res.redirect('/companyProfile')
   }
 });
-// router.get('/profile', (req, res) =>{
-//   if(req.user.userType==='developer'){
-//   res.render('developerProfile',{
-//     'user':req.user
-//   })}
-//   else
-//   {
-//     res.render('companyProfile',{
-//       'user':req.user
-//     })
-//   }
-// });
+
 
 
 //for portfolio page
@@ -157,9 +144,23 @@ res.render('developerProfile',{
 });
 
 
-//company profile
+//company edit profile
 router.get('/companyProfile',  (req, res) =>{
   res.render('companyProfile',{
+    'user': req.user
+  })
+});
+//company main profile page
+router.get('/company',  (req, res) =>{
+  res.render('company',{
+    'user': req.user
+  })
+});
+
+
+//rendering postJob page
+router.get('/postJob',  (req, res) =>{
+  res.render('postJob',{
     'user': req.user
   })
 });
