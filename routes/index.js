@@ -4,8 +4,7 @@ const mongoose= require('mongoose');
 const bcrypt= require('bcryptjs');//for storing encrypted password
 const passport = require('passport');
 const User = require('../models/User');
-
-
+const Company=require('../models/Company');
 //rendering home page
 router.get('/',  (req, res) =>
 {
@@ -156,6 +155,41 @@ router.get('/company',  (req, res) =>{
     'user': req.user
   })
 });
+
+
+//post request for edit company profila
+router.post('/company',(req, res) => {
+  console.log(req.user._id);//for debugging
+  console.log(req.body);   //for debugging
+
+
+    var company = new Company({
+    creator : req.user._id,
+    email:req.user.email,
+    companyLocation:req.body.location,
+    companyCity:req.body.city,
+    companyState:req.body.state,
+    companyCountry:req.body.country,
+    companyName:req.body.companyName,
+    companyHeadName:req.body.companyHeadName,
+    establishmentDate: req.body.establishmentDate,
+    companyUrl:req.body.companyUrl,
+    companyDescription:req.body.companyDescription,
+    contactNo:req.body.contactNo
+    
+    });
+    
+   //validations to be added here
+
+    //saving content on database
+    company.save()
+    .then(user => {
+        req.flash('success_msg', 'profile posted ');
+        res.redirect('/companyProfile'); //do anything here(TO BE DECIDED)
+    })
+    .catch(err => console.log(err));
+  
+  });
 
 
 //rendering postJob page

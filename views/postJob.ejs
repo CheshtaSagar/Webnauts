@@ -49,28 +49,33 @@
         <form action="/postJob" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title">
+                    <label for="jobTitle">Title</label>
+                    <input type="text" class="form-control" id="jobTitle"  
+                    name="jobTitle" value="<%= typeof jobType != 'undefined' ? jobTitle : '' %>"/>
                 </div>
             </div>
 
                 <div class="form-group">
-                    <label for="inputAddress">Location</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Location like sector,area,locality">
+                    <label for="jobLocation">Location</label>
+                    <input type="text" class="form-control" id="jobLlocation" placeholder="Location like sector,area,locality"
+                    name="jobLocation" value="<%= typeof jobLocation != 'undefined' ? jobLocation : '' %>"/>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
+                    <div class="form-group col-md-4">
+                        <label for="jobCity">City</label>
+                        <input type="text" class="form-control" id="jobCity" name="jobCity"
+                         value="<%= typeof jobCity != 'undefined' ? jobCity : '' %>"/>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="inputState">
+                        <label for="jobState">State</label>
+                        <input type="text" class="form-control" id="jobState"
+                         name="jobState" value="<%= typeof jobState != 'undefined' ? jobState : '' %>"/>
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputPinCode">Pin Code</label>
-                        <input type="text" class="form-control" id="inputPinCode">
+                    <div class="form-group col-md-4">
+                        <label for="jobCountry">Country</label>
+                        <input type="text" class="form-control" id="jobCountry" 
+                        name="jobCountry" value="<%= typeof jobCountry != 'undefined' ? jobCountry : '' %>"/>
                     </div>
                 </div>
 
@@ -78,19 +83,22 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                       <label for="jobType">Job Type</label>
-                      <select id="jobType" class="form-control">
+                      <select id="jobType" class="form-control"
+                       name="jobType" value="<%= typeof jobType != 'undefined' ? jobType : '' %>">
                         <option selected>Full time</option>
                         <option>Internship</option>
                         <option>Freelancing</option>
                       </select>
                     </div>
                     <div class="form-group col-md-4">
-                      <label for="MinExp">Minimum Experience in Years</label>
-                      <input type="number" class="form-control" id="maxSalary">
+                      <label for="min_exp">Minimum Experience in Years</label>
+                      <input type="number" class="form-control" id="min_exp"
+                      name="min_exp" value="<%= typeof min_exp != 'undefined' ? min_exp : '' %>"/>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="qualification">Minimum Qualification</label>
-                        <select id="qualification" class="form-control">
+                        <label for="jobQualification">Minimum Qualification</label>
+                        <select id="jobQualification" class="form-control" 
+                        name="jobQualification" value="<%= typeof jobQualification != 'undefined' ? jobQualification : '' %>">
                           <option selected>Under Graduate</option>
                           <option>Post Graduate</option>
                           <option>Doctorate Degree</option>
@@ -105,30 +113,29 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="minSalary">Minimum Salary</label>
-                      <input type="number" class="form-control" id="minSalary" placeholder="eg:50000(in Rupees)">
+                      <label for="min_salary">Minimum Salary</label>
+                      <input type="number" class="form-control" id="min_salary" placeholder="eg:50000(in Rupees)"
+                      name="min_salary" value="<%= typeof min_salary != 'undefined' ? min_salary : '' %>"/>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="maxSalary">Maximum Salary</label>
-                        <input type="number" class="form-control" id="maxSalary" placeholder="eg:50000(in Rupees)">
+                        <label for="max_salary">Maximum Salary</label>
+                        <input type="number" class="form-control" id="max_salary" placeholder="eg:50000(in Rupees)"
+                        name="max_salary" value="<%= typeof max_salary != 'undefined' ? max_salary : '' %>"/>
                     </div>
                     
                 </div>
 
                 <div class="form-group">
-                    <label for="inputSkills">Skills</label>
-                    <input type="text" class="form-control" id="inputSkills" placeholder="eg:Android development,Artficial Intelligence">
+                    <label for="jobSkills">Skills</label>
+                    <input type="text" class="form-control" id="jobSkills" placeholder="eg:Android development,Artficial Intelligence"
+                    name="jobSkills" value="<%= typeof jobSkills != 'undefined' ? jobSkills : '' %>"/>
                 </div>
 
-
-
-
-
-
-                    <div class="form-group">
+                <div class="form-group">
                         <label for="jobDescription">Job Description</label>
-                        <textarea class="form-control" id="jobDescription" rows="6" placeholder="Write job description such as eligibilty criteria,type of work etc.(maximum 100 words)"></textarea>
-                      </div>
+                        <textarea class="form-control" id="jobDescription" rows="6" placeholder="Write job description such as eligibilty criteria,type of work etc.(maximum 100 words)"
+                        name="jobDescription" value="<%= typeof jobDescription != 'undefined' ? jobDescription : '' %>"></textarea>
+              </div>
 
             
             <button type="submit" class="btn btn-primary">Post Job</button>

@@ -9,21 +9,9 @@ const flash = require('connect-flash');
 const passport = require('passport');
 
 
-// const expressLayouts = require('express-ejs-layouts');
-// const expressValidator = require('express-validator');
-// const expressMessages = require('express-messages');
-
 // Passport Config
 require('./config/passport')(passport);
-//const passport1=require('./config/passport');
 
-//connect to db compass
-// mongoose.connect(config.database);
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   console.log('connected to mongoDb..');
-// });
 
 // DB Config
 const db = require('./config/database').mongoURI;
@@ -45,7 +33,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Express body parser
-app.use(express.urlencoded({ extended: true }));
+//app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
+
 
 //Express session middleware
 app.use(
@@ -78,8 +69,8 @@ app.use(express.static('public'));
 //setting routes
 app.use('/', require('./routes/index'));
 //app.use('/developers', require('./routes/developers'));
-//app.use('/companies', require('./routes/companies'));
-
+//app.use('/company', require('./routes/company'));
+app.use('/postJob', require('./routes/postJob'));
 
 app.listen(3000);
 console.log('server is running at port 3000');

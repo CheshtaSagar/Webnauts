@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = require('./User');
  const CompanySchema = new mongoose.Schema({
     creator:{
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
          ref:'User'
     } 
     ,
@@ -33,35 +33,42 @@ const User = require('./User');
      companyDescription:
      {
            type:String,
+          required:true
      },
      contactNo:{
-         type:String
+         type:Number,
+         required:true
      },
-     companyAddress:{
-         type: mongoose.Schema.Type.ObjectId,
-         ref:'Address'
-     }
-     ,
-     companyIcon:{
-        type: mongoose.Schema.Type.ObjectId,
+     companyLocation:{
+         type:String,
+         required:true
+     },
+     companyCity:{
+        type:String,
+        required:true
+    },
+    companyState:{
+        type:String,
+        required:true
+    },
+    companyCountry:{
+        type:String,
+        required:true
+    }
+   /*  companyIcon:{
+        type: mongoose.Schema.Types.ObjectId,
         ref:'Icon'
-     }
+     }*/
  });
 
- const IconSchema = new mongoose.Schema(
+ /* const IconSchema = new mongoose.Schema(
     { img: 
         { data: Buffer, contentType: String }
     }
-  );
+  ); */
 
- const addressSchema = new mongoose.Schema({
-    location: String,
-    city: String,
-    state: String,
-    country:String
-});
+ 
 
-const Address=mongoose.model("Address",addressSchema )
-const Icon=mongoose.model("Icon",IconSchema);
+//const Icon=mongoose.model("Icon",IconSchema);
 const Company = mongoose.model("Company", CompanySchema);
-module.exports ={Company,Address,Icon};
+module.exports =Company;

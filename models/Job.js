@@ -5,11 +5,22 @@ const {Company,Address}=require('./Company');
 const JobSchema = new mongoose.Schema({
     jobTitle:[String],
     jobDescription : [String],
-    jobLocation:
-    {
-        type: mongoose.Schema.Type.ObjectId,
-        ref:"Address"
+    jobLocation:{
+        type:String,
+        required:true
     },
+    jobCity:{
+       type:String,
+       required:true
+   },
+   jobState:{
+       type:String,
+       required:true
+   },
+   jobCountry:{
+       type:String,
+       required:true
+   },
     min_exp:
     {
         type:Number,
@@ -25,6 +36,7 @@ const JobSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    
     jobType://full time or intern
     {
         type:String,
@@ -41,19 +53,25 @@ const JobSchema = new mongoose.Schema({
         required:true
     },//skills required to apply for job
     postedOn:{
-        type:Date.now,
-        required:true
+        type: Date,
+        default: Date.now
     },
     postedBy:      //information of company that has posted the job
     {
-        type: mongoose.Schema.Type.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref:"Company"
     },
     appliedBy: [    //array containing information of developers who have applied
     {
-        type:mongoose.Schema.Type.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Developer"
     }]
+    ,
+    jobCount:
+    {
+        type:Number,
+        default:0
+    }
 });
 const Job = mongoose.model('Job', JobSchema);
 module.exports=Job;
