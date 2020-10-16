@@ -5,6 +5,7 @@ const bcrypt= require('bcryptjs');//for storing encrypted password
 const passport = require('passport');
 const User = require('../models/User');
 const Company=require('../models/Company');
+const Job=require('../models/Job');
 //rendering home page
 router.get('/',  (req, res) =>
 {
@@ -146,6 +147,7 @@ res.render('developerProfile',{
 //company edit profile
 router.get('/companyProfile',  (req, res) =>{
   res.render('companyProfile',{
+    title:'company profile',
     'user': req.user
   })
 });
@@ -197,6 +199,14 @@ router.get('/postJob',  (req, res) =>{
   res.render('postJob',{
     'user': req.user
   })
+});
+
+router.get('/allJobs', function (req, res) {
+  Job.find({}).exec(function (err, jobs) {
+      res.render('allJobs', {
+          jobs: jobs
+      });
+  });//for rendering all jobs
 });
 
 // Logout handling

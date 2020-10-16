@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+</head>
+
+<body>
+
+    <%- include ('partials/nav') %>
+    <div>
+    <h2 class="page-title">All jobs</h2>
+    <br><br>
+
+    <table class="table table-striped sorting">
+
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Job Type</th>
+                <th>Minimum experience Required (years)</th>
+                <th>Minimum Salary</th>
+                <th>Maximum Salary</th>
+                <th>Job Description</th>
+                <th>Job Skills</th>
+                <th>Job Qualifications</th>
+                <th>Job Location</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <% jobs.forEach(function(job){ %>
+            <tr id="id_<%= job._id %>" >
+                <td><%= job.jobTitle %></td>
+                <td><%= job.jobType %></td>
+                <td><%= job.min_exp %></td>
+                <td><%= job.min_salary %></td>
+                <td><%= job.max_salary %></td>
+                <td><%= job.jobDescription %></td>
+                <td><%= job.jobSkills %></td>
+                <td><%= job.jobQualification %></td>
+                <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
+               
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+    <%- include ('partials/footer') %>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+</html>
