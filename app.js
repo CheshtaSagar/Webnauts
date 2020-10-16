@@ -70,7 +70,7 @@ app.use(express.static('public'));
 app.use('/', require('./routes/index'));
 //app.use('/developers', require('./routes/developers'));
 //app.use('/company', require('./routes/company'));
-app.use('/postJob', require('./routes/postJob'));
+//app.use('/postJob', require('./routes/postJob'));
 
 app.listen(3000);
 console.log('server is running at port 3000');

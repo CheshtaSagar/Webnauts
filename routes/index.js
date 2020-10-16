@@ -192,12 +192,59 @@ router.post('/company',(req, res) => {
   });
 
 
+
+
 //rendering postJob page
 router.get('/postJob',  (req, res) =>{
   res.render('postJob',{
     'user': req.user
   })
 });
+
+
+
+const Job=require('../models/Job');
+
+//for posting job 
+router.post('/postJob', async(req, res) => {
+    console.log(req.user._id);//user id(not the company id)
+
+    //to get company id by comparing creator and userId
+    Company.findOne({"creator":req.user._id}, function (err, docs) { 
+      if (err){ 
+          console.log(err) 
+      } 
+      else{ 
+        console.log(docs);//company details get printed
+        const job = new Job({
+        jobTitle: req.body.jobTitle, 
+        jobType:req.body.jobType,
+        min_exp:req.body.min_exp,
+        min_salary:req.body.min_salary,
+        max_salary:req.body.max_salary,
+        jobDescription:req.body.jobDescription,
+        jobSkills:req.body.jobSkills,
+        jobQualification:req.body.jobQualification,
+        jobLocation:req.body.jobLocation,
+        jobCity:req.body.jobCity,
+        jobState:req.body.jobState,
+        jobCountry:req.body.jobCountry,
+        postedBy:docs._id//storing id of current company in this field
+
+      });
+    
+      job.save()
+    .then(user => {
+        req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
+        console.log('job successfully posted'); //do anything here(TO BE DECIDED)
+    })
+    .catch(err => console.log(err));
+  } 
+});
+
+    });
+   
+
 
 // Logout handling
   router.get('/logout', (req, res) => {
