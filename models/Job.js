@@ -3,8 +3,14 @@ const {Company,Address}=require('./Company');
 
 //schema for jobs that are being posted by company
 const JobSchema = new mongoose.Schema({
-    jobTitle:[String],
-    jobDescription : [String],
+    jobTitle:{
+        type:String,
+        required:true
+    },
+    jobDescription :{
+        type:String,
+        required:true
+    },
     jobLocation:{
         type:String,
         required:true
@@ -67,11 +73,11 @@ const JobSchema = new mongoose.Schema({
         ref:"Developer"
     }]
     ,
-    jobCount:
+  /*  jobCount:
     {
         type:Number,
         default:0
-    }
+    }*/
 });
 const Job = mongoose.model('Job', JobSchema);
 module.exports=Job;
