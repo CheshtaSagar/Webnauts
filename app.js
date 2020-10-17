@@ -69,7 +69,7 @@ app.use(express.static('public'));
 //setting routes
 app.use('/', require('./routes/index'));
 //app.use('/developers', require('./routes/developers'));
-//app.use('/company', require('./routes/company'));
+app.use('/company', require('./routes/company'));
 //app.use('/postJob', require('./routes/postJob'));
 
 app.listen(3000);
