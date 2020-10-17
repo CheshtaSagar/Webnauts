@@ -15,43 +15,50 @@
 
     <%- include ('partials/nav') %>
     <div>
-    <h2 class="page-title">All jobs</h2>
-    <br><br>
+        <h2 class="page-title">All jobs</h2>
+        <br><br>
 
-    <table class="table table-striped sorting">
+        <table class="table table-striped sorting">
 
-        <thead>
-            <tr>
-                <th>Job Title</th>
-                <th>Job Type</th>
-                <th>Minimum experience Required (years)</th>
-                <th>Minimum Salary</th>
-                <th>Maximum Salary</th>
-                <th>Job Description</th>
-                <th>Job Skills</th>
-                <th>Job Qualifications</th>
-                <th>Job Location</th>  
-            </tr>
-        </thead>
-        <tbody>
-            <% jobs.forEach(function(job){ %>
-            <tr id="id_<%= job._id %>" >
-                <td><%= job.jobTitle %></td>
-                <td><%= job.jobType %></td>
-                <td><%= job.min_exp %></td>
-                <td><%= job.min_salary %></td>
-                <td><%= job.max_salary %></td>
-                <td><%= job.jobDescription %></td>
-                <td><%= job.jobSkills %></td>
-                <td><%= job.jobQualification %></td>
-                <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
-               
-            </tr>
-            <% }); %>
-        </tbody>
-    </table>
-</div>
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Company Name</th>
+                    <th>Job Type</th>
+                    <th>Minimum experience Required (years)</th>
+                    <th>Minimum Salary</th>
+                    <th>Maximum Salary</th>
+                    <th>Job Description</th>
+                    <th>Job Skills</th>
+                    <th>Job Qualifications</th>
+                    <th>Job Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% jobs.forEach(function(job){ %>
+                <tr id="id_<%= job._id %>">
+                    <td><%= job.jobTitle %></td>
+                    <td><%  %></td>
+                    <td><%= job.jobType %></td>
+                    <td><%= job.min_exp %></td>
+                    <td><%= job.min_salary %></td>
+                    <td><%= job.max_salary %></td>
+                    <td><%= job.jobDescription %></td>
+                    <td><%= job.jobSkills %></td>
+                    <td><%= job.jobQualification %></td>
+                    <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+
+   
     <%- include ('partials/footer') %>
+
+
+
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
