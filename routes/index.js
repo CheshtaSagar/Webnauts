@@ -190,6 +190,7 @@ router.get('/postJob',  (req, res) =>{
 });
 
 
+
 router.get('/allJobs', function (req, res) {
   Job.find({}).exec(function (err, jobs) {
       res.render('allJobs', {
@@ -210,6 +211,7 @@ router.post('/postJob', async(req, res) => {
           console.log(err) 
       } 
       else{ 
+        
         console.log(docs);//company details get printed
         const job = new Job({
         jobTitle: req.body.jobTitle, 
@@ -226,19 +228,22 @@ router.post('/postJob', async(req, res) => {
         jobCountry:req.body.jobCountry,
         postedBy:docs._id//storing id of current company in this field
 
-      });
-    
-      job.save()
-    .then(user => {
-        req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
-        console.log('job successfully posted'); //do anything here(TO BE DECIDED)
-    })
-    .catch(err => console.log(err));
-  } 
-});
+        });
+        console.log('Job posted successfully');//include flash to show msg.ejs
+
+      } 
 
     });
+
+  });
    
+    router.get('/allJobs', function (req, res) {
+      Job.find({}).exec(function (err, jobs) {
+       res.render('allJobs', {
+              jobs: jobs,
+          });
+      });//for rendering all jobs
+    });
 
 
 // Logout handling

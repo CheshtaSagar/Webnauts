@@ -64,7 +64,7 @@
                 <!---->
                 <!---->
                 <!---to be inserted dynamically using ejs-->
-                <h2><%= company.companyName%></h2>
+                <h2><%= user.email%></h2>
                 <!---->
                 <!---->
                 <!---->
@@ -74,13 +74,13 @@
                     <div class="form-group">
                         <label for="companyName">Name of the Company</label>
                         <input type="name" class="form-control" id="companyName" name="companyName" aria-describedby="na"
-                            placeholder="<%= company.companyName%>" value="<%= typeof companyName != 'undefined' ? companyName : '' %>" />
+                            placeholder="<%=  %>" value="<%= typeof companyName != 'undefined' ? companyName : '' %>" />
                     </div>
 
                     <div class="form-group">
                         <label for="companyHeadName">Head of the Company</label>
                         <input type="name" class="form-control" id="companyHeadName" aria-describedby="na" name="companyHeadName"
-                            placeholder="<%= company.companyHeadName%>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : '' %>"/>
+                            placeholder="<%=  %>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : '' %>"/>
                     </div>
 
                     <!--to change address-->
