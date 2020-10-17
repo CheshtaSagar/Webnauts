@@ -93,21 +93,6 @@ router.post('/register', (req, res) => {
 
 
 //login handling
-// router.post('/login', (req, res, next) => {
-//   passport.authenticate('local', function(err, user) {
-//     if(err)
-//     res.redirect('/login');
-//     else{
-//     if (user.userType==='developer')
-//       res.redirect('/developerProfile');
-//       else
-//         res.redirect('/companyProfile') ;
-//     }// failureRedirect: '/login'
-//     // failureFlash: true
-//   })(req, res, next);
-// });
-
-//login handling
   router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
       successRedirect: '/profile',
@@ -151,6 +136,7 @@ router.get('/companyProfile',  (req, res) =>{
     'user': req.user
   })
 });
+
 //company main profile page
 router.get('/company',  (req, res) =>{
   res.render('company',{
@@ -203,7 +189,7 @@ router.get('/postJob',  (req, res) =>{
   })
 });
 
-<<<<<<< HEAD
+
 router.get('/allJobs', function (req, res) {
   Job.find({}).exec(function (err, jobs) {
       res.render('allJobs', {
@@ -212,10 +198,7 @@ router.get('/allJobs', function (req, res) {
   });//for rendering all jobs
 });
 
-=======
 
-
-const Job=require('../models/Job');
 
 //for posting job 
 router.post('/postJob', async(req, res) => {
@@ -258,7 +241,6 @@ router.post('/postJob', async(req, res) => {
    
 
 
->>>>>>> 58eeffda4656a51934a2356ca3c9f2958f8f7258
 // Logout handling
   router.get('/logout', (req, res) => {
     req.logout();//passport middleware function

@@ -34,7 +34,9 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/postjob"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
-                        <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
+                <button type="button" class="btn btn-dark btn-block"><a href="/CompanyJobs"
+                            style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
                             style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>       
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
@@ -49,7 +51,7 @@
             <!---->
             <!--for edit profile form--->
             <div class="col-md-8" id="Section2">
-                <div class="form-row" style="border-radius: 8px;background-color: rgba(65, 248, 9, 0.877); text-align:justify; margin:10px;padding:5px;">
+                <div class="form-row" style="border-radius: 8px;background-color:rgb(201, 201, 201); text-align:justify; margin:10px;padding:5px;">
                     <div class="form-group col-md-12">
                        <h4>Edit Profile</h4>
                     </div>
@@ -62,7 +64,7 @@
                 <!---->
                 <!---->
                 <!---to be inserted dynamically using ejs-->
-                <h2><%= user.email%></h2>
+                <h2><%= company.companyName%></h2>
                 <!---->
                 <!---->
                 <!---->
@@ -72,13 +74,13 @@
                     <div class="form-group">
                         <label for="companyName">Name of the Company</label>
                         <input type="name" class="form-control" id="companyName" name="companyName" aria-describedby="na"
-                            placeholder="<%= user.companyName%>" value="<%= typeof companyName != 'undefined' ? companyName : '' %>" />
+                            placeholder="<%= company.companyName%>" value="<%= typeof companyName != 'undefined' ? companyName : '' %>" />
                     </div>
 
                     <div class="form-group">
                         <label for="companyHeadName">Head of the Company</label>
                         <input type="name" class="form-control" id="companyHeadName" aria-describedby="na" name="companyHeadName"
-                            placeholder="<%= user.companyHeadName%>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : '' %>"/>
+                            placeholder="<%= company.companyHeadName%>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : '' %>"/>
                     </div>
 
                     <!--to change address-->
