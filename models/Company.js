@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('./User');
+const Job = require('./Job');
  const CompanySchema = new mongoose.Schema({
     creator:{
         type: mongoose.Schema.Types.ObjectId,
@@ -54,7 +55,13 @@ const User = require('./User');
     companyCountry:{
         type:String,
         required:true
-    }
+    },
+    postedJobs:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Job"
+        }       
+    ]
    /*  companyIcon:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'Icon'

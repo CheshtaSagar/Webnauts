@@ -13,7 +13,6 @@
 
 <body>
 
-    <%- include ('partials/nav') %>
     <div>
         <h2 class="page-title">All jobs</h2>
         <br><br>
@@ -23,7 +22,6 @@
             <thead>
                 <tr>
                     <th>Job Title</th>
-                    <th>Company Name</th>
                     <th>Job Type</th>
                     <th>Minimum experience Required (years)</th>
                     <th>Minimum Salary</th>
@@ -32,6 +30,8 @@
                     <th>Job Skills</th>
                     <th>Job Qualifications</th>
                     <th>Job Location</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +39,6 @@
                 
                 <tr id="id_<%= job._id %>">
                     <td><%= job.jobTitle %></td>   
-                    <td><%= job.postedBy.companyName %></td>
                     <td><%= job.jobType %></td>
                     <td><%= job.min_exp %></td>
                     <td><%= job.min_salary %></td>
@@ -48,6 +47,8 @@
                     <td><%= job.jobSkills %></td>
                     <td><%= job.jobQualification %></td>
                     <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
+                    <td><a href="/company/edit_postedJobs/<%= job._id %>">Edit</a></td>
+                    <td><a class="confirmDeletion" href="/company/delete_postedJobs/<%= job._id %>">Delete</a></td>
                 </tr>
                 
                 <% }); %>
@@ -55,8 +56,6 @@
         </table>
     </div>
 
-
-    <%- include ('partials/footer') %>
 
 
 

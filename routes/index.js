@@ -242,13 +242,13 @@ router.get('/postJob',  (req, res) =>{
 
 
 
-router.get('/allJobs', function (req, res) {
-  Job.find({}).exec(function (err, jobs) {
-      res.render('allJobs', {
-          jobs: jobs
-      });
-  });//for rendering all jobs
-});
+// router.get('/allJobs', function (req, res) {
+//   Job.find({}).exec(function (err, jobs) {
+//       res.render('allJobs', {
+//           jobs: jobs
+//       });
+//   });//for rendering all jobs
+// });
 
 
 
@@ -283,7 +283,8 @@ router.post('/postJob', async(req, res) => {
         job.save()
         .then(user => {
             req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
-            console.log('job successfully posted'); //do anything here(TO BE DECIDED)
+            console.log('job successfully posted');
+            res.redirect('/company/postedby'); //do anything here(TO BE DECIDED)
         })
         .catch(err => console.log(err));
       } 
@@ -291,13 +292,24 @@ router.post('/postJob', async(req, res) => {
 
   });
    
-    router.get('/allJobs', function (req, res) {
-      Job.find({}).exec(function (err, jobs) {
-       res.render('allJobs', {
-              jobs: jobs,
-          });
-      });//for rendering all jobs
-    });
+router.get('/allJobs', function(req, res) {
+      Job.find({}).populate('postedBy').exec(function(err, jobs){
+        Company.find({}).exec(function(err, companies){
+          if (err) {
+            console.log(err);
+        }
+        else{
+          //console.log("hii");
+          //console.log(jobs);
+          //console.log(companies);
+          res.render('allJobs', {
+                 jobs: jobs,
+                 companies: companies,
+             });
+        }
+    });//for rendering all jobs
+  });
+});
 
 
 // Logout handling

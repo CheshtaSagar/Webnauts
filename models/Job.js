@@ -63,10 +63,12 @@ const JobSchema = new mongoose.Schema({
         default: Date.now
     },
     postedBy:      //information of company that has posted the job
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"Company"
+    {   
+            type: mongoose.Schema.Types.ObjectId,
+            ref:  "Company"  
     },
+
+    
     appliedBy: [    //array containing information of developers who have applied
     {
         type:mongoose.Schema.Types.ObjectId,
