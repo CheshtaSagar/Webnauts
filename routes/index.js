@@ -5,6 +5,7 @@ const bcrypt= require('bcryptjs');//for storing encrypted password
 const passport = require('passport');
 const User = require('../models/User');
 const Company=require('../models/Company');
+const Developer=require('../models/Developer');
 const Job=require('../models/Job');
 //rendering home page
 router.get('/',  (req, res) =>
@@ -105,21 +106,30 @@ router.post('/register', (req, res) => {
 //developer profile
 router.get('/profile', (req, res) =>{
   if(req.user.userType==='developer'){
-  res.redirect('/developerProfile')}
+  res.redirect('/developer')}
   else
   {
     res.redirect('/companyProfile')
   }
 });
 
-
+//to redirect user to developer profile
+router.get('/developer', function(req,res)
+{
+res.render('developer',{
+  'user': req.user
+}
+);
+});
 
 //for portfolio page
 router.get('/developerPortfolio', function(req,res)
 {
 res.render('developerPortfolio');
 });
-//developerProfile
+
+
+// redirect to developer edit Profile
 router.get('/developerProfile', function(req,res)
 {
 res.render('developerProfile',{
@@ -127,6 +137,9 @@ res.render('developerProfile',{
 }
 );
 });
+
+
+
 
 
 //company edit profile
@@ -145,12 +158,13 @@ router.get('/company',  (req, res) =>{
 });
 
 
-//post request for edit company profila
+//post request for edit company profile
 router.post('/company',(req, res) => {
   console.log(req.user._id);//for debugging
   console.log(req.body);   //for debugging
 
 
+  
     var company = new Company({
     creator : req.user._id,
     email:req.user.email,
@@ -174,6 +188,43 @@ router.post('/company',(req, res) => {
     .then(user => {
         req.flash('success_msg', 'profile posted ');
         res.redirect('/companyProfile'); //do anything here(TO BE DECIDED)
+    })
+    .catch(err => console.log(err));
+  
+  });
+
+
+
+
+//post request for edit developer profile
+router.post('/developerProfile',(req, res) => {
+  console.log(req.user._id);//for debugging
+  console.log(req.body);   //for debugging
+
+
+    var developer = new Developer({
+    userDetails : req.user._id,
+    email:req.user.email,
+    developerLocation:req.body.developerLocation,
+    developerCity:req.body.developerCity,
+    developerState:req.body.developerState,
+    developerCountry:req.body.developerCountry,
+    name:req.body.name,
+    gender:req.body.gender,
+    dob: req.body.dob,
+    linkedIn:req.body.linkedIn,
+    description:req.body.description,
+    contactNo:req.body.contactNo,
+    Qualification:req.body.Qualification
+    });
+    
+   //validations to be added here
+
+    //saving content on database
+    developer.save()
+    .then(user => {
+        req.flash('success_msg', 'profile posted and updated');
+        res.redirect('/developer'); //do anything here(TO BE DECIDED)
     })
     .catch(err => console.log(err));
   

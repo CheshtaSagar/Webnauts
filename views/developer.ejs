@@ -19,19 +19,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
-                <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/company"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/postJob"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/CompanyJobs"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
-            </div>
+                <button type="button" class="btn btn-dark btn-block " ><a href="/developer" style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block " ><a href="/developerProfile" style="text-decoration: none; color: rgb(255, 255, 255);">Edit your Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="#" style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block" ><a href="/developerPortfolio" style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout" style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+              
+              </div>
 
 
 
@@ -51,15 +45,15 @@
                             <!--------img to be dynamically added-->
                             <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
                             <h3><%=user.email%> </h3>
-                            <h5>Company Address</h5>
-                            <h6>Website</h6>
+                            <h5>Developer Info</h5>
+                            <h6>Developer name</h6>
                             <h6>Contact Info</h6>
                         </div>
                     </div>
                 </div>
                
                 <div style="padding: 10px; margin: 2px;">
-                <h5 >Jobs Posted</h5> 
+                <h5 >Applied Jobs</h5> 
             </div>
                 <!---jobs to be taken from db-->
                 <div class="row" id="postedJobs">
@@ -120,7 +114,7 @@
 
                     <div class="container">
                         <div>
-                            <h5>Search developers here!!</h5>
+                            <h5>Search Jobs here!!</h5>
                         </div>
                         <form class="form-inline my-9 my-lg-1">
                             <input class="form-control " type="search" placeholder="Search" aria-label="Search">
