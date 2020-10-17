@@ -229,10 +229,13 @@ router.post('/postJob', async(req, res) => {
         postedBy:docs._id//storing id of current company in this field
 
         });
-        console.log('Job posted successfully');//include flash to show msg.ejs
-
+        job.save()
+        .then(user => {
+            req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
+            console.log('job successfully posted'); //do anything here(TO BE DECIDED)
+        })
+        .catch(err => console.log(err));
       } 
-
     });
 
   });
