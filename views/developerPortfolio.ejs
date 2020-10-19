@@ -10,11 +10,117 @@
     <link rel="stylesheet" href="/assets/styles.css" type="text/css">
 </head>
 
+<style>
+    .form-control {
+        font-size: 16px;
+        text-align: center;
+        transition: all 0.4s;
+        box-shadow: none;
+    }
+
+    .form-control:focus {
+        border-color: #5cb85c;
+    }
+
+    .form-control,
+    .btn {
+        border-radius: 20px;
+        outline: none !important;
+    }
+
+    .signup-form {
+        margin: 0 auto;
+        padding: 30px 0;
+    }
+
+    .signup-form form {
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+    }
+
+    .signup-form a {
+        color: #5cb85c;
+    }
+
+    .signup-form h2 {
+        text-align: center;
+        font-size: 25px;
+        margin: 0 0 10px 0;
+    }
+
+    .signup-form .hint-text {
+        color: #999;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .signup-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .signup-form .btn {
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .signup-btn {
+        text-align: center;
+        border-color: #5cb85c;
+        transition: all 0.4s;
+    }
+
+    .signup-btn:hover {
+        background: #5cb85c;
+        opacity: 0.8;
+    }
+
+    .social-btn .btn {
+        color: #fff;
+        margin: 10px 0 0 15px;
+        font-size: 15px;
+        border-radius: 20px;
+        font-weight: normal;
+        border: none;
+        transition: all 0.4s;
+    }
+
+    .social-btn .btn:first-child {
+        margin-left: 0;
+    }
+
+    .social-btn .btn:hover {
+        opacity: 0.8;
+    }
+
+    .social-btn .btn-primary {
+        background: #507cc0;
+    }
+
+    .social-btn .btn-info {
+        background: #64ccf1;
+    }
+
+    .social-btn .btn-danger {
+        background: #df4930;
+    }
+
+    .social-btn .btn i {
+        float: left;
+        margin: 3px 10px;
+        font-size: 20px;
+    }
+</style>
+
 <body>
     <!---import navBar-->
     <%- include ('partials/nav') %>
 
-
+    <%var j=1 %>
     <!------->
     <div class="container-fluid">
 
@@ -23,34 +129,343 @@
             <!---->
             <!--for side nav bar-->
             <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
-                <button type="button" class="btn btn-dark btn-block " ><a href="/developer" style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block " ><a href="/developerProfile" style="text-decoration: none; color: rgb(255, 255, 255);">Edit your Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="#" style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
-                <button type="button" class="btn btn-dark btn-block" ><a href="/developerPortfolio" style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/logout" style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
-              
+                <button type="button" class="btn btn-dark btn-block "><a href="/developer"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block "><a href="/developerProfile"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit your Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="#"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+
             </div>
             <!---->
             <!---->
             <!---->
             <div class="col-md-8" id="Section3">
-                <h3>Design Your Portfolio</h3>
-                <div class="card" style="width: 30rem;margin: 5px;">
-                    <div class="card-body" >
-                        <h6>Attach your photograph here</h6>
-                        <input type="file" data-file_types="jpg|jpeg|png " id="image1">
-                        <input type="file" data-file_types="jpg|jpeg|png" id="image2">
-                    </div>
+
+                <div class="signup-form">
+                    <h2 style="color:#096afc ;">Build Your Portfolio</h2>
+                    </br>
+
+
+                    <!-----Form starts here----------->
+                    <form action="/developerPortfolio" method="POST">
+                        <h2 style="color:#507cc0 ;">Education</h2>
+                        </br>
+
+                        <!-----Education field 1----------->
+                        <h2>Education 1</h2>
+                        <hr class="mx-auto w-50 bg-primary  md-1">
+                        </hr>
+                        <div class="education" id="education">
+                            <div class="form-group">
+
+                                <input type="text" class="form-control input-lg" name="Degree"
+                                    id="Degree" placeholder="Degree" aria-describedby="na"
+                                    value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" placeholder="University"
+                                    id="University" name="University" aria-describedby="na"
+                                    value="<%= typeof University != 'undefined' ? University : '' %>" />
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" placeholder="Graduation year"
+                                    id="gradYear" name="gradYear" aria-describedby="na"
+                                    value="<%= typeof gradYear != 'undefined' ? gradYear : '' %>" />
+
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control input-lg" placeholder="Branch"
+                                    required="required" id="Branch" name="Branch"
+                                    aria-describedby="na" value="<%= typeof Branch != 'undefined' ?Branch : '' %>" />
+                            </div>
+                        </div>
+                        </br>
+
+                        <!-----Education field (custom)----------->
+
+                        
+
+                        <div class="container" id="container">
+                            <div class="education" id="education">
+
+
+                                <h2>Education 2</h2>
+
+
+                                <hr class="mx-auto w-50 bg-primary  md-1">
+                                </hr>
+
+                                <div class="form-group">
+
+                                    <input type="text" class="form-control input-lg" name="Degree"
+                                        id="Degree" placeholder="Degree" aria-describedby="na"
+                                        value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="University"
+                                        required="required" name="University" id="University"
+                                        placeholder="University" aria-describedby="na"
+                                        value="<%= typeof University != 'undefined' ? University : '' %>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Graduation year"
+                                        required="required" name="gradYear" id="gradYear"
+                                        placeholder="year" aria-describedby="na"
+                                        value="<%= typeof gradYear != 'undefined' ? gradYear : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Branch"
+                                        required="required" name="Branch" id="Branch"
+                                        placeholder="Branch" aria-describedby="na"
+                                        value="<%= typeof Branch != 'undefined' ? Branch : '' %>" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Clone()">Add</button>
+                                    </div>
+
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Delete(this)">Delete</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </br>
+                        </div>
+
+
+                        <!----------Education 3-->
+
+
+
+                        <div class="container" id="container">
+                            <div class="education" id="education">
+
+
+                                <h2>Education 3</h2>
+
+
+                                <hr class="mx-auto w-50 bg-primary  md-1">
+                                </hr>
+
+                                <div class="form-group">
+
+                                    <input type="text" class="form-control input-lg" name="Degree"
+                                        id="Degree" placeholder="Degree" aria-describedby="na"
+                                        value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" 
+                                        required="required" name="University" id="University"
+                                        placeholder="University" aria-describedby="na"
+                                        value="<%= typeof University != 'undefined' ? University : '' %>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Graduation year"
+                                        required="required" name="gradYear" id="gradYear"
+                                     aria-describedby="na"
+                                        value="<%= typeof gradYear != 'undefined' ? gradYear : '' %>" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Branch"
+                                        required="required" name="Branch" id="Branch"
+                                        aria-describedby="na"
+                                        value="<%= typeof Branch != 'undefined' ? Branch : '' %>" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Clone()">Add</button>
+                                    </div>
+
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Delete(this)">Delete</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            </br>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <!------------->
+
+                        <!--------------->
+                        <!---------------->
+                        <!-----Github link----------->
+                        <h2 style="color:#507cc0 ;">GithubLink</h2>
+                        <hr class="mx-auto w-50 bg-primary  md-1">
+                        </hr>
+                        <div class="form-group">
+
+                            <input type="text" class="form-control input-lg" name="githubLink" required="required"
+                                id="githubLink" aria-describedby="na" placeholder="<%=  %>"
+                                value="<%= typeof githubLink != 'undefined' ? githubLink : '' %>" />
+                        </div>
+                        </br>
+
+                        <!--------------->
+                        <!---------------->
+                        <!-----Past Experience----------->
+
+                        <h2 style="color: #507cc0;">Past Experience</h2>
+                        </br>
+                        <div class="container1" id="container1">
+                            <div class="pastExp" id="pastExp">
+                                <h2>Past Experience </h2>
+
+                                <hr class="mx-auto w-50 bg-primary  md-1">
+                                </hr>
+                                <div class="form-group">
+
+                                    <input type="text" class="form-control input-lg" placeholder="Title"
+                                        name="Title" id="Title" aria-describedby="na"
+                                        value="<%= typeof Title != 'undefined' ? Title : '' %>" />
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Institute"
+                                        name="Institute" id="Institute" aria-describedby="na"
+                                        value="<%= typeof Institute != 'undefined' ? Institute: '' %>" />
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="Start Date"
+                                        name="StartDate" id="StartDate" aria-describedby="na"
+                                        value="<%= typeof StartDate != 'undefined' ? StartDate : '' %>" />
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" placeholder="End Date"
+                                        required="required" name="EndDate" id="EndDate"
+                                        aria-describedby="na"
+                                        value="<%= typeof EndDate != 'undefined' ? EndDate : '' %>" />
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="Description" rows="3"
+                                        name="Description" id="Description" aria-describedby="na"
+                                        value="<%= typeof Description != 'undefined' ? Description : '' %>"
+                                        required="required"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Clone1()">Add</button>
+                                    </div>
+
+                                    <div class="col-md-1 col-xl-6">
+                                        <button type="button" class="btn btn-primary btn-lg btn-block signup-btn"
+                                            onclick="Delete1(this)">Delete</button>
+                                    </div>
+                                </div>
+                                </br>
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <!--------------------->
+                        <!--------------------->
+                        <!--------------------->
+                        <!------Skills-->
+                        <h2 style="color:#507cc0 ;">Skills</h2>
+                        <hr class="mx-auto w-50 bg-primary  md-1">
+                        </hr>
+                        <div class="row">
+                            <div class="col-md-1 col-xl-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" required="required" id="skills"
+                                        name="skills" aria-describedby="na" placeholder="<%=  %>"
+                                        value="<%= typeof skills != 'undefined' ? skills : '' %>" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 col-xl-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" required="required" id="skills"
+                                        name="skills" aria-describedby="na" placeholder="<%=  %>"
+                                        value="<%= typeof skills != 'undefined' ? skills : '' %>" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-1 col-xl-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" required="required" id="skills"
+                                        name="skills" aria-describedby="na" placeholder="<%=  %>"
+                                        value="<%= typeof skills != 'undefined' ? skills : '' %>" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-1 col-xl-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" required="required" id="skills"
+                                        name="skills" aria-describedby="na" placeholder="<%=  %>"
+                                        value="<%= typeof skills != 'undefined' ? skills : '' %>" />
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+                        <!--------------------->
+                        <!--------------------->
+                        <!--------------------->
+                        <!------resume-->
+
+                        <!--  <h2 style="color:#507cc0 ;">Upload Resume</h2>
+                            <hr class="mx-auto w-50 bg-primary  md-1">
+                            </hr>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" style="border-radius:10px;" for="customFile">Choose
+                                    file</label>
+                            </div> -->
+                        </br>
+                        </br>
+                        </br>
+                        </br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block signup-btn">Submit</button>
+                        </div>
+
+                    </form>
                 </div>
 
-                <div class="card" style="width: 30rem;margin:5px;">
-                    <div class="card-body">
-                        <h6>Attach your resume here in .pdf or .doc format</h6>
-                        <input type="file" data-file_types="pdf|doc" id="resume">
-                    </div>
-                </div>
+
 
             </div>
+        </div>
+    </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -61,5 +476,41 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
+<script>
+    
+    function Clone() {
+
+
+        var clone = document.getElementById('education').cloneNode(true); // "deep" clone
+        document.getElementById("container").appendChild(clone);
+        
+        console.log(j);
+    }
+    function Clone1() {
+
+        var clone = document.getElementById('pastExp').cloneNode(true); // "deep" clone
+        document.getElementById("container1").appendChild(clone);
+        
+        console.log(k);
+    }
+
+    function Delete(button) {
+
+        var parent = button.parentNode.parentNode.parentNode;
+        var grand_father = parent.parentNode;
+        grand_father.removeChild(parent);
+        
+        console.log(j);
+    }
+    function Delete1(button) {
+
+        var parent = button.parentNode.parentNode.parentNode;
+        var grand_father = parent.parentNode;
+        grand_father.removeChild(parent);
+    
+        console.log(k);
+    }
+
+</script>
 
 </html>

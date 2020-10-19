@@ -3,6 +3,7 @@ const User = require('./User');
 const mongoose = require('mongoose');
 
 const DeveloperSchema = new mongoose.Schema({
+   
     name: {
         type: String,
         required: true
@@ -62,12 +63,6 @@ const DeveloperSchema = new mongoose.Schema({
       type:String,
       required:true
     },
-   /* resume:
-    {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Resume'
-    }
-    ,*/
     linkedIn:{
         type:String,
         required:true

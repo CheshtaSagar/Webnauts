@@ -2,17 +2,36 @@ const User = require('./Developer');
 const mongoose = require('mongoose');
 
 const ResumeSchema = new mongoose.Schema({
+     creator:      //information of developer whose resume is this
+  {   
+          type: mongoose.Schema.Types.ObjectId,
+          ref:  "Developer"  
+  },
+skills:[{
+  type:String
+}],
 
-skills:[String],
-
-education:[
+education:
+    
     {
-      Degree: String,
-      University :String,
-      gradYear :String,
-      Branch: String,
-    },
-],
+      Degree:[{
+        type:String
+      }],
+      University :
+      [{
+        type:String
+      }],
+      gradYear :
+      [{
+        type:String
+      }],
+      Branch: 
+      [{
+        type:String
+      }]
+    }
+
+,
 
 githubLink:
 {
@@ -20,19 +39,34 @@ githubLink:
     required:true
 },
 pastExperience:
-[
+
     {
-      Institute:String,
-      Title:String,
-      StartDate:Date,
-      EndDate:Date,
-      Description:String   
+      Institute:
+      [{
+        type:String
+      }]
+      ,
+      Title:
+      [{
+        type:String
+      }],
+      StartDate:
+      [{
+        type:String
+      }],
+      EndDate:
+      [{
+        type:String
+      }],
+      Description:
+      [{
+        type:String
+      }]   
      }
-],
-resumeUpload :  //for resume less than 16MB
+/* resumeUpload :  //for resume less than 16MB
  { data: Buffer, 
   contentType: String
- }
+ } */
 
 
 });
