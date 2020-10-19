@@ -91,5 +91,21 @@ router.post('/edit_postedjobs/:id', function (req, res) {
 
 });
 
+router.get('/delete_postedJob/:id', function (req, res) {
+    Job.findByIdAndRemove(req.params.id, function (err) {
+        if (err)
+        {
+            req.flash('error_msg','Error while deleting');
+          console.log(err);
+        }
+         else {
+            // console.log('deleted');
+             req.flash('success_msg', 'Job deleted!');
+             res.redirect('/company/postedJobs');
+            }
+
+    });
+});
+
 
 module.exports = router;

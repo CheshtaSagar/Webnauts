@@ -160,11 +160,39 @@ router.get('/company',  (req, res) =>{
 
 //post request for edit company profile
 router.post('/company',(req, res) => {
-  console.log(req.user._id);//for debugging
-  console.log(req.body);   //for debugging
+  //console.log(req.user._id);//for debugging
+  //console.log(req.body);   //for debugging
+  const id=req.user._id
+  const company =({
+   
+    email:req.user.email,
+    companyLocation:req.body.location,
+    companyCity:req.body.city,
+    companyState:req.body.state,
+    companyCountry:req.body.country,
+    companyName:req.body.companyName,
+    companyHeadName:req.body.companyHeadName,
+    establishmentDate: req.body.establishmentDate,
+    companyUrl:req.body.companyUrl,
+    companyDescription:req.body.companyDescription,
+    contactNo:req.body.contactNo
+    
+    });
 
 
-  
+  Company.findOneAndUpdate({"creator":req.user._id},{$set:company}, function (err,docs) {
+    if(err)
+    {
+      throw err;
+    }
+    if(docs){
+      //console.log(company);
+      console.log('updated');
+      //console.log(company);
+      req.flash('success_msg','Profile Updated');
+      res.redirect('companyProfile');
+    }
+    else{
     var company = new Company({
     creator : req.user._id,
     email:req.user.email,
@@ -190,8 +218,9 @@ router.post('/company',(req, res) => {
         res.redirect('/companyProfile'); //do anything here(TO BE DECIDED)
     })
     .catch(err => console.log(err));
-  
+    }
   });
+});
 
 
 
@@ -284,7 +313,7 @@ router.post('/postJob', async(req, res) => {
         .then(user => {
             req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
             console.log('job successfully posted');
-            res.redirect('/company/postedby'); //do anything here(TO BE DECIDED)
+            res.redirect('/company/postedJobs'); //do anything here(TO BE DECIDED)
         })
         .catch(err => console.log(err));
       } 
