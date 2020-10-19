@@ -16,7 +16,7 @@
     <div>
         <h2 class="page-title">All jobs</h2>
         <br><br>
-
+        <%- include ('partials/messages') %>
         <table class="table table-striped sorting">
 
             <thead>
@@ -48,7 +48,7 @@
                     <td><%= job.jobQualification %></td>
                     <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
                     <td><a href="/company/edit_postedJobs/<%= job._id %>">Edit</a></td>
-                    <td><a class="confirmDeletion" href="/company/delete_postedJobs/<%= job._id %>">Delete</a></td>
+                    <td><a class="confirmDeletion" href="/company/delete_postedJob/<%= job._id %>">Delete</a></td>
                 </tr>
                 
                 <% }); %>

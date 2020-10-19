@@ -118,9 +118,7 @@
 
 <body>
     <!---import navBar-->
-    <%- include ('partials/nav') %>
-
-    <%var j=1 %>
+    <%- include ('partials/nav2') %>
     <!------->
     <div class="container-fluid">
 
@@ -157,14 +155,14 @@
                         </br>
 
                         <!-----Education field 1----------->
-                        <h2>Education 1</h2>
+                        <h2>Education :</h2>
                         <hr class="mx-auto w-50 bg-primary  md-1">
                         </hr>
-                        <div class="education" id="education">
+                        
                             <div class="form-group">
 
-                                <input type="text" class="form-control input-lg" name="Degree"
-                                    id="Degree" placeholder="Degree" aria-describedby="na"
+                                <input type="text" class="form-control input-lg" name="Degree" id="Degree"
+                                    placeholder="Degree" aria-describedby="na"
                                     value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
 
                             </div>
@@ -182,21 +180,21 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control input-lg" placeholder="Branch"
-                                    required="required" id="Branch" name="Branch"
-                                    aria-describedby="na" value="<%= typeof Branch != 'undefined' ?Branch : '' %>" />
+                                    required="required" id="Branch" name="Branch" aria-describedby="na"
+                                    value="<%= typeof Branch != 'undefined' ?Branch : '' %>" />
                             </div>
-                        </div>
+                    
                         </br>
 
                         <!-----Education field (custom)----------->
 
-                        
+
 
                         <div class="container" id="container">
                             <div class="education" id="education">
 
 
-                                <h2>Education 2</h2>
+                                <h2>Education :</h2>
 
 
                                 <hr class="mx-auto w-50 bg-primary  md-1">
@@ -204,27 +202,27 @@
 
                                 <div class="form-group">
 
-                                    <input type="text" class="form-control input-lg" name="Degree"
-                                        id="Degree" placeholder="Degree" aria-describedby="na"
+                                    <input type="text" class="form-control input-lg" name="Degree" id="Degree"
+                                        placeholder="Degree" aria-describedby="na"
                                         value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="University"
-                                        required="required" name="University" id="University"
-                                        placeholder="University" aria-describedby="na"
+                                        required="required" name="University" id="University" placeholder="University"
+                                        aria-describedby="na"
                                         value="<%= typeof University != 'undefined' ? University : '' %>" />
                                 </div>
 
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="Graduation year"
-                                        required="required" name="gradYear" id="gradYear"
-                                        placeholder="year" aria-describedby="na"
+                                        required="required" name="gradYear" id="gradYear" placeholder="year"
+                                        aria-describedby="na"
                                         value="<%= typeof gradYear != 'undefined' ? gradYear : '' %>" />
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="Branch"
-                                        required="required" name="Branch" id="Branch"
-                                        placeholder="Branch" aria-describedby="na"
+                                        required="required" name="Branch" id="Branch" placeholder="Branch"
+                                        aria-describedby="na"
                                         value="<%= typeof Branch != 'undefined' ? Branch : '' %>" />
                                 </div>
                                 <div class="row">
@@ -246,41 +244,32 @@
 
                         <!----------Education 3-->
 
-
-
                         <div class="container" id="container">
                             <div class="education" id="education">
-
-
-                                <h2>Education 3</h2>
-
-
+                                <h2>Education :</h2>
                                 <hr class="mx-auto w-50 bg-primary  md-1">
                                 </hr>
 
                                 <div class="form-group">
 
-                                    <input type="text" class="form-control input-lg" name="Degree"
-                                        id="Degree" placeholder="Degree" aria-describedby="na"
+                                    <input type="text" class="form-control input-lg" name="Degree" id="Degree"
+                                        placeholder="Degree" aria-describedby="na"
                                         value="<%= typeof Degree != 'undefined' ? Degree : '' %>" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control input-lg" 
-                                        required="required" name="University" id="University"
-                                        placeholder="University" aria-describedby="na"
+                                    <input type="text" class="form-control input-lg" required="required"
+                                        name="University" id="University" placeholder="University" aria-describedby="na"
                                         value="<%= typeof University != 'undefined' ? University : '' %>" />
                                 </div>
 
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="Graduation year"
-                                        required="required" name="gradYear" id="gradYear"
-                                     aria-describedby="na"
+                                        required="required" name="gradYear" id="gradYear" aria-describedby="na"
                                         value="<%= typeof gradYear != 'undefined' ? gradYear : '' %>" />
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="Branch"
-                                        required="required" name="Branch" id="Branch"
-                                        aria-describedby="na"
+                                        required="required" name="Branch" id="Branch" aria-describedby="na"
                                         value="<%= typeof Branch != 'undefined' ? Branch : '' %>" />
                                 </div>
                                 <div class="row">
@@ -298,12 +287,6 @@
                             </div>
                             </br>
                         </div>
-
-
-
-
-
-
 
 
 
@@ -331,14 +314,14 @@
                         </br>
                         <div class="container1" id="container1">
                             <div class="pastExp" id="pastExp">
-                                <h2>Past Experience </h2>
+                                <h2>Past Experience: </h2>
 
                                 <hr class="mx-auto w-50 bg-primary  md-1">
                                 </hr>
                                 <div class="form-group">
 
-                                    <input type="text" class="form-control input-lg" placeholder="Title"
-                                        name="Title" id="Title" aria-describedby="na"
+                                    <input type="text" class="form-control input-lg" placeholder="Title" name="Title"
+                                        id="Title" aria-describedby="na"
                                         value="<%= typeof Title != 'undefined' ? Title : '' %>" />
 
                                 </div>
@@ -356,14 +339,13 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control input-lg" placeholder="End Date"
-                                        required="required" name="EndDate" id="EndDate"
-                                        aria-describedby="na"
+                                        required="required" name="EndDate" id="EndDate" aria-describedby="na"
                                         value="<%= typeof EndDate != 'undefined' ? EndDate : '' %>" />
                                 </div>
 
                                 <div class="form-group">
-                                    <textarea class="form-control" placeholder="Description" rows="3"
-                                        name="Description" id="Description" aria-describedby="na"
+                                    <textarea class="form-control" placeholder="Description" rows="3" name="Description"
+                                        id="Description" aria-describedby="na"
                                         value="<%= typeof Description != 'undefined' ? Description : '' %>"
                                         required="required"></textarea>
                                 </div>
@@ -477,20 +459,20 @@
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
 <script>
-    
+
     function Clone() {
 
 
         var clone = document.getElementById('education').cloneNode(true); // "deep" clone
         document.getElementById("container").appendChild(clone);
-        
+
         console.log(j);
     }
     function Clone1() {
 
         var clone = document.getElementById('pastExp').cloneNode(true); // "deep" clone
         document.getElementById("container1").appendChild(clone);
-        
+
         console.log(k);
     }
 
@@ -499,7 +481,7 @@
         var parent = button.parentNode.parentNode.parentNode;
         var grand_father = parent.parentNode;
         grand_father.removeChild(parent);
-        
+
         console.log(j);
     }
     function Delete1(button) {
@@ -507,7 +489,7 @@
         var parent = button.parentNode.parentNode.parentNode;
         var grand_father = parent.parentNode;
         grand_father.removeChild(parent);
-    
+
         console.log(k);
     }
 

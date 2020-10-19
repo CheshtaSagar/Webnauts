@@ -44,5 +44,68 @@ router.get('/postedJobs',  (req, res) =>{
 });
 
 
+router.post('/edit_postedjobs/:id', function (req, res) {
+
+    const id=req.params.id;
+    
+    const job =({
+        jobTitle: req.body.jobTitle, 
+        jobType:req.body.jobType,
+        min_exp:req.body.min_exp,
+        min_salary:req.body.min_salary,
+        max_salary:req.body.max_salary,
+        jobDescription:req.body.jobDescription,
+        jobSkills:req.body.jobSkills,
+        jobQualification:req.body.jobQualification,
+        jobLocation:req.body.jobLocation,
+        jobCity:req.body.jobCity,
+        jobState:req.body.jobState,
+        jobCountry:req.body.jobCountry
+
+        });
+
+        let errors = [];
+
+        //Validations for registration form
+        if (!job.jobTitle || !job.jobType || !job.min_exp || !job.min_salary || !job.max_salary || !job.jobDescription || !job.jobSkills || !job.jobQualification || !job.jobLocation || !job.jobCity || !job.jobState || !job.jobCountry) {
+          errors.push({ msg: 'Please enter all fields' });
+        }
+
+    if (errors.length>0) {
+        res.render('edit_postedJobs', {
+            job:job,
+            id:id
+        });
+    }  else {
+                Job.findOneAndUpdate({_id:id}, {$set:job}, function(err){
+                    if (err)
+                        console.log(err);
+                        else{
+                            console.log(job);
+                            req.flash('success_msg', 'job updated');
+                        res.redirect('/company/postedjobs');
+                        }
+                }
+                    )
+            }
+
+});
+
+router.get('/delete_postedJob/:id', function (req, res) {
+    Job.findByIdAndRemove(req.params.id, function (err) {
+        if (err)
+        {
+            req.flash('error_msg','Error while deleting');
+          console.log(err);
+        }
+         else {
+            // console.log('deleted');
+             req.flash('success_msg', 'Job deleted!');
+             res.redirect('/company/postedJobs');
+            }
+
+    });
+});
+
 
 module.exports = router;

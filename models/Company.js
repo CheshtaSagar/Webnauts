@@ -60,6 +60,7 @@ const Job = require('./Job');
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Job"
+
         }       
     ]
    /*  companyIcon:{

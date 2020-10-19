@@ -67,7 +67,6 @@ const JobSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref:  "Company"  
     },
-
     
     appliedBy: [    //array containing information of developers who have applied
     {
