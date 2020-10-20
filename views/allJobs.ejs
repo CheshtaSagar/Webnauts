@@ -32,6 +32,7 @@
                     <th>Job Skills</th>
                     <th>Job Qualifications</th>
                     <th>Job Location</th>
+                    <th>Apply</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,7 @@
                     <td><%= job.jobSkills %></td>
                     <td><%= job.jobQualification %></td>
                     <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
+                    <td><a href="/developer/apply/<%= job._id %>">Apply</a></td>
                 </tr>
                 
                 <% }); %>

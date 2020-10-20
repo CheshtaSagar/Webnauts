@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+</head>
+
+<body>
+
+    <!--Navbar imported--->
+    <%- include ('partials/nav2') %>
+
+    <!---edit profile body-->
+    <div class="container-fluid">
+
+        <div class="row">
+            <!---->
+            <!---->
+            <!--for side nav bar-->
+            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+                <button type="button" class="btn btn-dark btn-block "><a href="/developer"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block "><a href="/developerProfile"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit your Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developer/allAppliedJobs"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+
+
+            </div>
+            <!---->
+            <!---->
+            <!---->
+
+
+            <!---->
+            <!---->
+            <!--for edit profile form--->
+            <div class="col-md-8" id="Section2">
+
+
+                <div>
+                    <h2 class="page-title">Applied jobs</h2>
+                    <br><br>
+                    <%- include ('partials/messages') %>
+                    <table class="table table-striped sorting">
+
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Job Type</th>
+                                <th>Minimum experience Required (years)</th>
+                                <th>Minimum Salary</th>
+                                <th>Maximum Salary</th>
+                                <th>Job Description</th>
+                                <th>Job Skills</th>
+                                <th>Job Qualifications</th>
+                                <th>Job Location</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% jobs.forEach(function(job){ %>
+
+                            <tr id="id_<%= job._id %>">
+                                <td><%= job.jobTitle %></td>
+                                <td><%= job.jobType %></td>
+                                <td><%= job.min_exp %></td>
+                                <td><%= job.min_salary %></td>
+                                <td><%= job.max_salary %></td>
+                                <td><%= job.jobDescription %></td>
+                                <td><%= job.jobSkills %></td>
+                                <td><%= job.jobQualification %></td>
+                                <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                    <%= job.jobCountry %></td>
+
+                            </tr>
+
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+
+
+</html>

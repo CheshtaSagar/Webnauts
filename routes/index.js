@@ -8,6 +8,8 @@ const Company = require('../models/Company');
 const Developer = require('../models/Developer');
 const Job = require('../models/Job');
 const Resume = require('../models/Resume');
+
+                   
 //rendering home page
 router.get('/', (req, res) => {
   res.render('index');
@@ -346,7 +348,7 @@ router.post('/developerPortfolio', async (req, res) => {
      
     
       for(var i=0;i< req.body.Title.length ;i++)
-     {   resume.pastExperience.Title.push(req.body.Title[i]);
+     {  resume.pastExperience.Title.push(req.body.Title[i]);
         resume.pastExperience.StartDate.push(req.body.StartDate[i]);
         resume.pastExperience.EndDate.push(req.body.EndDate[i]);
         resume.pastExperience.Institute.push(req.body.Institute[i]);

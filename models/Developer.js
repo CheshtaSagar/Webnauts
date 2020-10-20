@@ -67,6 +67,13 @@ const DeveloperSchema = new mongoose.Schema({
         type:String,
         required:true
     }
+    ,
+    AppliedJobs:[     ///stores all those applied jobs 
+        {
+         type: mongoose.Schema.Types.ObjectId,
+         ref:'Jobs'
+        }
+    ]
     //profileImg:String,
    
 });
