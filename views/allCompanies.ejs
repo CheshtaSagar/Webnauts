@@ -22,31 +22,29 @@
     </style>
 </head>
 
-<body>
-
     <body class="bg-muted">
 
         <%- include ('partials/nav') %>
-
+        <div class="container-fluid">
         <div class="img">
-            <h1 class=" text-capitalise text-white pl-5 pt-5">Jobs List </h1>
+            <h1 class=" text-capitalise text-white pl-5 pt-5">Companies List </h1>
         </div>
         </br>
 
         <% companies.forEach(function(company){ %>
 
-        <div class="container"  style="border:2px solid black; border-radius:10px;">
+        <div class="container shadow p-3 mb-5 bg-white rounded"  style="border:2px ; border-radius:10px;">
             <div class="row">
-                <div class="col-lg-4  col-md-4 col-4 ">
+                <div class="col-lg-10  col-md-10 col-10 ">
                     <img src="/images/bg7.jpg" width="100px" height="100px"></img>
                 </div>
-                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
                     <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
                     <h5><%= company.companyName %> </h5>
                     <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>, <%= company.companyCountry %></p>
                     <!-- <p>Open Jobs : 2</p>       to be added later -->
                 </div>
-                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                <div class="col-lg-10  col-md-10 col-10" style="font-style:italic">
                     <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
                     <p></p>                   
                     <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
@@ -60,7 +58,7 @@
         </div>
         </br>
         <% }); %>
-       
+    </div>
         <%- include ('partials/footer') %>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

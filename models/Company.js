@@ -20,7 +20,7 @@ const Job = require('./Job');
          required: true
      },
      establishmentDate:{
-         type:Date,
+         type:String,
          required: true
      },
      companyUrl:{
