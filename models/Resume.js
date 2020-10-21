@@ -52,11 +52,11 @@ const ResumeSchema = new mongoose.Schema({
       }],
     StartDate:
       [{
-        type: Date
+        type: String
       }],
     EndDate:
       [{
-        type: Date
+        type: String
       }],
     Description:
       [{

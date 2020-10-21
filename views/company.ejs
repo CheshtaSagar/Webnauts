@@ -18,18 +18,18 @@
     <!--Navbar imported--->
     <%- include ('partials/nav2') %>
 
-
+    
 
     <!---edit profile body-->
     <div class="container-fluid">
-
+        
         <div class="row">
-            <!---->
-            <!---->
-            <!--for side nav bar-->
+           
             <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+                <% if(count>0){%>
                 <button type="button" class="btn btn-dark btn-block "><a href="/companyProfile"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                 
                 <button type="button" class="btn btn-dark btn-block"><a href="/company"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/postjob"
@@ -37,30 +37,21 @@
                 <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
                             style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
+                    <%}%>
                             style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>       
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
             </div>
-            <!---->
-            <!---->
-            <!---->
-
-
-            <!---->
-            <!---->
-            <!--for edit profile form--->
+            
             <div class="col-md-8" id="Section2">
                 <div class="form-row" style="border-radius: 8px;background-color:rgb(201, 201, 201); text-align:justify; margin:10px;padding:5px;">
                     <div class="form-group col-md-12">
+                
                        <h4>Edit Profile</h4>
                     </div>
                 </div>
-                <!--to change profile picture or to be inserted dynamically-->
-                <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
-                <h6>Upload file to change picture</h6>
-                <input type="file" data-file_types="jpg|jpeg|png">
-
+               
                 <!---->
                 <!---->
                 <!---to be inserted dynamically using ejs-->
@@ -69,39 +60,54 @@
                 <!---->
                 <!---->
 
-                <form action="/company" method="POST" enctype="multipart/form-data">  
+                <form action="/company" method="POST" enctype="multipart/form-data"> 
+                    
+                    
+
+            <!--to change profile picture or to be inserted dynamically-->
+            <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
+            <div class="custom-file">
+                <h6>Upload Company Logo</h6>
+                <input type="file" data-file_types="jpg|jpeg|png" class="custom-file-input" id="file" name="file" onchange="readSingleFile(this.files)">
+                <label class="custom-file-label" id="file-label" style="border-radius:10px;" for="file">Choose
+                    file(png/jpeg/jpg)</label>
+            </div>
+            
+
+
+
                     <!--to change name-->
                     <div class="form-group">
                         <label for="companyName">Name of the Company</label>
                         <input type="name" class="form-control" id="companyName" name="companyName" aria-describedby="na"
-                            placeholder="<%=  %>" value="<%= typeof companyName != 'undefined' ? companyName : '' %>" />
+                            placeholder="<%=  %>" value="<%= typeof companyName != 'undefined' ? companyName : (count>0)? company.companyName :''  %>" />
                     </div>
 
                     <div class="form-group">
                         <label for="companyHeadName">Head of the Company</label>
                         <input type="name" class="form-control" id="companyHeadName" aria-describedby="na" name="companyHeadName"
-                            placeholder="<%=  %>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : '' %>"/>
+                            placeholder="<%=  %>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : (count>0)? company.companyHeadName :'' %>"/>
                     </div>
 
                     <!--to change address-->
                     <div class="form-group">
                         <label for="location">Address</label>
-                        <input type="text" class="form-control" id="location" placeholder="location" name="location"
-                         value="<%= typeof location != 'undefined' ? location : '' %>"/>
+                        <input type="text" class="form-control" id="location" placeholder="<%=  %>" name="location"
+                         value="<%= typeof location != 'undefined' ? location : (count>0)? company.companyLocation : '' %>"/>
                       </div>
                       
                       <div class="form-row">
                         <div class="form-group col-md-4">
                           <label for="city">City</label>
-                          <input type="text" class="form-control" id="city" name="city" value="<%= typeof city != 'undefined' ? city : '' %>"/>
+                          <input type="text" class="form-control" id="city" name="city" placeholder="<%=  %>" value="<%= typeof city != 'undefined' ? city :(count>0)? company.companyCity:  '' %>"/>
                         </div>
                         <div class="form-group col-md-4">
                           <label for="state">State</label>
-                          <input type="text" class="form-control" id="state" name="state" value="<%= typeof state != 'undefined' ? state : '' %>"/>
+                          <input type="text" class="form-control" id="state" name="state" placeholder="<%=  %>"  value="<%= typeof state != 'undefined' ? state :(count>0)? company.companyState: '' %>"/>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="country">Country</label>
-                            <input type="text" class="form-control" id="country" name="country" value="<%= typeof country != 'undefined' ? country : '' %>"/>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="<%=  %>" value="<%= typeof country != 'undefined' ? country :(count>0)? company.companyCountry: '' %>"/>
                           </div>
                          </div>
 
@@ -109,7 +115,7 @@
                             <div class="form-group">
                                 <label for="establishmentDate">Date Of Establishment</label>
                                 <input type="date" class="form-control" id="establishmentDate" aria-describedby="na"
-                                    placeholder="Establishment Date" name="establishmentDate" value="<%= typeof establishmentDate != 'undefined' ? establishmentDate : '' %>"/>
+                                placeholder="<%=  %>" name="establishmentDate" value="<%= typeof establishmentDate != 'undefined' ? establishmentDate:(count>0)? company.establishmentDate : '' %>"/>
                             </div>
                         
 
@@ -117,25 +123,17 @@
                 
                         <div class="form-group">
                             <label for="companyUrl">Company Website</label>
-                            <input type="text" class="form-control" id="companyUrl" aria-describedby="na" placeholder="example.com"
-                            name="companyUrl" value="<%= typeof companyUrl != 'undefined' ? companyUrl : '' %>"/>
+                            <input type="text" class="form-control" id="companyUrl" aria-describedby="na" placeholder="<%=  %>"
+                            name="companyUrl" value="<%= typeof companyUrl != 'undefined' ? companyUrl :(count>0)? company.companyUrl: '' %>"/>
                         </div>
 
 
                     <!---->
-                    <!---->
-                    <!---->
-                    <!--to be inserted dynamically using ejs-->
-                    <!--email address-->
-                    <div class="form-group">
-                        <label for="email">Email address</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                            placeholder="<%= user.email%>">
-                    </div>
+                   
                     <div class="form-group">
                         <label for="contactNo">Phone Number</label>
                         <input type="tel" class="form-control" id="contactNo" aria-describedby="na"
-                            placeholder="Phone Number" name="contactNo" value="<%= typeof contactNo != 'undefined' ? contactNo : '' %>"/>
+                        placeholder="<%=  %>" name="contactNo" value="<%= typeof contactNo != 'undefined' ? contactNo :(count>0)? company.contactNo: '' %>"/>
                     </div>
                     <!---->
                     <!---->
@@ -143,16 +141,11 @@
                     <!---->
                     <div class="form-group">
                         <label for="companyDescription">Description</label>
-                        <textarea class="form-control" id="companyDescription" rows="3" name="companyDescription" value="<%= typeof companyDescription != 'undefined' ? companyDescription : '' %>"></textarea>
+                        <textarea class="form-control" placeholder="<%=  %>" id="companyDescription" rows="3" name="companyDescription" value="<%= typeof companyDescription != 'undefined' ? companyDescription :(count>0)? company.companyDescription: '' %>"></textarea>
                       </div>
 
                       
-                      <div class="custom-file">
-                          <h6>Upload Company Logo</h6>
-                          <input type="file" class="custom-file-input" id="file" name="file" onchange="readSingleFile(this.files)">
-                          <label class="custom-file-label" id="file-label" style="border-radius:10px;" for="file">Choose
-                              file(png/jpeg/jpg)</label>
-                      </div>
+                     
 
                         <!--For updating-->
                         <button type="submit" class="btn btn-primary">Submit</button>

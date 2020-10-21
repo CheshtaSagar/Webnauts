@@ -14,8 +14,9 @@ const GridFsStorage=require('multer-gridfs-storage');
 const Grid=require('gridfs-stream');
 const methodOverride=require('method-override');
 const {storage,upload} =require('../config/grid');              
+const { db } = require('../models/User');
 
-
+Grid.mongo=mongoose.mongo;
 
 
 //rendering home page
@@ -147,19 +148,63 @@ router.get('/developerProfile', function (req, res) {
 
 
 
-//company edit profile
+//company main profile 
 router.get('/companyProfile', (req, res) => {
-  res.render('companyProfile', {
+
+  Company.findOne({ "creator": req.user._id }, function (err, docs) {
+    if (err) {
+      console.log(err)
+    }
+    if(!docs)//if user logs in for the first time,redirect him to edit profile section
+    res.redirect('company')
+
+    else
+    res.render('companyProfile', {
     title: 'company profile',
-    'user': req.user
+    'user': req.user,
+    'company':docs
+    
   })
+
+
 });
 
-//company main profile page
+});
+
+
+
+
+//company edit profile page
 router.get('/company', (req, res) => {
-  res.render('company', {
-    'user': req.user
-  })
+  var count;
+
+  Company.findOne({ "creator": req.user._id }, function (err, docs) {
+    if (err) {
+      console.log(err)
+    }
+    else if(!docs)
+    {
+      count=0;
+      res.render('company', {
+        'user': req.user,
+        'count':count
+      });
+    }
+    else
+    {
+      count=1;
+      res.render('company', {
+        'user': req.user,
+        'count':count,
+        'company':docs
+      });
+
+
+     }
+
+    });
+
+
 });
 
 
@@ -433,4 +478,5 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
 
 
 
+ 
   module.exports = router;

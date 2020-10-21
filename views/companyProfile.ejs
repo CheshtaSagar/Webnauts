@@ -42,93 +42,53 @@
             <!--------->
             <!--------->
             <div class="col-md-8" id="Section2">
-
-                <!--Company details to be imported from db-->
-                <div class="row ">
-                    <div class="col">
-                        
-                        <div class="CompanyDetails" id="Details">
-                            <!--------img to be dynamically added-->
-                            <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
-                            <h3><%=user.email%> </h3>
-                            <h5>Company Address</h5>
-                            <h6>Website</h6>
-                            <h6>Contact Info</h6>
+                <div class="row mb-5 mt-3 ml-2">
+                    <div class="col-lg-8 col-md-8 col-12">
+                        <img src="images/job3.jpg" class="img-fluid"></img>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12 font-italic ">
+                        <h2 class="text-center text-secondary">Company Information</h2>
+                        <hr class="w-auto mx-auto bg-dark ">
+                        </hr>
+                        <div>
+                            <h1 class="pt-5" style="font-size:1.5em"> Company Name : </h1>
+                            <h1 style="font-size:1.25em"> <%= company.companyName %> </h1>
+                            <hr class="w-auto mx-auto bg-dark ">
+                            </hr>
+                            <h1 style="font-size:1.5em"> Establishment Date : </h1>
+                            <h1 style="font-size:1.25em"> <%= company.establishmentDate %> </h1>
+                            <hr class="w-auto mx-auto bg-dark ">
+                            </hr>
+                            <h1 style="font-size:1.5em"> Company Head Name : </h1>
+                            <h1 style="font-size:1.25em"> <%= company.companyHeadName %> </h1>
+                            <hr class="w-auto mx-auto bg-dark ">
+                            </hr>
+                            <h1 style="font-size:1.5em"> Location : </h1>
+                            <h1 style="font-size:1.25em"> <%= company.companyLocation %>, <%= company.companyCity %>,
+                                <%= company.companyState %>, <%= company.companyCountry %> </h1>
+                            <hr class="w-auto mx-auto bg-dark ">
+                            </hr>
+                            <h1 style="font-size:1.5em">Company URL : </h1>
+                            <h1 style="font-size:1.25em"> <%= company.companyUrl %> </h1>
+                            <hr class="w-auto mx-auto bg-dark ">
+                            </hr>
+                            </br>
+        
                         </div>
                     </div>
+                </div>
+                <div style="margin-left:80px; margin-right:80px ">
+                    <h1 style="font-size:1.75em">Company Description :- </h1>
+                    <p style="font-style:italic; font-size:1.25em"> <%= company.companyDescription %> </p>
+        
+                    <h1 class="mt-4" style="font-size:1.75em">Contact No :- </h1>
+                    <p style="font-style:italic ; font-size:1.25em"> <%= company.contactNo %> </p>
+                    <h1 class="mt-4" style="font-size:1.75em">Email Id :- </h1>
+                    <p style="font-style:italic ; font-size:1.25em"> <%= company.email %> </p>
+                    </p>
                 </div>
                
-                <div style="padding: 10px; margin: 2px;">
-                <h5 >Jobs Posted</h5> 
-            </div>
-                <!---jobs to be taken from db-->
-                <div class="row" id="postedJobs">
-                    
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Job1</h5>
-                                <p class="card-text">Job description</p>
-                                <a href="#" class="btn btn-primary">get details</a>
-                                <!---details like how many have applied for the job,see there resume and accept or reject them-->
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Job2</h5>
-                                <p class="card-text">Job description</p>
-                                <a href="#" class="btn btn-primary">get details</a>
-                                <!---details like how many have applied for the job,see there resume and accept or reject them-->
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Job3</h5>
-                                <p class="card-text">Job description</p>
-                                <a href="#" class="btn btn-primary">get details</a>
-                                <!---details like how many have applied for the job,see there resume and accept or reject them-->
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Job3</h5>
-                                <p class="card-text">Job description</p>
-                                <a href="#" class="btn btn-primary">get details</a>
-                                <!---details like how many have applied for the job,see there resume and accept or reject them-->
-                            </div>
-                        </div>
-
-                    </div>
-
-
-
-                </div>
-
-                <!--to search developers -->
-                <div class="row" id="search">
-
-                    <div class="container">
-                        <div>
-                            <h5>Search developers here!!</h5>
-                        </div>
-                        <form class="form-inline my-9 my-lg-1">
-                            <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-3 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </div>
-
-                </div>
+                
             </div>
         </div>
     </div>

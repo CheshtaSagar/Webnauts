@@ -1,3 +1,4 @@
+<!---Display page which shows all jobs posted by logged in company-->
 <!doctype html>
 <html>
 
@@ -9,71 +10,109 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+
 </head>
 
 
- <body class="bg-muted">
+<body class="bg-muted">
 
 
-        <%- include ('partials/nav2') %>
-        <div class="container-fluid">
-        <div>
-            <h1 >Jobs List </h1>
-        </div>
-        </br>
-        <%- include ('partials/messages') %>
-        <% jobs.forEach(function(job){ %>
+    <%- include ('partials/nav2') %>
 
-        <div class="container shadow p-3 mb-5 bg-white rounded"  style="border:2px ;border-radius:10px;">
-            <div class="row">
-                <div class="col-lg-4  col-md-4 col-4 ">
-                    <img src="/images/bg7.jpg" width="100px" height="100px"></img>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+                <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/company"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/postJob"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="#"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+            </div>
+
+
+
+            <!---Section regarding profile starts here-->
+            <!--------->
+            <!--------->
+            <!--------->
+            <!--------->
+            <!--------->
+            <div class="col-md-8" id="Section2">
+                <div>
+                    <h1>Jobs List </h1>
                 </div>
-                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
-                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
-                    <p>Job Type : <%= job.jobType %> </p>
-                    <p>Experience Required : <%= job.min_exp %> </p>
-                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
-                    <p>Skills Required : <%= job.jobSkills %></p>
-                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
-                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></p>
-                    <p>Last Application Date: <%= job.LastDate %></p>
-                </div>
+                </br>
+                <%- include ('partials/messages') %>
+                <% jobs.forEach(function(job){ %>
 
-                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
-                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
-                    <p><%= job.jobDescription %></p>   
-                    
-                    <div>             
-                    <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-                        href="/company/edit_postedJobs/<%= job._id %>" >Edit</a></button>
+                <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
+                    <div class="row">
+                        <div class="col-lg-4  col-md-4 col-4 ">
+                            <img src="/images/bg7.jpg" width="100px" height="100px"></img>
+                        </div>
+                        <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                            <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                            <p>Job Type : <%= job.jobType %> </p>
+                            <p>Experience Required : <%= job.min_exp %> </p>
+                            <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                            <p>Skills Required : <%= job.jobSkills %></p>
+                            <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                            <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                <%= job.jobCountry %></p>
+                            <p>Last Application Date: <%= job.LastDate %></p>
+                        </div>
+
+                        <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                            <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                            <p><%= job.jobDescription %></p>
+
+                        </br>
+                    </br>
+                                <div class="row">
+                                    <div class="col-md-8 sm-12">
+                                        <button class="btn btn-outline-success btn-block my-2 my-sm-0"><a
+                                                class="nav-link"
+                                                href="/company/edit_postedJobs/<%= job._id %>">Edit</a></button>
+                                    </div>
+                                </br>
+                                    <div class="col-md-8 sm-12">
+                                        <button class="btn btn-outline-success btn-block my-2 my-sm-0"><a
+                                                class="nav-link"
+                                                href="/company/delete_postedJob/<%= job._id %>">Delete</a></button>
+                                    </div>
+                                </div>
+                            
+
+                        </div>
                     </div>
-                    <br>
-                    <div> 
-                     <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-                        href="/company/delete_postedJob/<%= job._id %>" >Delete</a></button>
-                    </div>
-
                 </div>
+                </br>
+                <% }); %>
             </div>
         </div>
-        </br>
-        <% }); %>
-       
     </div>
-        <%- include ('partials/footer') %>
+    <%- include ('partials/footer') %>
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
-    </body>
+</body>
 
 </html>
