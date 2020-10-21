@@ -62,21 +62,12 @@ const Job = require('./Job');
             ref: "Job"
 
         }       
-    ]
-   /*  companyIcon:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Icon'
-     }*/
+    ],
+     companyIcon:{
+        type: String,
+     }
  });
 
- /* const IconSchema = new mongoose.Schema(
-    { img: 
-        { data: Buffer, contentType: String }
-    }
-  ); */
-
  
-
-//const Icon=mongoose.model("Icon",IconSchema);
 const Company = mongoose.model("Company", CompanySchema);
 module.exports =Company;

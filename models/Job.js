@@ -42,6 +42,11 @@ const JobSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    LastDate:
+    {
+       type:Date,
+       required:true
+    },
     
     jobType://full time or intern
     {

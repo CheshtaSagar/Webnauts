@@ -7,6 +7,12 @@ const bodyParser= require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+const crypto=require('crypto'); //to generate file names
+const multer=require('multer');
+const GridFsStorage=require('multer-gridfs-storage');
+const Grid=require('gridfs-stream');
+const methodOverride=require('method-override');
+
 
 
 // Passport Config
@@ -15,15 +21,18 @@ require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/database').mongoURI;
-
+mongoose.set('useUnifiedTopology', true);
 // Connect to MongoDB atlas server
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true ,useUnifiedTopology: true, useFindAndModify: false,useCreateIndex: true}
+    { useUnifiedTopology:true, useNewUrlParser: true , useFindAndModify: false, useCreateIndex: true}
   )
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
+
+
+  
 
 const app=express();
 
@@ -36,6 +45,17 @@ app.set('view engine', 'ejs');
 //app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
+
+
+app.use(methodOverride('_method'));
+
+let gfs;
+mongoose.connection.once("open", () => {
+  // init stream
+  gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "uploads"
+  });
+});
 
 
 //Express session middleware

@@ -8,8 +8,16 @@ const Company = require('../models/Company');
 const Developer = require('../models/Developer');
 const Job = require('../models/Job');
 const Resume = require('../models/Resume');
+const crypto=require('crypto'); //to generate file names
+const multer=require('multer');
+const GridFsStorage=require('multer-gridfs-storage');
+const Grid=require('gridfs-stream');
+const methodOverride=require('method-override');
+const {storage,upload} =require('../config/grid');              
 
-                   
+
+
+
 //rendering home page
 router.get('/', (req, res) => {
   res.render('index');
@@ -156,7 +164,7 @@ router.get('/company', (req, res) => {
 
 
 //post request for edit company profile
-router.post('/company',(req, res) => {
+router.post('/company',upload.single('file'),(req, res) => {
   //console.log(req.user._id);//for debugging
   //console.log(req.body);   //for debugging
   const id=req.user._id
@@ -172,8 +180,8 @@ router.post('/company',(req, res) => {
     establishmentDate: req.body.establishmentDate,
     companyUrl:req.body.companyUrl,
     companyDescription:req.body.companyDescription,
-    contactNo:req.body.contactNo
-    
+    contactNo:req.body.contactNo,
+    companyIcon:req.file.id
     });
 
 
@@ -202,8 +210,8 @@ router.post('/company',(req, res) => {
     establishmentDate: req.body.establishmentDate,
     companyUrl: req.body.companyUrl,
     companyDescription: req.body.companyDescription,
-    contactNo: req.body.contactNo
-
+    contactNo: req.body.contactNo,
+   companyIcon:req.file.id
   });
 
   //validations to be added here
@@ -286,6 +294,7 @@ router.post('/postJob', async (req, res) => {
         min_exp: req.body.min_exp,
         min_salary: req.body.min_salary,
         max_salary: req.body.max_salary,
+        LastDate:req.body.LastDate,
         jobDescription: req.body.jobDescription,
         jobSkills: req.body.jobSkills,
         jobQualification: req.body.jobQualification,
@@ -312,7 +321,7 @@ router.post('/postJob', async (req, res) => {
 
 
 //to post developer portfolio   
-router.post('/developerPortfolio', async (req, res) => {
+router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
 
   console.log(req.user._id);//user id(not the company id)
 
@@ -328,6 +337,9 @@ router.post('/developerPortfolio', async (req, res) => {
 
       resume.creator = docs.id; //developer id
       resume.githubLink = req.body.githubLink;
+      res.json({file:req.file});
+      console.log(req.file.id);//file id
+      resume.resumeUpload=req.file.id;
       console.log(resume.skills);
       console.log(req.body.skills);
     
@@ -340,7 +352,8 @@ router.post('/developerPortfolio', async (req, res) => {
 
 
       for(var i=0;i< req.body.Degree.length ;i++)
-     {resume.education.Degree.push(req.body.Degree[i]);
+     {
+      resume.education.Degree.push(req.body.Degree[i]);
       resume.education.University.push(req.body.University[i]);
       resume.education.gradYear.push(req.body.gradYear[i]);
       resume.education.Branch.push(req.body.Branch[i]);
@@ -361,7 +374,6 @@ router.post('/developerPortfolio', async (req, res) => {
         .then(user => {
           req.flash('success_msg', 'resume posted ');//include msg.ejs wherever you want to see this msg
           console.log('resume successfully posted');
-
         })
         .catch(err => console.log(err));
 

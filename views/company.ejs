@@ -69,7 +69,7 @@
                 <!---->
                 <!---->
 
-                <form action="/company" method="POST">  
+                <form action="/company" method="POST" enctype="multipart/form-data">  
                     <!--to change name-->
                     <div class="form-group">
                         <label for="companyName">Name of the Company</label>
@@ -146,7 +146,14 @@
                         <textarea class="form-control" id="companyDescription" rows="3" name="companyDescription" value="<%= typeof companyDescription != 'undefined' ? companyDescription : '' %>"></textarea>
                       </div>
 
-                    
+                      
+                      <div class="custom-file">
+                          <h6>Upload Company Logo</h6>
+                          <input type="file" class="custom-file-input" id="file" name="file" onchange="readSingleFile(this.files)">
+                          <label class="custom-file-label" id="file-label" style="border-radius:10px;" for="file">Choose
+                              file(png/jpeg/jpg)</label>
+                      </div>
+
                         <!--For updating-->
                         <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
@@ -159,6 +166,14 @@
 
 
 </body>
+<script>
+    //script for changing "choose file" to file name
+function readSingleFile(e) {
+            const name = e[0].name;
+            document.getElementById("file-label").textContent = name;
+        }
+    
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>

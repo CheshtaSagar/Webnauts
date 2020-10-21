@@ -55,6 +55,7 @@ router.post('/edit_postedjobs/:id', function (req, res) {
         min_salary:req.body.min_salary,
         max_salary:req.body.max_salary,
         jobDescription:req.body.jobDescription,
+        LastDate:req.body.LastDate,
         jobSkills:req.body.jobSkills,
         jobQualification:req.body.jobQualification,
         jobLocation:req.body.jobLocation,

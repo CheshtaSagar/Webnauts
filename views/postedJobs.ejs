@@ -30,6 +30,7 @@
                     <th>Job Skills</th>
                     <th>Job Qualifications</th>
                     <th>Job Location</th>
+                    <th>Last Application Date</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -46,6 +47,7 @@
                     <td><%= job.jobDescription %></td>
                     <td><%= job.jobSkills %></td>
                     <td><%= job.jobQualification %></td>
+                    <td><%= job.LastDate %></td>
                     <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
                     <td><a href="/company/edit_postedJobs/<%= job._id %>">Edit</a></td>
                     <td><a class="confirmDeletion" href="/company/delete_postedJob/<%= job._id %>">Delete</a></td>

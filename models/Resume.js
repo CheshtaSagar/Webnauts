@@ -2,74 +2,74 @@ const User = require('./Developer');
 const mongoose = require('mongoose');
 
 const ResumeSchema = new mongoose.Schema({
-     creator:      //information of developer whose resume is this
-  {   
-          type: mongoose.Schema.Types.ObjectId,
-          ref:  "Developer"  
+  creator:      //information of developer whose resume is this
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Developer"
   },
-skills:[{
-  type:String
-}],
+  skills: [{
+    type: String
+  }],
 
-education:
-    
-    {
-      Degree:[{
-        type:String
-      }],
-      University :
+  education:
+
+  {
+    Degree: [{
+      type: String
+    }],
+    University:
       [{
-        type:String
+        type: String
       }],
-      gradYear :
+    gradYear:
       [{
-        type:String
+        type: String
       }],
-      Branch: 
+    Branch:
       [{
-        type:String
+        type: String
       }]
-    }
+  }
 
-,
+  ,
 
-githubLink:
-{
-    type:String,
-    required:true
-},
-pastExperience:
+  githubLink:
+  {
+    type: String,
+    required: true
+  },
+  pastExperience:
 
-    {
-      Institute:
+  {
+    Institute:
       [{
-        type:String
+        type: String
       }]
-      ,
-      Title:
+    ,
+    Title:
       [{
-        type:String
+        type: String
       }],
-      StartDate:
+    StartDate:
       [{
-        type:String
+        type: Date
       }],
-      EndDate:
+    EndDate:
       [{
-        type:String
+        type: Date
       }],
-      Description:
+    Description:
       [{
-        type:String
-      }]   
-     }
-/* resumeUpload :  //for resume less than 16MB
- { data: Buffer, 
-  contentType: String
- } */
+        type: String
+      }]
+  },
+  resumeUpload:
+  {
+    type: String 
 
+  }
 
 });
 
 const Resume = mongoose.model('Resume', ResumeSchema);
-module.exports=Resume;
+module.exports = Resume;

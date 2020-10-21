@@ -138,7 +138,11 @@
                         <textarea class="form-control" id="jobDescription" rows="6" placeholder="Write job description such as eligibilty criteria,type of work etc.(maximum 100 words)"
                         name="jobDescription" value="<%= typeof jobDescription != 'undefined' ? jobDescription : '' %>"></textarea>
               </div>
-
+              <div class="form-group">
+                <label for="LastDate">Last Date for Application</label>
+                <input type="date" class="form-control" id="LastDate" placeholder=""
+                name="LastDate" value="<%= typeof LastDate != 'undefined' ? LastDate : '' %>"/>
+            </div>
             
             <button type="submit" class="btn btn-primary">Post Job</button>
         </form>
