@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Company Profile</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Company Profile</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <body class="bg-muted">
+
+        <%- include ('partials/nav') %>
+
+
+        <div class="row mb-5 mt-3 ml-2">
+            <div class="col-lg-8 col-md-8 col-12">
+                <img src="/images/job3.jpg" class="img-fluid"></img>
+            </div>
+            <div class="col-lg-4 col-md-4 col-12 font-italic ">
+                <h2 class="text-center text-secondary">Company Information</h2>
+                <hr class="w-auto mx-auto bg-dark ">
+                </hr>
+                <div>
+                    <h1 class="pt-5" style="font-size:1.5em"> Company Name : </h1>
+                    <h1 style="font-size:1.25em"> <%= company.companyName %> </h1>
+                    <hr class="w-auto mx-auto bg-dark ">
+                    </hr>
+                    <h1 style="font-size:1.5em"> Establishment Date : </h1>
+                    <h1 style="font-size:1.25em"> <%= company.establishmentDate %> </h1>
+                    <hr class="w-auto mx-auto bg-dark ">
+                    </hr>
+                    <h1 style="font-size:1.5em"> Company Head Name : </h1>
+                    <h1 style="font-size:1.25em"> <%= company.companyHeadName %> </h1>
+                    <hr class="w-auto mx-auto bg-dark ">
+                    </hr>
+                    <h1 style="font-size:1.5em"> Location : </h1>
+                    <h1 style="font-size:1.25em"> <%= company.companyLocation %>, <%= company.companyCity %>,
+                        <%= company.companyState %>, <%= company.companyCountry %> </h1>
+                    <hr class="w-auto mx-auto bg-dark ">
+                    </hr>
+                    <h1 style="font-size:1.5em">Company URL : </h1>
+                    <h1 style="font-size:1.25em"> <%= company.companyUrl %> </h1>
+                    <hr class="w-auto mx-auto bg-dark ">
+                    </hr>
+                    </br>
+
+                </div>
+            </div>
+        </div>
+        <div style="margin-left:80px; margin-right:80px ">
+            <h1 style="font-size:1.75em">Company Description :- </h1>
+            <p style="font-style:italic; font-size:1.25em"> <%= company.companyDescription %> </p>
+
+            <h1 class="mt-4" style="font-size:1.75em">Contact No :- </h1>
+            <p style="font-style:italic ; font-size:1.25em"> <%= company.contactNo %> </p>
+            <h1 class="mt-4" style="font-size:1.75em">Email Id :- </h1>
+            <p style="font-style:italic ; font-size:1.25em"> <%= company.email %> </p>
+            </p>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    </body>
+
+</html>

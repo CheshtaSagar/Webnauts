@@ -298,7 +298,8 @@ router.post('/postJob', async (req, res) => {
       });
       job.save()
         .then(user => {
-          req.flash('success_msg', 'job posted ');//include msg.ejs wherever you want to see this msg
+          req.flash('success_msg', 'job posted ');
+          res.redirect('/company/postedJobs');//include msg.ejs wherever you want to see this msg
           console.log('job successfully posted');
           //do anything here(TO BE DECIDED)
         })
@@ -359,7 +360,8 @@ router.post('/developerPortfolio', async (req, res) => {
     console.log(resume.pastExperience.Title);
       resume.save()
         .then(user => {
-          req.flash('success_msg', 'resume posted ');//include msg.ejs wherever you want to see this msg
+          req.flash('success_msg', 'resume posted ');
+          res.redirect('developerProfile');//include msg.ejs wherever you want to see this msg
           console.log('resume successfully posted');
 
         })
@@ -395,6 +397,19 @@ router.post('/developerPortfolio', async (req, res) => {
       });
     });
   });
+
+  router.get('/allCompanies', function (req, res) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.render('allCompanies', {
+            companies: companies
+          });
+        }
+      });
+    });
 
 
   // Logout handling

@@ -16,7 +16,8 @@ router.get('/apply/:id',function(req,res){
     //finding developer with same logged in user id
     Developer.findOneAndUpdate({ "userDetails": req.user.id }, {$push:{"AppliedJobs":req.params.id}},{new:true},function (err, docs) {
         if (err) {
-          console.log(err)
+            console.log(err)
+            throw err;
         }
         else {
           console.log(docs);//shows reqd developer
@@ -29,7 +30,8 @@ router.get('/apply/:id',function(req,res){
          {
          console.log(job);
          console.log('Successfully applied for the job');
-         res.redirect('/developer');//CHANGE THIS LATER
+         req.flash('success_msg','Successfully applied for the job');
+         res.redirect('/allApliedJobs');//CHANGE THIS LATER
          }
          });
     }

@@ -5,25 +5,35 @@
     <title>JobLists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>obs Lists</title>
+    <title>Bootstrap Sign up Form with Rounded Social Buttons</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <style>
+        .img {
+            width: 100%;
+            height: 50vh;
+            background-image: url('/images/bg6.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+
+        }
+    </style>
 </head>
 
 <body>
 
     <body class="bg-muted">
 
+        <%- include ('partials/nav') %>
 
-        <%- include ('partials/nav2') %>
-        <div>
-            <h1 >Jobs List </h1>
+        <div class="img">
+            <h1 class=" text-capitalise text-white pl-5 pt-5">Jobs List </h1>
         </div>
         </br>
-        <%- include ('partials/messages') %>
-        <% jobs.forEach(function(job){ %>
+
+        <% companies.forEach(function(company){ %>
 
         <div class="container"  style="border:2px solid black; border-radius:10px;">
             <div class="row">
@@ -31,27 +41,19 @@
                     <img src="/images/bg7.jpg" width="100px" height="100px"></img>
                 </div>
                 <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
-                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
-                    <p>Job Type : <%= job.jobType %> </p>
-                    <p>Experience Required : <%= job.min_exp %> </p>
-                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
-                    <p>Skills Required : <%= job.jobSkills %></p>
-                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
-                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></p>
+                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
+                    <h5><%= company.companyName %> </h5>
+                    <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>, <%= company.companyCountry %></p>
+                    <!-- <p>Open Jobs : 2</p>       to be added later -->
                 </div>
                 <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
-                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
-                    <p><%= job.jobDescription %></p>   
-                    
-                    <div>             
-                    <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-                        href="/company/edit_postedJobs/<%= job._id %>" >Edit</a></button>
-                    </div>
+                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                    <p></p>                   
+                    <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                    <p></p> -->
                     <br>
-                    <div> 
-                     <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-                        href="/company/delete_postedJob/<%= job._id %>" >Delete</a></button>
-                    </div>
+                    <p> <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
+                        href="/company/companyDetails/<%= company._id %>" >View Company Details</a></button></p>
 
                 </div>
             </div>

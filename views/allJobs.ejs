@@ -1,78 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>JobLists</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Sign up Form with Rounded Social Buttons</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .img {
+            width: 100%;
+            height: 50vh;
+            background-image: url('/images/bg6.jpg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-attachment: fixed;
 
-    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+        }
+    </style>
 </head>
 
 <body>
 
-    <%- include ('partials/nav') %>
-    <div>
-        <h2 class="page-title">All jobs</h2>
-        <br><br>
+    <body class="bg-muted">
 
-        <table class="table table-striped sorting">
+        <%- include ('partials/nav') %>
 
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Company Name</th>
-                    <th>Job Type</th>
-                    <th>Minimum experience Required (years)</th>
-                    <th>Minimum Salary</th>
-                    <th>Maximum Salary</th>
-                    <th>Job Description</th>
-                    <th>Job Skills</th>
-                    <th>Job Qualifications</th>
-                    <th>Job Location</th>
-                    <th>Apply</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% jobs.forEach(function(job){ %>
-                
-                <tr id="id_<%= job._id %>">
-                    <td><%= job.jobTitle %></td>   
-                    <td><%= job.postedBy.companyName %></td>
-                    <td><%= job.jobType %></td>
-                    <td><%= job.min_exp %></td>
-                    <td><%= job.min_salary %></td>
-                    <td><%= job.max_salary %></td>
-                    <td><%= job.jobDescription %></td>
-                    <td><%= job.jobSkills %></td>
-                    <td><%= job.jobQualification %></td>
-                    <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></td>
-                    <td><a href="/developer/apply/<%= job._id %>">Apply</a></td>
-                </tr>
-                
-                <% }); %>
-            </tbody>
-        </table>
-    </div>
+        <div class="img">
+            <h1 class=" text-capitalise text-white pl-5 pt-5">Jobs List </h1>
+        </div>
+        </br>
 
+        <% jobs.forEach(function(job){ %>
 
-    <%- include ('partials/footer') %>
+        <div class="container"  style="border:2px solid black; border-radius:10px;">
+            <div class="row">
+                <div class="col-lg-4  col-md-4 col-4 ">
+                    <img src="/images/bg7.jpg" width="100px" height="100px"></img>
+                </div>
+                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                    <p>Job Type : <%= job.jobType %> </p>
+                    <p>Experience Required : <%= job.min_exp %> </p>
+                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                    <p>Skills Required : <%= job.jobSkills %></p>
+                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></p>
+                </div>
+                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                    <p><%= job.jobDescription %>                  
+                    <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                    <p><%= job.postedBy.companyName %></p>
+                    <p> <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
+                        href="/developer/apply/<%= job._id %>" >Apply</a></button></p>
 
+                </div>
+            </div>
+        </div>
+        </br>
+        <% }); %>
+       
+        <%- include ('partials/footer') %>
 
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
 
-
-
-</body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
+    </body>
 
 </html>
