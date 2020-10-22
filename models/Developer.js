@@ -73,8 +73,10 @@ const DeveloperSchema = new mongoose.Schema({
          type: mongoose.Schema.Types.ObjectId,
          ref:'Jobs'
         }
-    ]
-    //profileImg:String,
+    ],
+    developerIcon:{
+        type: String,
+     }
    
 });
 

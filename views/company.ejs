@@ -4,41 +4,41 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/assets/styles.css" type="text/css">
 
-    <title></title>
+  <title></title>
 </head>
 
 <body>
-    <!--Navbar imported--->
-    <%- include ('partials/nav2') %>
+  <!--Navbar imported--->
+  <%- include ('partials/nav2') %>
 
-    
 
-    <!---edit profile body-->
-    <div class="container-fluid">
-        
-        <div class="row">
-           
-            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
-                <% if(count>0){%>
-                <button type="button" class="btn btn-dark btn-block "><a href="/companyProfile"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
-                 
-                <button type="button" class="btn btn-dark btn-block"><a href="/company"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/postjob"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
-                            style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
-                    <%}%>
-                            style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>       
+
+  <!---edit profile body-->
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+        <% if(count>0){%>
+        <button type="button" class="btn btn-dark btn-block "><a href="/companyProfile"
+            style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+
+        <button type="button" class="btn btn-dark btn-block"><a href="/company"
+            style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
+        <button type="button" class="btn btn-dark btn-block"><a href="/postjob"
+            style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
+        <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
+            style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
+            <button type="button" class="btn btn-dark btn-block"><a href="#"
+              style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+          <%}%>     
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -56,126 +56,146 @@
                 <!---->
                 <!---to be inserted dynamically using ejs-->
                 <h2><%= user.email%></h2>
-                <!---->
-                <!---->
-                <!---->
+            <!---->
+            <!---->
+            <!---->
 
-                <form action="/company" method="POST" enctype="multipart/form-data"> 
-                    
-                    
+            <form action="/company" method="POST" enctype="multipart/form-data">
 
-            <!--to change profile picture or to be inserted dynamically-->
-            <div><img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;"></div>
+              <div>
+                <% if(count>0){%>
+                <img src="/image/<%= company.companyIcon %>" height="180" style="border-radius: 30px;">
+                <%} else {%>
+                <img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;">
+                <%}%>
+                  </div>
+                </br>
+              </br>
+  
+              <h6>Upload Company Logo</h6>
             <div class="custom-file">
-                <h6>Upload Company Logo</h6>
-                <input type="file" data-file_types="jpg|jpeg|png" class="custom-file-input" id="file" name="file" onchange="readSingleFile(this.files)">
-                <label class="custom-file-label" id="file-label" style="border-radius:10px;" for="file">Choose
+                <input type="file" data-file_types="jpg|jpeg|png" class="custom-file-input" id="logo" name="logo" onchange="readSingleFile(this.files)">
+                <label class="custom-file-label" id="file-label" style="border-radius:10px;" for="logo">Choose
                     file(png/jpeg/jpg)</label>
             </div>
-            
+          </br>
+          <h6>Upload Company Image</h6>
+          <div class="custom-file">
+              <input type="file" data-file_types="jpg|jpeg|png" class="custom-file-input" id="display" name="display" onchange="readSingleFile1(this.files)">
+              <label class="custom-file-label" id="file-label1" style="border-radius:10px;" for="display">Choose
+                  file(png/jpeg/jpg)</label>
+          </div>
 
 
-
+        </br>
                     <!--to change name-->
                     <div class="form-group">
                         <label for="companyName">Name of the Company</label>
                         <input type="name" class="form-control" id="companyName" name="companyName" aria-describedby="na"
-                            placeholder="<%=  %>" value="<%= typeof companyName != 'undefined' ? companyName : (count>0)? company.companyName :''  %>" />
-                    </div>
+                            placeholder="<%=  %>"
+                value="<%= typeof companyName != 'undefined' ? companyName : (count>0)? company.companyName :''  %>" />
+              </div>
 
-                    <div class="form-group">
-                        <label for="companyHeadName">Head of the Company</label>
-                        <input type="name" class="form-control" id="companyHeadName" aria-describedby="na" name="companyHeadName"
-                            placeholder="<%=  %>"  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : (count>0)? company.companyHeadName :'' %>"/>
-                    </div>
+              <div class="form-group">
+                <label for="companyHeadName">Head of the Company</label>
+                <input type="name" class="form-control" id="companyHeadName" aria-describedby="na"
+                  name="companyHeadName" placeholder="<%=  %>"
+                  value="<%= typeof companyHeadName != 'undefined' ? companyHeadName : (count>0)? company.companyHeadName :'' %>" />
+              </div>
 
-                    <!--to change address-->
-                    <div class="form-group">
-                        <label for="location">Address</label>
-                        <input type="text" class="form-control" id="location" placeholder="<%=  %>" name="location"
-                         value="<%= typeof location != 'undefined' ? location : (count>0)? company.companyLocation : '' %>"/>
-                      </div>
-                      
-                      <div class="form-row">
-                        <div class="form-group col-md-4">
-                          <label for="city">City</label>
-                          <input type="text" class="form-control" id="city" name="city" placeholder="<%=  %>" value="<%= typeof city != 'undefined' ? city :(count>0)? company.companyCity:  '' %>"/>
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="state">State</label>
-                          <input type="text" class="form-control" id="state" name="state" placeholder="<%=  %>"  value="<%= typeof state != 'undefined' ? state :(count>0)? company.companyState: '' %>"/>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="country">Country</label>
-                            <input type="text" class="form-control" id="country" name="country" placeholder="<%=  %>" value="<%= typeof country != 'undefined' ? country :(count>0)? company.companyCountry: '' %>"/>
-                          </div>
-                         </div>
+              <!--to change address-->
+              <div class="form-group">
+                <label for="location">Address</label>
+                <input type="text" class="form-control" id="location" placeholder="<%=  %>" name="location"
+                  value="<%= typeof location != 'undefined' ? location : (count>0)? company.companyLocation : '' %>" />
+              </div>
 
-                        <!--to change date of establishment-->
-                            <div class="form-group">
-                                <label for="establishmentDate">Date Of Establishment</label>
-                                <input type="date" class="form-control" id="establishmentDate" aria-describedby="na"
-                                placeholder="<%=  %>" name="establishmentDate" value="<%= typeof establishmentDate != 'undefined' ? establishmentDate:(count>0)? company.establishmentDate : '' %>"/>
-                            </div>
-                        
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="city">City</label>
+                  <input type="text" class="form-control" id="city" name="city" placeholder="<%=  %>"
+                    value="<%= typeof city != 'undefined' ? city :(count>0)? company.companyCity:  '' %>" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="state">State</label>
+                  <input type="text" class="form-control" id="state" name="state" placeholder="<%=  %>"
+                    value="<%= typeof state != 'undefined' ? state :(count>0)? company.companyState: '' %>" />
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="country">Country</label>
+                  <input type="text" class="form-control" id="country" name="country" placeholder="<%=  %>"
+                    value="<%= typeof country != 'undefined' ? country :(count>0)? company.companyCountry: '' %>" />
+                </div>
+              </div>
 
-
-                
-                        <div class="form-group">
-                            <label for="companyUrl">Company Website</label>
-                            <input type="text" class="form-control" id="companyUrl" aria-describedby="na" placeholder="<%=  %>"
-                            name="companyUrl" value="<%= typeof companyUrl != 'undefined' ? companyUrl :(count>0)? company.companyUrl: '' %>"/>
-                        </div>
+              <!--to change date of establishment-->
+              <div class="form-group">
+                <label for="establishmentDate">Date Of Establishment</label>
+                <input type="date" class="form-control" id="establishmentDate" aria-describedby="na"
+                  placeholder="<%=  %>" name="establishmentDate"
+                  value="<%= typeof establishmentDate != 'undefined' ? establishmentDate:(count>0)? company.establishmentDate : '' %>" />
+              </div>
 
 
-                    <!---->
-                   
-                    <div class="form-group">
-                        <label for="contactNo">Phone Number</label>
-                        <input type="tel" class="form-control" id="contactNo" aria-describedby="na"
-                        placeholder="<%=  %>" name="contactNo" value="<%= typeof contactNo != 'undefined' ? contactNo :(count>0)? company.contactNo: '' %>"/>
-                    </div>
-                    <!---->
-                    <!---->
-                    <!---->
-                    <!---->
-                    <div class="form-group">
-                        <label for="companyDescription">Description</label>
-                        <textarea class="form-control" placeholder="<%=  %>" id="companyDescription" rows="3" name="companyDescription" value="<%= typeof companyDescription != 'undefined' ? companyDescription :(count>0)? company.companyDescription: '' %>"></textarea>
-                      </div>
-
-                      
-                     
-
-                        <!--For updating-->
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
 
 
-        </div>
+              <div class="form-group">
+                <label for="companyUrl">Company Website</label>
+                <input type="text" class="form-control" id="companyUrl" aria-describedby="na" placeholder="<%=  %>"
+                  name="companyUrl"
+                  value="<%= typeof companyUrl != 'undefined' ? companyUrl :(count>0)? company.companyUrl: '' %>" />
+              </div>
+
+
+              <!---->
+
+              <div class="form-group">
+                <label for="contactNo">Phone Number</label>
+                <input type="tel" class="form-control" id="contactNo" aria-describedby="na" placeholder="<%=  %>"
+                  name="contactNo"
+                  value="<%= typeof contactNo != 'undefined' ? contactNo :(count>0)? company.contactNo: '' %>" />
+              </div>
+              <!---->
+              <!---->
+              <!---->
+              <!---->
+              <div class="form-group">
+                <label for="companyDescription">Description</label>
+                <textarea class="form-control" placeholder="<%=  %>" id="companyDescription" rows="3"
+                  name="companyDescription"
+                  value="<%= typeof companyDescription != 'undefined' ? companyDescription :(count>0)? company.companyDescription: '' %>"></textarea>
+              </div>
+
+              <!--For updating-->
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+      </div>
+
+
     </div>
-    <!-------->
+  </div>
+  <!-------->
 
 
 </body>
 <script>
-    //script for changing "choose file" to file name
-function readSingleFile(e) {
-            const name = e[0].name;
-            document.getElementById("file-label").textContent = name;
-        }
-    
+  //script for changing "choose file" to file name
+  function readSingleFile(e) {
+    const name = e[0].name;
+    document.getElementById("file-label").textContent = name;
+  }
+  function readSingleFile1(e) {
+    const name = e[0].name;
+    document.getElementById("file-label1").textContent = name;
+  }
+
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-    crossorigin="anonymous"></script>
+  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
+  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
 </body>
 

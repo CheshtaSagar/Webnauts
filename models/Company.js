@@ -65,6 +65,9 @@ const Job = require('./Job');
     ],
      companyIcon:{
         type: String,
+     },
+     companyDisplay:{
+        type: String,
      }
  });
 

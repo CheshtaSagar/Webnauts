@@ -14,7 +14,6 @@ const GridFsStorage=require('multer-gridfs-storage');
 const Grid=require('gridfs-stream');
 const methodOverride=require('method-override');
 const {storage,upload} =require('../config/grid');              
-const { db } = require('../models/User');
 
 Grid.mongo=mongoose.mongo;
 
@@ -122,12 +121,26 @@ router.get('/profile', (req, res) => {
   }
 });
 
-//to redirect user to developer profile
+//to redirect user to developer main profile
 router.get('/developer', function (req, res) {
-  res.render('developer', {
-    'user': req.user
-  }
-  );
+
+
+  Developer.findOne({ "userDetails": req.user._id }, function (err, docs) {
+    if (err) {
+      console.log(err)
+    }
+    if(!docs)//if user logs in for the first time,redirect him to edit profile section
+    res.redirect('developerProfile')
+
+    else
+    res.render('developer', {
+    title: 'developer',
+    'user': req.user,
+    'developer':docs
+    
+  })
+});
+
 });
 
 //for portfolio page
@@ -136,12 +149,31 @@ router.get('/developerPortfolio', function (req, res) {
 });
 
 
-// redirect to developer edit Profile
+// redirect to developer edit Profile page
 router.get('/developerProfile', function (req, res) {
-  res.render('developerProfile', {
-    'user': req.user
-  }
-  );
+  var count;
+  Developer.findOne({ "userDetails": req.user._id }, function (err, docs) {
+    if (err) {
+      console.log(err)
+    }
+    else if(!docs)
+    {
+      count=0;
+      res.render('developerProfile', {
+        'user': req.user,
+        'count':count
+      });
+    }
+    else
+    {
+      count=1;
+      res.render('developerProfile', {
+        'user': req.user,
+        'count':count,
+        'developer':docs
+      });
+    }
+  });
 });
 
 
@@ -209,7 +241,7 @@ router.get('/company', (req, res) => {
 
 
 //post request for edit company profile
-router.post('/company',upload.single('file'),(req, res) => {
+router.post('/company',upload.fields([{name:'logo',maxCount: 1},{name:'display',maxCount:1}]),(req, res) => {
   //console.log(req.user._id);//for debugging
   //console.log(req.body);   //for debugging
   const id=req.user._id
@@ -226,7 +258,8 @@ router.post('/company',upload.single('file'),(req, res) => {
     companyUrl:req.body.companyUrl,
     companyDescription:req.body.companyDescription,
     contactNo:req.body.contactNo,
-    companyIcon:req.file.filename
+    companyIcon:req.files['logo'][0].filename,
+    companyDisplay:req.files['display'][0].filename
     });
 
 
@@ -256,7 +289,8 @@ router.post('/company',upload.single('file'),(req, res) => {
     companyUrl: req.body.companyUrl,
     companyDescription: req.body.companyDescription,
     contactNo: req.body.contactNo,
-   companyIcon:req.file.filename
+    companyIcon:req.files['logo'][0].filename,
+    companyDisplay:req.files['display'][0].filename
   });
 
   //validations to be added here
@@ -276,13 +310,12 @@ router.post('/company',upload.single('file'),(req, res) => {
 
 
 //post request for edit developer profile
-router.post('/developerProfile', (req, res) => {
+router.post('/developerProfile',upload.single('file'),(req, res) => {
   console.log(req.user._id);//for debugging
   console.log(req.body);   //for debugging
 
 
   var developer = new Developer({
-    userDetails: req.user._id,
     email: req.user.email,
     developerLocation: req.body.developerLocation,
     developerCity: req.body.developerCity,
@@ -294,7 +327,38 @@ router.post('/developerProfile', (req, res) => {
     linkedIn: req.body.linkedIn,
     description: req.body.description,
     contactNo: req.body.contactNo,
-    Qualification: req.body.Qualification
+    Qualification: req.body.Qualification,
+    developerIcon:req.file.filename
+  });
+  Developer.findOneAndUpdate({"userDetails":req.user._id},{$set:developer}, function (err,docs) {
+    if(err)
+    {
+      throw err;
+    }
+    if(docs){
+      //console.log(company);
+      console.log('updated');
+      //console.log(company);
+      req.flash('success_msg','Profile Updated');
+      res.redirect('developer');
+    }
+    else{
+       var developer = new Developer({
+        userDetails: req.user._id,
+        email: req.user.email,
+        developerLocation: req.body.developerLocation,
+        developerCity: req.body.developerCity,
+        developerState: req.body.developerState,
+        developerCountry: req.body.developerCountry,
+        name: req.body.name,
+        gender: req.body.gender,
+        dob: req.body.dob,
+        linkedIn: req.body.linkedIn,
+        description: req.body.description,
+        contactNo: req.body.contactNo,
+        Qualification: req.body.Qualification,
+        developerIcon:req.file.filename
+    
   });
 
   //validations to be added here
@@ -306,10 +370,10 @@ router.post('/developerProfile', (req, res) => {
       res.redirect('/developer'); //do anything here(TO BE DECIDED)
     })
     .catch(err => console.log(err));
-
+  }
 });
 
-
+});
 
 
 //rendering postJob page
