@@ -108,11 +108,12 @@ router.get('/delete_postedJob/:id', function (req, res) {
 });
 
 router.get('/companyDetails/:id', function (req, res) {
-    Company.findById(req.params.id, function (err, company) {
+    Company.findById(req.params.id).exec (function (err, company) {
         if (err) {
             console.log(err);
         }
         else {
+            console.log(company);
             res.render('companyDetails', {
                 company: company
             });

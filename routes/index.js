@@ -226,7 +226,7 @@ router.post('/company',upload.single('file'),(req, res) => {
     companyUrl:req.body.companyUrl,
     companyDescription:req.body.companyDescription,
     contactNo:req.body.contactNo,
-    companyIcon:req.file.id
+    companyIcon:req.file.filename
     });
 
 
@@ -256,7 +256,7 @@ router.post('/company',upload.single('file'),(req, res) => {
     companyUrl: req.body.companyUrl,
     companyDescription: req.body.companyDescription,
     contactNo: req.body.contactNo,
-   companyIcon:req.file.id
+   companyIcon:req.file.filename
   });
 
   //validations to be added here
@@ -468,6 +468,8 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
       });
     });
 
+
+    
 
   // Logout handling
   router.get('/logout', (req, res) => {
