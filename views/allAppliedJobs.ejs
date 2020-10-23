@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>All applied jobs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
@@ -52,42 +52,40 @@
                     <h2 class="page-title">Applied jobs</h2>
                     <br><br>
                     <%- include ('partials/messages') %>
-                    <table class="table table-striped sorting">
+                    <% if(jobs.length>0) {%>
+                    <% jobs.forEach(function(job){ %>
 
-                        <thead>
-                            <tr>
-                                <th>Job Title</th>
-                                <th>Job Type</th>
-                                <th>Minimum experience Required (years)</th>
-                                <th>Minimum Salary</th>
-                                <th>Maximum Salary</th>
-                                <th>Job Description</th>
-                                <th>Job Skills</th>
-                                <th>Job Qualifications</th>
-                                <th>Job Location</th>
+                    <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
+                        <div class="row">
+                            <div class="col-lg-4  col-md-4 col-4 ">
+                                <img src="/image/<%= job.postedBy.companyIcon %> " width="100px" height="100px"></img>
+                            </div>
+                            <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                                <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                                <p>Job Type : <%= job.jobType %> </p>
+                                <p>Experience Required : <%= job.min_exp %> </p>
+                                <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                                <p>Skills Required : <%= job.jobSkills %></p>
+                                <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                                <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                    <%= job.jobCountry %></p>
+                            </div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% jobs.forEach(function(job){ %>
+                            <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                                <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                                <p><%= job.jobDescription %></p>
+                                </br>
+                                <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                                <p><%= job.postedBy.companyName %></p>
 
-                            <tr id="id_<%= job._id %>">
-                                <td><%= job.jobTitle %></td>
-                                <td><%= job.jobType %></td>
-                                <td><%= job.min_exp %></td>
-                                <td><%= job.min_salary %></td>
-                                <td><%= job.max_salary %></td>
-                                <td><%= job.jobDescription %></td>
-                                <td><%= job.jobSkills %></td>
-                                <td><%= job.jobQualification %></td>
-                                <td><%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
-                                    <%= job.jobCountry %></td>
-
-                            </tr>
-
-                            <% }); %>
-                        </tbody>
-                    </table>
+                            </div>
+                        </div>
+                    </div>
+                    </br>
+                    <% }); %>
+                    <% }else{ %>
+                        <h1>no jobs are applied yet</h1>
+                    <% } %> 
                 </div>
             </div>
         </div>

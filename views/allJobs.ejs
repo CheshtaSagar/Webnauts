@@ -5,7 +5,7 @@
     <title>JobLists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Sign up Form with Rounded Social Buttons</title>
+    <title>All Jobs</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,20 +23,20 @@
 </head>
 
     <body class="bg-muted">
-
+        
         <%- include ('partials/nav') %>
         <div class="container-fluid">
         <div class="img">
             <h1 class=" text-capitalise text-white pl-5 pt-5">Jobs List </h1>
         </div>
         </br>
-
+        <% if(jobs.length>0){ %>
         <% jobs.forEach(function(job){ %>
 
         <div class="container shadow p-3 mb-5 bg-white rounded"  style="border:2px; border-radius:10px;">
             <div class="row">
                 <div class="col-lg-4  col-md-4 col-4 ">
-                    <img src="/images/bg7.jpg" width="100px" height="100px"></img>
+                    <img src="/image/<%= job.postedBy.companyIcon %> " width="100px" height="100px"></img>
                 </div>
                 <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
                     <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
@@ -67,6 +67,9 @@
         </div>
         </br>
         <% }); %>
+        <% }else{ %>
+            <h1>no jobs posted yet</h1>
+        <% } %> 
         </div>
         <%- include ('partials/footer') %>
 

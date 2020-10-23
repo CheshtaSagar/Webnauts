@@ -71,7 +71,7 @@ const DeveloperSchema = new mongoose.Schema({
     AppliedJobs:[     ///stores all those applied jobs 
         {
          type: mongoose.Schema.Types.ObjectId,
-         ref:'Jobs'
+         ref:'Job'
         }
     ],
     developerIcon:{
