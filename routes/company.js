@@ -19,7 +19,8 @@ router.get('/postedJobs', (req, res) => {
                 }
                 else {
                     res.render('postedJobs', {
-                        jobs: jobs
+                        jobs: jobs,
+                        company:company
                     })
                 }
             });
@@ -120,6 +121,68 @@ router.get('/companyDetails/:id', function (req, res) {
         }
     });
 });
+
+
+
+
+
+
+//to search jobs by location
+router.get('/SearchByLocation',(req, res)=>{
+
+    const searchFields=req.query.byLocation;
+    //if one of the field matches
+    Company.find({"$or":[
+        {companyCity:{$regex:searchFields,$options:'$i'}},
+        {companyLocation:{$regex:searchFields,$options:'$i'}},
+        {companyCountry:{$regex:searchFields,$options:'$i'}},
+        {companyState:{$regex:searchFields,$options:'$i'}}
+         ]})
+    .exec(function (err, companies)
+    {
+            if (err) {
+              console.log(err);
+            }
+            else {
+           res.render('allCompanies', {
+            companies: companies,
+          });
+    }
+    });
+    });
+
+
+
+
+    router.get('/SearchByName',(req, res)=>{
+
+        const searchFields=req.query.byName;
+        //if one of the field matches
+        Company.find({"$or":[
+            {companyName:{$regex:searchFields,$options:'$i'}},
+            {companyHeadName:{$regex:searchFields,$options:'$i'}}
+             ]})
+        .exec(function (err, companies)
+        {
+                if (err) {
+                  console.log(err);
+                }
+                else if(!companies)
+                console.log("No company found");
+                
+                else {
+               res.render('allCompanies', {
+                companies: companies,
+              });
+        }
+        });
+        });
+
+
+
+
+
+
 
 
 module.exports = router;

@@ -35,7 +35,7 @@
             style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
         <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
             style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
-            <%}%>  
+        <%}%>  
         <button type="button" class="btn btn-dark btn-block"><a href="/logout"
             style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -53,20 +53,23 @@
         <h4>Edit Your Profile</h4>
       </br>
     </br>
-    <h2><%= user.email%></h2>
+    <%if(count>0){%>
+      <h3><%= developer.name%></h3>
+    <%}%>
+    <h4><%= user.email%></h4>
         <!---->
         <!---->
         <!---->
         <!---->
 
-        <form action="/developerProfile" method="POST" enctype="multipart/form-data" >
+        <form action="/developerProfile" method="POST" enctype="multipart/form-data">
 
           <div>
             <% if(count>0){%>
-              <img src="/image/<%= developer.developerIcon %>" height="180" style="border-radius: 30px;">
-               <%} else {%>
-               <img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;">
-               <%}%>
+            <img src="/image/<%= developer.developerIcon %>" height="180" style="border-radius: 50%;">
+            <%} else {%>
+            <img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;">
+            <%}%>
             </div>
           </br>
         </br>
@@ -82,7 +85,7 @@
           <div class="form-group">
             <label for="name">Full Name</label>
             <input type="name" class="form-control" id="name" name="name" aria-describedby="na" placeholder="<%=  %>"
-              value="<%= typeof name != 'undefined' ? name : (count>0)? developer.name : '' %>" />
+            value="<%= typeof name != 'undefined' ? name : (count>0)? developer.name : '' %>" />
           </div>
 
           <div class="row">
@@ -116,8 +119,8 @@
           <!--to change address-->
           <div class="form-group">
             <label for="developerLocation">Address</label>
-            <input type="text" class="form-control" id="developerLocation" placeholder="<%= %>"
-              name="developerLocation" value="<%= typeof developerLocation != 'undefined' ? developerLocation : (count>0)? developer.developerLocation : '' %>" />
+            <input type="text" class="form-control" id="developerLocation" placeholder="<%= %>" name="developerLocation"
+              value="<%= typeof developerLocation != 'undefined' ? developerLocation : (count>0)? developer.developerLocation : '' %>" />
           </div>
 
           <div class="form-row">
@@ -138,13 +141,14 @@
             </div>
           </div>
 
-        
+
           <!---->
           <!---->
           <div class="form-group">
             <label for="contactNo">Phone Number</label>
-            <input type="tel" class="form-control" id="contactNo" name="contactNo" aria-describedby="na" placeholder="<%= %>"
-              name="contactNo" value="<%= typeof contactNo != 'undefined' ? contactNo :(count>0)? developer.contactNo: '' %>" />
+            <input type="tel" class="form-control" id="contactNo" name="contactNo" aria-describedby="na"
+              placeholder="<%= %>" name="contactNo"
+              value="<%= typeof contactNo != 'undefined' ? contactNo :(count>0)? developer.contactNo: '' %>" />
           </div>
 
 
@@ -170,14 +174,17 @@
             <div class="col-md-1 col-xl-6">
               <div class="form-group">
                 <label for="linkedIn">LinkendIn</label>
-                <input type="text" class="form-control" id="linkedIn" name="linkedIn" 
-                aria-describedby="na" placeholder="<%=(count>0)? developer.linkedIn: "eg:example.com"%>"
-                value="<%= typeof linkedIn != 'undefined' ? linkedIn :(count>0)? developer.linkedIn: '' %>"/>
-                
+                <input type="text" class="form-control" id="linkedIn" name="linkedIn" aria-describedby="na"
+                  placeholder="<%=(count>0)? developer.linkedIn: "eg:example.com"%>"
+                  value="<%= typeof linkedIn != 'undefined' ? linkedIn :(count>0)? developer.linkedIn: '' %>" />
+              </div>
+            </div>
+          </div>
 
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" name="description" placeholder="<%=(count>0)? developer.description: "Write your Bio here"%>"
+            <textarea class="form-control" id="description" rows="3" name="description"
+              placeholder="<%=(count>0)? developer.description: "Write your Bio here"%>"
               value="<%= typeof description != 'undefined' ? description :(count>0)? developer.desciption: '' %>"></textarea>
           </div>
 
@@ -193,20 +200,23 @@
   <!-------->
   <script>
     //script for changing "choose file" to file name
-function readSingleFile(e) {
-            const name = e[0].name;
-            document.getElementById("file-label").textContent = name;
-        }
-    
-</script>
+    function readSingleFile(e) {
+      const name = e[0].name;
+      document.getElementById("file-label").textContent = name;
+    }
+
+  </script>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-  integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-  integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
 
 </body>
 

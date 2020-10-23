@@ -44,7 +44,7 @@ const JobSchema = new mongoose.Schema({
     },
     LastDate:
     {
-       type:Date,
+       type:String,
        required:true
     },
     

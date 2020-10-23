@@ -55,7 +55,10 @@
                 <!---->
                 <!---->
                 <!---to be inserted dynamically using ejs-->
-                <h2><%= user.email%></h2>
+                <%if(count>0){%>
+                  <h3><%= developer.name%></h3>
+                <%}%>
+                <h4><%= user.email%></h4>
             <!---->
             <!---->
             <!---->
@@ -64,9 +67,9 @@
 
               <div>
                 <% if(count>0){%>
-                <img src="/image/<%= company.companyIcon %>" height="180" style="border-radius: 30px;">
+                <img src="/image/<%= company.companyIcon %>" height="180" style="border-radius:50%;">
                 <%} else {%>
-                <img src="/images/developerIcon.jpg" height="100" style="border-radius: 20px;">
+                <img src="/images/developerIcon.jpg" height="100" style="border-radius:50%;">
                 <%}%>
                   </div>
                 </br>

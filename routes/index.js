@@ -411,19 +411,32 @@ router.post('/postJob', async (req, res) => {
         jobCity: req.body.jobCity,
         jobState: req.body.jobState,
         jobCountry: req.body.jobCountry,
-        postedBy: docs._id//storing id of current company in this field
-
+        postedBy: docs._id//storing id of current company in this field 
       });
+    
       job.save()
         .then(user => {
           req.flash('success_msg', 'job posted ');
           res.redirect('/company/postedJobs');//include msg.ejs wherever you want to see this msg
           console.log('job successfully posted');
-          //do anything here(TO BE DECIDED)
+        
+          Company.findOneAndUpdate({_id:docs._id},{$push:{"postedJobs":job._id}},{new:true},function(err,company){
+          if(err)
+         console.log(err);
+         else
+         {
+         console.log(company);
+         }
+
         })
         .catch(err => console.log(err));
     }
-  });
+    
+  
+
+        )};
+  
+});
 
 });
 
@@ -449,7 +462,7 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
       resume.githubLink = req.body.githubLink;
       res.json({file:req.file});
       console.log(req.file.id);//file id
-      resume.resumeUpload=req.file.id;
+      resume.resumeUpload=req.file.filename;
       console.log(resume.skills);
       console.log(req.body.skills);
     

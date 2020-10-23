@@ -108,6 +108,7 @@ app.get("/image/:filename", (req, res) => {
 app.use('/', require('./routes/index'));
 app.use('/developer', require('./routes/developer'));
 app.use('/company', require('./routes/company'));
+app.use('/job',require('./routes/job'));
 //app.use('/postJob', require('./routes/postJob'));
 
 app.listen(3000);
