@@ -2,10 +2,9 @@
 <html>
 
 <head>
-    <title>JobLists</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Sign up Form with Rounded Social Buttons</title>
+    <title>All companies</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -51,7 +50,7 @@
 
         </div>
 
-
+<% if(companies.length>0){%>
 
         <% companies.forEach(function(company){ %>
 
@@ -64,9 +63,8 @@
                 <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
                     <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
                     <h5><%= company.companyName %> </h5>
-                    <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>,
-                        <%= company.companyCountry %></p>
-                    <!-- <p>Open Jobs : 2</p>       to be added later -->
+                    <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>, <%= company.companyCountry %></p>
+                    <p>Open Jobs :<%= company.postedJobs.length %> </p>
                 </div>
                 <div class="col-lg-10  col-md-10 col-10" style="font-style:italic">
                     <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
@@ -82,6 +80,9 @@
         </div>
         </br>
         <% }); %>
+    <% }else{ %> 
+        <h1>No companies are registered yet</h1>
+    <% } %> 
     </div>
     <%- include ('partials/footer') %>
 

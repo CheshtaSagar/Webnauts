@@ -11,7 +11,7 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/styles.css" type="text/css">
 
-  <title></title>
+  <title>company</title>
 </head>
 
 <body>
@@ -45,7 +45,7 @@
             </div>
             
             <div class="col-md-8" id="Section2">
-                <div class="form-row" style="border-radius: 8px;background-color:rgb(201, 201, 201); text-align:justify; margin:10px;padding:5px;">
+                <div class="form-row" style="border-radius: 8px;text-align:justify; margin:10px;padding:5px;">
                     <div class="form-group col-md-12">
                 
                        <h4>Edit Profile</h4>
@@ -56,7 +56,7 @@
                 <!---->
                 <!---to be inserted dynamically using ejs-->
                 <%if(count>0){%>
-                  <h3><%= developer.name%></h3>
+                  <h3><%= company.companyName%></h3>
                 <%}%>
                 <h4><%= user.email%></h4>
             <!---->

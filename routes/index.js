@@ -315,7 +315,7 @@ router.post('/developerProfile',upload.single('file'),(req, res) => {
   console.log(req.body);   //for debugging
 
 
-  var developer = new Developer({
+  var developer =({
     email: req.user.email,
     developerLocation: req.body.developerLocation,
     developerCity: req.body.developerCity,
@@ -460,7 +460,7 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
 
       resume.creator = docs.id; //developer id
       resume.githubLink = req.body.githubLink;
-      res.json({file:req.file});
+      //res.json({file:req.file});
       console.log(req.file.id);//file id
       resume.resumeUpload=req.file.filename;
       console.log(resume.skills);
@@ -515,7 +515,6 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
 //for rendering all jobs
   router.get('/allJobs', function (req, res) {
     Job.find({}).populate('postedBy').exec(function (err, jobs) {
-      Company.find({}).exec(function (err, companies) {
         if (err) {
           console.log(err);
         }
@@ -524,16 +523,14 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
           //console.log(jobs);
           //console.log(companies);
           res.render('allJobs', {
-            jobs: jobs,
-            companies: companies,
+            jobs: jobs
           });
         }
-      });
     });
   });
 
   router.get('/allCompanies', function (req, res) {
-      Company.find({}).exec(function (err, companies) {
+      Company.find({}).populate('postedJobs').exec(function (err, companies) {
         if (err) {
           console.log(err);
         }

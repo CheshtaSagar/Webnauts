@@ -20,7 +20,7 @@ router.get('/postedJobs', (req, res) => {
                 else {
                     res.render('postedJobs', {
                         jobs: jobs,
-                        company:company
+                        companyIcon:company.companyIcon
                     })
                 }
             });
@@ -39,6 +39,23 @@ router.get('/edit_postedJobs/:id', function (req, res) {//:id for getting arbitr
             res.render('edit_postedjobs', {
                 job: job
             });
+        }
+    });
+
+});
+
+router.get('/appliedBy/:id', function (req, res) {//:id for getting arbitratry value which id related things to be edited
+
+    Job.findById(req.params.id).populate('appliedBy').exec(function (err, job) {
+        if (err) {
+            return console.log(err);
+        }
+        else {
+            // res.render('edit_postedjobs', {
+            //     job: job
+            // });
+            console.log(job);
+            res.redirect('/company/postedJobs')
         }
     });
 
@@ -177,12 +194,6 @@ router.get('/SearchByLocation',(req, res)=>{
         }
         });
         });
-
-
-
-
-
-
 
 
 module.exports = router;
