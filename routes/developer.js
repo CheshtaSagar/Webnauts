@@ -51,17 +51,17 @@ router.get('/allAppliedJobs', (req, res) => {
         if (err) {
             console.log(err)
         }
-        
+
         else {
             Job.find({ '_id': developer.AppliedJobs }).populate('postedBy').exec(function (err, jobs) {
                 if (err)
                     console.log(err)
                 // res.send('appliedjobs');
                 //         console.log(job);
-                res.render('allAppliedJobs',{
+                res.render('allAppliedJobs', {
 
-                                    jobs:jobs//gives array of job ids for which developer has applied
-                                })
+                    jobs: jobs//gives array of job ids for which developer has applied
+                })
 
             })
         }
@@ -69,6 +69,88 @@ router.get('/allAppliedJobs', (req, res) => {
 
 });
 
+router.get('/subscribe/:id', function (req, res) {
+    Developer.findOne({ 'following': req.params.id }, function (err, developer) {
+        if (err) {
+            console.log(err)
+            throw err;
+        }
+        if (developer) {
+            req.flash('success_msg', 'Already Subscribed for the Company');
+            res.redirect('/allCompanies');
+        }
+        if (!developer) {
 
+            //finding developer with same logged in user id
+            Developer.findOneAndUpdate({ "userDetails": req.user.id }, { $push: { "following": req.params.id } }, { new: true }, function (err, docs) {
+                if (err) {
+                    console.log(err)
+                    throw err;
+                }
+                else {
+                    //console.log(docs);//shows reqd developer
+                    //console.log(req.params.id);
+                    Company.findOneAndUpdate({ _id: req.params.id }, { $push: { "subscribers": docs._id } }, { new: true }, function (err, company) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            //console.log(company);
+                            console.log('Successfully Subscribed for the Company');
+                            req.flash('success_msg', 'Successfully Subscribed for the Company');
+                            res.redirect('/developer/followings');//CHANGE THIS LATER
+                            //res.send('subscribed');
+                        }
+                    });
+                }
+
+            });
+        }
+    })
+});
+//to render the page containg info about all the applied jobs
+router.get('/followings', (req, res) => {
+    (Developer.findOne({ "userDetails": req.user._id }).populate('following')).exec(function (err, developer) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+
+            //console.log(developer);
+            console.log("followings");
+            res.render('followingCompanies', {
+               companies: developer.following//gives array of job ids for which developer has applied
+            })
+        }
+    });
+
+});
+
+
+router.get('/unsubscribe/:id', function (req, res) {
+
+            //finding developer with same logged in user id
+            Developer.findOneAndUpdate({ "userDetails": req.user.id }, { $pull: { "following": req.params.id } }, { new: true }, function (err, docs) {
+                if (err) {
+                    console.log(err)
+                    throw err;
+                }
+                else {
+                    //console.log(docs);//shows reqd developer
+                    //console.log(req.params.id);
+                    Company.findOneAndUpdate({ _id: req.params.id }, { $pull: { "subscribers": docs._id } }, { new: true }, function (err, company) {
+                        if (err)
+                            console.log(err);
+                        else {
+                            //console.log(company);
+                            console.log('Unsubscribed from the Company');
+                            req.flash('success_msg', 'You Unsubscribed from the Company');
+                            res.redirect('/developer/followings');//CHANGE THIS LATER
+                            //res.send('subscribed');
+                        }
+                    });
+                }
+
+            });
+});
 
 module.exports = router;

@@ -68,7 +68,13 @@ const Job = require('./Job');
      },
      companyDisplay:{
         type: String,
-     }
+     },
+     subscribers:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Developer"
+        }       
+    ]
  });
 
  

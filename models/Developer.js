@@ -76,7 +76,13 @@ const DeveloperSchema = new mongoose.Schema({
     ],
     developerIcon:{
         type: String,
-     }
+     },
+     following:[     ///stores all those applied jobs 
+        {
+         type: mongoose.Schema.Types.ObjectId,
+         ref:'Company'
+        }
+    ]
    
 });
 

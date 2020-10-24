@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Followings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+</head>
+
+<body>
+
+    <!--Navbar imported--->
+    <%- include ('partials/nav2') %>
+
+    <!---edit profile body-->
+    <div class="container-fluid">
+
+        <div class="row">
+            <!---->
+            <!---->
+            <!--for side nav bar-->
+            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+                <button type="button" class="btn btn-dark btn-block "><a href="/developer"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block "><a href="/developerProfile"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit your Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developer/allAppliedJobs"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                        <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
+                            style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+
+
+            </div>
+            <!---->
+            <!---->
+            <!---->
+
+
+            <!---->
+            <!---->
+            <!--for edit profile form--->
+            <div class="col-md-8" id="Section2">
+
+
+                <div>
+                    <h2 class="page-title">Following Companies</h2>
+                    <h6 class="page-title">Total followings: <%= companies.length %> </h6>
+                    <br><br>
+                    <%- include ('partials/messages') %>
+                    <% if(companies.length>0){%>
+
+                        <% companies.forEach(function(company){ %>
+                
+                        <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ; border-radius:10px;">
+                            <div class="row">
+                                <div class="col-lg-10  col-md-10 col-10 ">
+                                    <img src="/image/<%= company.companyIcon %>" style="border-radius:20px;" width="100px"
+                                        height="100px"></img>
+                                </div>
+                                <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
+                                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
+                                    <h5><%= company.companyName %> </h5>
+                                    <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>, <%= company.companyCountry %></p>
+
+                                </div>
+                                <div class="col-lg-10  col-md-10 col-10" style="font-style:italic">
+                                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                                    <p></p>                   
+                                    <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                                    <p></p> -->
+                                    <br>
+                                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                                                href="/company/companyDetails/<%= company._id %>">View Company Details</a></button></p>
+                                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                                                href="/developer/unsubscribe/<%= company._id %>">Unsubscribe</a></button></p>
+                
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <% }); %>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+
+
+</html>
