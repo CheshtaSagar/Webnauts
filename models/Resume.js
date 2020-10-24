@@ -62,12 +62,8 @@ const ResumeSchema = new mongoose.Schema({
       [{
         type: String
       }]
-  },
-  resumeUpload:
-  {
-    type: String 
-
   }
+ 
 
 });
 

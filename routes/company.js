@@ -51,11 +51,9 @@ router.get('/appliedBy/:id', function (req, res) {//:id for getting arbitratry v
             return console.log(err);
         }
         else {
-            // res.render('edit_postedjobs', {
-            //     job: job
-            // });
-            console.log(job);
-            res.redirect('/company/postedJobs')
+            res.render('appliedBy', {
+                developers:job.appliedBy 
+            });
         }
     });
 
@@ -194,6 +192,9 @@ router.get('/SearchByLocation',(req, res)=>{
         }
         });
         });
+
+
+
 
 
 module.exports = router;

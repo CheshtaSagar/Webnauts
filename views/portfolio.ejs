@@ -1,0 +1,143 @@
+<!--show portfolio of the developer that has been created using developerPortfolio.ejs-->
+<!doctype html>
+<html>
+
+<head>
+    <title>Developer portfolio</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Portfolio:<%= developer.name %></title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    
+    <div class="container-fluid">
+
+        <body style="background-color:rgb(22, 21, 21);">
+            <%- include ('partials/messages') %>
+            <h1 class="text-center" style="font-size:75px; font-style:italic ;font-weight:100; color:white">Portfolio
+            </h1>
+            <hr style="width:600px; background-color:white">
+            </hr>
+            <div class="container"
+                style="border:2px solid white; border-radius:10px;background-color:white;margin-bottom:40px">
+                <div class="row mt-5">
+
+                    <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic; padding-left:50px ">
+                        <h1 style="font-size:2em; padding-bottom:5px"><%= developer.name %></h1>
+                        <hr style="width:300px; background-color:black">
+                        </hr>
+                        <p style="font-size:1.5em"> Date of Birth :
+                        <p style="font-size:1.25em;"><%= developer.dob %></p>
+                        <p style="font-size:1.5em ">Email Address :
+                        <p style="font-size:1.25em;"><%= developer.email %></p>
+                        <p style="font-size:1.5em">Address :
+                        <p style="font-size:1.25em;"><%= developer.developerLocation %>,<%= developer.developerCity %>,
+                            <%= developer.developerState %>,<%= developer.developerCountry %></p>
+                        <p style="font-size:1.5em">Contact No. :
+                        <p style="font-size:1.25em;"><%= developer.contactNo %></p>
+
+
+
+                    </div>
+                    <div class="col-lg-5 col-md-6 col-6" style="font-style:italic">
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-6" style="font-style:italic">
+                        <img src="/image/<%= developer.developerIcon %>" width="200px" height="200px"
+                            style="border:2px solid white; border-radius:25px;"></img>
+                        </br></br>
+                        <h1 style="font-size:1.5em; padding-bottom:1px">Linked In :</h1>
+                        <p style="font-size:1.25em; "><%= developer.linkedIn %></p>
+                        <h1 style="font-size:1.5em; padding-bottom:5px">Github :</h1>
+                        <p style="font-size:1.25em; "><%= resume.githubLink %></p>
+                    </div>
+
+                </div>
+                </br> </br> </br>
+
+                <div class="row">
+                    <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic; padding-left:50px ">
+                        <h1 style="font-size:2em; padding-bottom:5px">Education</h1>
+                        <hr style="width:300px; background-color:black">
+                        </hr>
+                    </div>
+
+                    <% for(var i=0;i< resume.education.Degree.length ;i++){ %>
+
+                    <div class="row">
+                        <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+
+                            <p style="font-size:1.25em">Institute: <%= resume.education.University[i] %></p>
+                            <p style="font-size:1.25em ">Degree : <%= resume.education.Degree[i] %></p>
+                            <p style="font-size:1.25em ">Branch : <%= resume.education.Branch[i] %></p>
+                            <p style="font-size:1.25em ">Year : <%= resume.education.gradYear[i] %></p>
+                            <hr style="width:950px; background-color:pink">
+                            </hr>
+                        </div>
+
+                    </div>
+                    </br>
+                    <%}%>
+
+</br>
+
+
+<div class="row">
+    <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+    <h1 style="font-size:2em; padding-bottom:5px">Past Experience</h1>
+    <hr style="width:300px; background-color:black" ></hr>
+</div>
+</div>
+
+<% for(var i=0;i< resume.pastExperience.Title.length ;i++){ %>
+                    <div class="row">
+                        <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+
+                            <p style="font-size:1.25em">Title: <%= resume.pastExperience.Title[i]%></p>
+                            <p style="font-size:1.25em">Institute: <%= resume.pastExperience.Institute[i]%></p>
+                            <p style="font-size:1.25em ">From: <%= resume.pastExperience.StartDate[i]%> -
+                                <%= resume.pastExperience.EndDate[i]%></p>
+                            <p style="font-size:1.25em;">Description: <%= resume.pastExperience.Description[i]%> </p>
+                            <hr style="width:950px; background-color:pink">
+                            </hr>
+                        </div>
+                    </div>
+                    </br>
+                    <%}%> 
+          <div class="row">
+       <div style="font-style:italic; padding-left:50px ">
+               <h1 style="font-size:2em; padding-bottom:5px">Skills</h1>
+         <hr style="width:300px;margin-right:780px; background-color:black" ></hr>
+         <% for(var i=0;i<resume.skills.length;i++) {%>
+                    <p style="font-size:1.5em"><%= i+1 %> <%= resume.skills[i]%> </p>
+                    <%}%>
+           </br>
+
+        <h1 style="font-size:2em; padding-bottom:5px">Description:-</h1>
+         <hr style="width:300px;margin-right:780px; background-color:black" ></hr>
+        <p style="font-size:1.25em;"><%= developer.description%></p>
+
+                </div>
+
+            </div>
+    </div>
+    </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

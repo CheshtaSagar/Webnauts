@@ -133,12 +133,29 @@ router.get('/developer', function (req, res) {
     res.redirect('developerProfile')
 
     else
-    res.render('developer', {
-    title: 'developer',
-    'user': req.user,
-    'developer':docs
-    
-  })
+    {
+       //condition to give resume button if it exists
+      var exist;
+      Resume.findOne({ "creator": docs._id }, function (err, resume){
+        if(err)
+        {
+            console.log(err);
+        }  
+        else if(!resume)
+        { 
+          exist=0;
+          res.render('developer', {title: 'developer','user': req.user,'developer':docs,'exist':exist });
+           }
+
+        else
+        { 
+          exist=1;
+          res.render('developer', {title: 'developer','user': req.user,'developer':docs,'exist':exist });
+        }
+
+
+});
+    }
 });
 
 });
@@ -444,7 +461,7 @@ router.post('/postJob', async (req, res) => {
 
 
 //to post developer portfolio   
-router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
+router.post('/developerPortfolio', async (req, res) => {
 
   console.log(req.user._id);//user id(not the company id)
 
@@ -460,9 +477,6 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
 
       resume.creator = docs.id; //developer id
       resume.githubLink = req.body.githubLink;
-      //res.json({file:req.file});
-      console.log(req.file.id);//file id
-      resume.resumeUpload=req.file.filename;
       console.log(resume.skills);
       console.log(req.body.skills);
     
@@ -496,7 +510,7 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
       resume.save()
         .then(user => {
           req.flash('success_msg', 'resume posted ');
-          res.redirect('developerProfile');//include msg.ejs wherever you want to see this msg
+          res.redirect('developer/portfolio');//include msg.ejs wherever you want to see this msg
           console.log('resume successfully posted');
         })
         .catch(err => console.log(err));
@@ -542,6 +556,19 @@ router.post('/developerPortfolio',upload.single('file'), async (req, res) => {
       });
     });
 
+
+    router.get('/allDevelopers', function (req, res) {
+      Developer.find({}).exec(function (err, developers) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.render('allDevelopers', {
+            developers: developers
+          });
+        }
+      });
+    });
 
     
 

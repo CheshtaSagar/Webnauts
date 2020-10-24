@@ -1,4 +1,4 @@
-<!-------Company profile that appears after login-->
+<!-------Developer profile that appears after login-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,9 +86,14 @@
                     <h1 class="mt-4" style="font-size:1.75em">LinkedIn :- </h1>
                     <p style="font-style:italic ; font-size:1.25em"> <%= developer.linkedIn %> </p>
                     </p>
+                    <% if(exist!=0){%>
+                        <div>
+                         <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                             href="/developer/portfolio/<%= developer._id%>"> View your Portfolio</a></button></p>
+                        </div> 
+                        <%}%>
                 </div>
                
-                
             </div>
         </div>
     </div>

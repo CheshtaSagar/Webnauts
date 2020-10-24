@@ -7,6 +7,7 @@ const User = require('../models/User');
 const Company = require('../models/Company');
 const Job = require('../models/Job');
 const Developer = require('../models/Developer');
+const Resume = require('../models/Resume');
 
 
 //to let user apply for an opening
@@ -68,6 +69,41 @@ router.get('/allAppliedJobs', (req, res) => {
     });
 
 });
+
+
+
+//to let user access resume designed
+router.get('/portfolio/:id',(req,res)=>
+{
+    Developer.findOne({_id: req.params.id }, function (err, developer) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+        Resume.findOne({ "creator": developer._id }, function (err, resume){
+            if(err)
+            {
+                console.log(err);
+            }
+            else if(!resume)
+            res.send('OOps!!No resume exists');
+            else
+            {
+
+              res.render('portfolio',{
+                  resume:resume,
+                  developer:developer
+              });
+
+            }
+
+            
+        });
+    }
+});
+
+});
+
 
 
 

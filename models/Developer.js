@@ -76,8 +76,12 @@ const DeveloperSchema = new mongoose.Schema({
     ],
     developerIcon:{
         type: String,
-     }
+     },
+     resumeUpload:
+     {
+       type: String 
    
+     }
 });
 
 const Developer = mongoose.model('Developer', DeveloperSchema);
