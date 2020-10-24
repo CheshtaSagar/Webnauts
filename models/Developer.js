@@ -79,9 +79,16 @@ const DeveloperSchema = new mongoose.Schema({
      },
      resumeUpload:
      {
-       type: String 
+       type: String
+     }, 
+     following:[     ///stores all those applied jobs 
+        {
+         type: mongoose.Schema.Types.ObjectId,
+         ref:'Company'
+        }
+    ]
    
-     }
+     
 });
 
 const Developer = mongoose.model('Developer', DeveloperSchema);

@@ -49,7 +49,7 @@
             </div>
 
         </div>
-
+        <%- include ('partials/messages') %>
 <% if(companies.length>0){%>
 
         <% companies.forEach(function(company){ %>
@@ -74,6 +74,8 @@
                     <br>
                     <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
                                 href="/company/companyDetails/<%= company._id %>">View Company Details</a></button></p>
+                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                                href="/developer/subscribe/<%= company._id %>">Subscribe</a></button></p>
 
                 </div>
             </div>
