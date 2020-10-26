@@ -510,7 +510,7 @@ router.post('/developerPortfolio', async (req, res) => {
       resume.save()
         .then(user => {
           req.flash('success_msg', 'resume posted ');
-          res.redirect('developer/portfolio');//include msg.ejs wherever you want to see this msg
+          res.redirect('developer/portfolio/docs._id');//include msg.ejs wherever you want to see this msg
           console.log('resume successfully posted');
         })
         .catch(err => console.log(err));

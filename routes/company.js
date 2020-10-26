@@ -44,7 +44,9 @@ router.get('/edit_postedJobs/:id', function (req, res) {//:id for getting arbitr
 
 });
 
-router.get('/appliedBy/:id', function (req, res) {//:id for getting arbitratry value which id related things to be edited
+
+//see applicants of a particular job
+router.get('/appliedBy/:id', function (req, res) {
 
     Job.findById(req.params.id).populate('appliedBy').exec(function (err, job) {
         if (err) {
@@ -52,7 +54,8 @@ router.get('/appliedBy/:id', function (req, res) {//:id for getting arbitratry v
         }
         else {
             res.render('appliedBy', {
-                developers:job.appliedBy 
+                developers:job.appliedBy,
+                job:job 
             });
         }
     });

@@ -74,6 +74,19 @@ const DeveloperSchema = new mongoose.Schema({
          ref:'Job'
         }
     ],
+    Status: //stores those jobs that have been accepted or rejected
+    [{
+      current:{
+          type:String,
+          default:'pending'
+      },
+      Job:
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Job' 
+      }
+    }
+    ],
     developerIcon:{
         type: String,
      },
@@ -81,7 +94,7 @@ const DeveloperSchema = new mongoose.Schema({
      {
        type: String
      }, 
-     following:[     ///stores all those applied jobs 
+     following:[     ///stores all developers that are following 
         {
          type: mongoose.Schema.Types.ObjectId,
          ref:'Company'

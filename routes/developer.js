@@ -60,7 +60,7 @@ router.get('/allAppliedJobs', (req, res) => {
                 // res.send('appliedjobs');
                 //         console.log(job);
                 res.render('allAppliedJobs', {
-
+                    title:'All Applied Jobs',
                     jobs: jobs//gives array of job ids for which developer has applied
                 })
 
@@ -71,7 +71,7 @@ router.get('/allAppliedJobs', (req, res) => {
 });
 
 router.get('/subscribe/:id', function (req, res) {
-    Developer.findOne({ 'following': req.params.id }, function (err, developer) {
+    Developer.findOne({"userDetails":req.user._id, 'following': req.params.id }, function (err, developer) {
         if (err) {
             console.log(err)
             throw err;
@@ -187,6 +187,69 @@ router.get('/portfolio/:id',(req,res)=>
 });
 
 
+//to set status of job application of developer as accepted
+router.get('/accept/:devId/:jobId',(req,res)=>{
+   
+Developer .findOneAndUpdate({ _id: req.params.devId },
+         { $set: { "Status":{"current":"Accepted","Job":req.params.jobId} }}, 
+         { new: true }, function (err, developer) {
+           if(err)
+           console.log(err);
+           else
+           {
+            req.flash('success_msg', developer.name +'has been selected');
+               console.log(developer.name +'has been selected');
+               //redirect HERE
+               res.redirect('/company/postedJobs');
+             }
+
+         });
 
 
+});
+//to set status of job application of developer as rejected
+router.get('/reject/:devId/:jobId',(req,res)=>{
+   
+    Developer .findOneAndUpdate({ _id: req.params.devId },
+             { $set: { "Status":{"current":"Rejected","Job":req.params.jobId} }}, 
+             { new: true }, function (err, developer) {
+               if(err)
+               console.log(err);
+               else
+               {
+                req.flash('success_msg', developer.name +'has been rejected');
+                   console.log(developer.name +'has been rejected');
+                   res.redirect('/company/postedJobs');
+                 }
+    
+             });
+    
+    
+    });
+
+
+ //to  show accepted or rejected jobs   
+router.get('/allStats/:string',(req,res)=>{
+    Developer.findOne({ "userDetails": req.user._id }).populate('Status.Job').exec(function (err, developer) {
+        if (err) {
+            console.log(err)
+        }
+        else 
+        {
+        console.log(developer.Status);
+        if(req.params.string==='Accepted')
+        res.render('allStats',{
+            Status:developer.Status,
+            title:'Accepted Applications'
+        });
+        if(req.params.string==='Rejected')
+        res.render('allStats',{
+            Status:developer.Status,
+            title:'Rejected Applications'
+        });
+     
+    }
+    
+});
+});
 module.exports = router;

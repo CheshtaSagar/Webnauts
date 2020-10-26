@@ -85,13 +85,13 @@
                             <div class="row">
 
                                 <div class="sm-12">
-                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0"><a class="nav-link"
-                                            href="/developer/accept/<%= developer._id %>">Accept</a></button>
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="accept" value="Accept"><a class="nav-link"
+                                            href="/developer/accept/<%= developer._id %>/<%= job._id%>">Accept</a></button>
                                 </div>
                                 </br>
                                 <div class="sm-12">
-                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0"><a class="nav-link"
-                                            href="/developer/reject/<%= developer._id %>">Reject</a></button>
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="reject"><a class="nav-link"
+                                            href="/developer/reject/<%= developer._id %>/<%= job._id%>">Reject</a></button>
                                 </div>
                             </div>
                         </div>

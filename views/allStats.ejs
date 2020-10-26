@@ -55,14 +55,22 @@
                         
                     <button type="button" class="btn btn-outline-dark"><a class="nav-link"
                         href="/developer/allStats/<%= 'Rejected' %>">Rejected Applications</a></button>
-
-
+                    
+                        <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                            href="/developer/allAppliedJobs">All Applied Jobs</a></button> 
+        
                     <h2 class="page-title"><%= title %></h2>
                     <br><br>
                     <%- include ('partials/messages') %>
-                    <% if(jobs.length>0) {%>
-                    <% jobs.forEach(function(job){ %>
+       <!--------------------->
+       <!--------------------->
+       <!--------------------->             
+                    
+                    <% if(title==='Accepted Applications'){%>
+                    <% if(Status.length>0) {%>
 
+                    <% Status.forEach(function(status){ %>
+                    <%if(status.current==='Accepted'){ var job=status.Job;%>
                     <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
                         <div class="row">
                             <div class="col-lg-4  col-md-4 col-4 ">
@@ -90,10 +98,61 @@
                         </div>
                     </div>
                     </br>
+                    <%}%>
+                
                     <% }); %>
                     <% }else{ %>
                         <h1>no jobs are applied yet</h1>
                     <% } %> 
+
+                    <%}%>
+
+<!--------------------->
+<!--------------------->
+<!--------------------->
+                    <% if(title==='Rejected Applications'){%>
+                        <% if(Status.length>0) {%>
+    
+                        <% Status.forEach(function(status){ %>
+                        <%if(status.current==='Rejected'){ var job=status.Job;%>
+                        <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
+                            <div class="row">
+                                <div class="col-lg-4  col-md-4 col-4 ">
+                                    <img src="/image/<%= job.postedBy.companyIcon %> " width="100px" height="100px"></img>
+                                </div>
+                                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                                    <p>Job Type : <%= job.jobType %> </p>
+                                    <p>Experience Required : <%= job.min_exp %> </p>
+                                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                                    <p>Skills Required : <%= job.jobSkills %></p>
+                                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                        <%= job.jobCountry %></p>
+                                </div>
+    
+                                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                                    <p><%= job.jobDescription %></p>
+                                    </br>
+                                    <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                                    <p><%= job.postedBy.companyName %></p>
+    
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <%}%>
+                    
+                        <% }); %>
+                        <% }else{ %>
+                            <h1>no applications have been rejected yet</h1>
+                        <% } %> 
+    
+                        <%}%>
+    
+    
+<!--------------------->
                 </div>
             </div>
         </div>
