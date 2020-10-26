@@ -74,16 +74,17 @@
                     <br>
                     <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
                                 href="/company/companyDetails/<%= company._id %>">View Company Details</a></button></p>
+                                <% if (loggedIn&& user.userType=='developer') { %>
                     <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
                                 href="/developer/subscribe/<%= company._id %>">Subscribe</a></button></p>
-
+                    <% } %> 
                 </div>
             </div>
         </div>
         </br>
         <% }); %>
     <% }else{ %> 
-        <h1>No companies are registered yet</h1>
+        No companies are found
     <% } %> 
     </div>
     <%- include ('partials/footer') %>

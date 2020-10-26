@@ -95,16 +95,18 @@
                                  
                     <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
                     <p><%= job.postedBy.companyName %></p>
+                    <% if (loggedIn&& user.userType=='developer') { %>
                     <p> <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
                         href="/developer/apply/<%= job._id %>" >Apply</a></button></p>
-
+                    <% }%>
+                         
                 </div>
             </div>
         </div>
         </br>
         <% }); %>
         <% }else{ %>
-            <h1>no jobs posted yet</h1>
+            no jobs re found
         <% } %> 
         </div>
         <%- include ('partials/footer') %>

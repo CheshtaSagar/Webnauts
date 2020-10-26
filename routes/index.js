@@ -528,6 +528,7 @@ router.post('/developerPortfolio', async (req, res) => {
 
 //for rendering all jobs
   router.get('/allJobs', function (req, res) {
+    var loggedIn = (req.isAuthenticated()) ? true : false;
     Job.find({}).populate('postedBy').exec(function (err, jobs) {
         if (err) {
           console.log(err);
@@ -537,20 +538,23 @@ router.post('/developerPortfolio', async (req, res) => {
           //console.log(jobs);
           //console.log(companies);
           res.render('allJobs', {
-            jobs: jobs
+            jobs: jobs,
+            loggedIn:loggedIn
           });
         }
     });
   });
 
   router.get('/allCompanies', function (req, res) {
+    var loggedIn = (req.isAuthenticated()) ? true : false;
       Company.find({}).populate('postedJobs').exec(function (err, companies) {
         if (err) {
           console.log(err);
         }
         else {
           res.render('allCompanies', {
-            companies: companies
+            companies: companies,
+            loggedIn: loggedIn
           });
         }
       });

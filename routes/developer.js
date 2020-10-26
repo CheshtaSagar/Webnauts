@@ -71,12 +71,14 @@ router.get('/allAppliedJobs', (req, res) => {
 });
 
 router.get('/subscribe/:id', function (req, res) {
-    Developer.findOne({ 'following': req.params.id }, function (err, developer) {
+    Developer.findOne({"userDetails":req.user._id, 'following': req.params.id }, function (err, developer) {
         if (err) {
             console.log(err)
             throw err;
         }
         if (developer) {
+            console.log('80');
+            //console.log(developer);
             req.flash('success_msg', 'Already Subscribed for the Company');
             res.redirect('/allCompanies');
         }
