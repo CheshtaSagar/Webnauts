@@ -77,6 +77,8 @@ router.get('/subscribe/:id', function (req, res) {
             throw err;
         }
         if (developer) {
+            console.log('80');
+            //console.log(developer);
             req.flash('success_msg', 'Already Subscribed for the Company');
             res.redirect('/allCompanies');
         }

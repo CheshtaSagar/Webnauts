@@ -42,13 +42,20 @@
         
       </ul>
       <div>
+        <% if (user) { %>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/profile">Dashboard</a>
+            </li>
+            </ul>
+        <% } else{%> 
         <ul class="nav-item ">
           <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
             href="/register" >Register</a></button>
             <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-              href="/login" >Login</a></button>
-          
+              href="/login" >Login</a></button>          
           </ul>
+        <% } %> 
       </div>
 
     </div>
