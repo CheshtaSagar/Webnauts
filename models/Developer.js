@@ -76,14 +76,14 @@ const DeveloperSchema = new mongoose.Schema({
     ],
     Status: //stores those jobs that have been accepted or rejected
     [{
+        _id:
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref:'Job' 
+        },
       current:{
           type:String,
           default:'pending'
-      },
-      Job:
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'Job' 
       }
     }
     ],

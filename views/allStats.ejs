@@ -32,6 +32,8 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                        <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
+                            style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -70,11 +72,11 @@
                     <% if(Status.length>0) {%>
 
                     <% Status.forEach(function(status){ %>
-                    <%if(status.current==='Accepted'){ var job=status.Job;%>
+                    <%if(status.current==='Accepted'){ var job=status._id;%>
                     <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
                         <div class="row">
                             <div class="col-lg-4  col-md-4 col-4 ">
-                                <img src="/image/<%= job.postedBy.companyIcon %> " width="100px" height="100px"></img>
+                                <!-- <img src="/image/ job.postedBy.companyIcon  " width="100px" height="100px"></img> -->
                             </div>
                             <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
                                 <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
@@ -114,7 +116,7 @@
                         <% if(Status.length>0) {%>
     
                         <% Status.forEach(function(status){ %>
-                        <%if(status.current==='Rejected'){ var job=status.Job;%>
+                        <%if(status.current==='Rejected'){ var job=status._id;%>
                         <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
                             <div class="row">
                                 <div class="col-lg-4  col-md-4 col-4 ">
