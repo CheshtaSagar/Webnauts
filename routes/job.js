@@ -6,6 +6,9 @@ const User = require("../models/User");
 const Company = require("../models/Company");
 const Developer = require("../models/Developer");
 const Job = require("../models/Job");
+var auth = require('../config/auth');
+var isDeveloper = auth.isDeveloper;
+var isCompany = auth.isCompany;
 
 //to search jobs by location
 router.get("/SearchByLocation", (req, res) => {

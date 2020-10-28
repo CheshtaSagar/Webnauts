@@ -9,17 +9,26 @@ const Company = require("../models/Company");
 const Job = require("../models/Job");
 const Developer = require("../models/Developer");
 const Resume = require("../models/Resume");
+var auth = require('../config/auth');
+var isDeveloper = auth.isDeveloper;
+var isCompany = auth.isCompany;
 
 //to let user apply for an opening
-router.get("/apply/:id", function (req, res) {
-  var developer = {
-    AppliedJobs: req.params.id,
-    Status: {
-      _id: req.params.id,
-      current: "Pending",
-    },
-  };
-
+router.get("/apply/:id",isDeveloper, function (req, res) {
+  Developer.findOne(
+    { userDetails: req.user._id, AppliedJobs: req.params.id },
+    function (err, developer) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      if (developer) {
+       // console.log("80");
+        //console.log(developer);
+        req.flash("success_msg", "Already applied for the job");
+        res.redirect("/allJobs");
+      }
+      if (!developer) {
   //finding developer with same logged in user id
   Developer.findOneAndUpdate(
     { userDetails: req.user.id },
@@ -55,13 +64,15 @@ router.get("/apply/:id", function (req, res) {
       }
     }
   );
+  }
+}) 
 });
 
 ///
 ///////
 ////////
 //to render the page containing info about all the applied jobs
-router.get("/allAppliedJobs", (req, res) => {
+router.get("/allAppliedJobs",isDeveloper, (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("AppliedJobs")
     .exec(function (err, developer) {
@@ -83,7 +94,7 @@ router.get("/allAppliedJobs", (req, res) => {
     });
 });
 
-router.get("/subscribe/:id", function (req, res) {
+router.get("/subscribe/:id",isDeveloper, function (req, res) {
   Developer.findOne(
     { userDetails: req.user._id, following: req.params.id },
     function (err, developer) {
@@ -138,7 +149,7 @@ router.get("/subscribe/:id", function (req, res) {
 
 
 //to render the page containg info about all the applied jobs
-router.get("/followings", (req, res) => {
+router.get("/followings",isDeveloper, (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("following")
     .exec(function (err, developer) {
@@ -154,7 +165,7 @@ router.get("/followings", (req, res) => {
     });
 });
 
-router.get("/unsubscribe/:id", function (req, res) {
+router.get("/unsubscribe/:id",isDeveloper, function (req, res) {
   //finding developer with same logged in user id
   Developer.findOneAndUpdate(
     { userDetails: req.user.id },
@@ -215,7 +226,7 @@ router.get("/portfolio/:id", (req, res) => {
 
 
 //to set status of job application of developer as accepted
-router.get("/accept/:devId/:jobId", (req, res) => {
+router.get("/accept/:devId/:jobId", isCompany,(req, res) => {
 
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
@@ -281,7 +292,7 @@ main().catch(console.error);
 
 
 
-router.get("/reject/:devId/:jobId", (req, res) => {
+router.get("/reject/:devId/:jobId",isCompany, (req, res) => {
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
     { $set: { "Status.$.current": "Rejected" } },
@@ -300,7 +311,7 @@ router.get("/reject/:devId/:jobId", (req, res) => {
 
 
 //to  show accepted or rejected jobs
-router.get("/allStats/:string", (req, res) => {
+router.get("/allStats/:string", isDeveloper,(req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("Status._id")
     .exec(function (err, developer) {

@@ -15,6 +15,9 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 const methodOverride = require("method-override");
 const { storage, upload } = require("../config/grid");
+var auth = require('../config/auth');
+var isDeveloper = auth.isDeveloper;
+var isCompany = auth.isCompany;
 
 Grid.mongo = mongoose.mongo;
 
@@ -121,7 +124,7 @@ router.get("/profile", (req, res) => {
 });
 
 //to redirect user to developer main profile
-router.get("/developer", function (req, res) {
+router.get("/developer", isDeveloper, function (req, res) {
   Developer.findOne({ userDetails: req.user._id }, function (err, docs) {
     if (err) {
       console.log(err);
@@ -163,7 +166,7 @@ router.get("/developerPortfolio", function (req, res) {
 });
 
 // redirect to developer edit Profile page
-router.get("/developerProfile", function (req, res) {
+router.get("/developerProfile",isDeveloper, function (req, res) {
   var count;
   Developer.findOne({ userDetails: req.user._id }, function (err, docs) {
     if (err) {
@@ -186,7 +189,7 @@ router.get("/developerProfile", function (req, res) {
 });
 
 //company main profile
-router.get("/companyProfile", (req, res) => {
+router.get("/companyProfile",isCompany, (req, res) => {
   Company.findOne({ creator: req.user._id }, function (err, docs) {
     if (err) {
       console.log(err);
@@ -204,7 +207,7 @@ router.get("/companyProfile", (req, res) => {
 });
 
 //company edit profile page
-router.get("/company", (req, res) => {
+router.get("/company",isCompany, (req, res) => {
   var count;
 
   Company.findOne({ creator: req.user._id }, function (err, docs) {
@@ -229,7 +232,7 @@ router.get("/company", (req, res) => {
 
 //post request for edit company profile
 router.post(
-  "/company",
+  "/company",isCompany,
   upload.fields([
     { name: "logo", maxCount: 1 },
     { name: "display", maxCount: 1 },
@@ -302,7 +305,7 @@ router.post(
 );
 
 //post request for edit developer profile
-router.post("/developerProfile", upload.single("file"), (req, res) => {
+router.post("/developerProfile",isDeveloper, upload.single("file"), (req, res) => {
   console.log(req.user._id); //for debugging
   console.log(req.body); //for debugging
 
@@ -368,7 +371,7 @@ router.post("/developerProfile", upload.single("file"), (req, res) => {
 });
 
 //rendering postJob page
-router.get("/postJob", (req, res) => {
+router.get("/postJob", isCompany,(req, res) => {
   res.render("postJob", {
     user: req.user,
   });
@@ -378,7 +381,7 @@ router.get("/postJob", (req, res) => {
 
 
 //for posting job
-router.post("/postJob", async (req, res) => {
+router.post("/postJob",isCompany, async (req, res) => {
   console.log(req.user._id); //user id(not the company id)
 
   //to get company id by comparing creator and userId
@@ -436,7 +439,7 @@ router.post("/postJob", async (req, res) => {
             secure: false, // true for 465, false for other ports
             auth: {
               user: "infinityjobs3@gmail.com", 
-              pass: "********", // clear this field 
+              pass: "webnauts", // clear this field 
             },
           });
         
@@ -478,7 +481,7 @@ router.post("/postJob", async (req, res) => {
 
 
 //to post developer portfolio
-router.post("/developerPortfolio", async (req, res) => {
+router.post("/developerPortfolio", isDeveloper,async (req, res) => {
   console.log(req.user._id); //user id(not the company id)
 
   //to get developer id by comparing userDetails and userId

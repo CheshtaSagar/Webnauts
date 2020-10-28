@@ -6,8 +6,12 @@ const passport = require("passport");
 const User = require("../models/User");
 const Company = require("../models/Company");
 const Job = require("../models/Job");
+var auth = require('../config/auth');
+const Developer = require("../models/Developer");
+var isDeveloper = auth.isDeveloper;
+var isCompany = auth.isCompany;
 
-router.get("/postedJobs", (req, res) => {
+router.get("/postedJobs", isCompany,(req, res) => {
   Company.findOne({ creator: req.user._id }, function (err, company) {
     if (err) {
       console.log(err);
@@ -24,9 +28,10 @@ router.get("/postedJobs", (req, res) => {
       });
     }
   });
+
 });
 
-router.get("/edit_postedJobs/:id", function (req, res) {
+router.get("/edit_postedJobs/:id", isCompany,function (req, res) {
   //:id for getting arbitratry value which id related things to be edited
 
   Job.findById(req.params.id, function (err, job) {
@@ -41,7 +46,7 @@ router.get("/edit_postedJobs/:id", function (req, res) {
 });
 
 //see applicants of a particular job
-router.get("/appliedBy/:id", function (req, res) {
+router.get("/appliedBy/:id",isCompany, function (req, res) {
   Job.findById(req.params.id)
     .populate("appliedBy")
     .exec(function (err, job) {
@@ -56,7 +61,7 @@ router.get("/appliedBy/:id", function (req, res) {
     });
 });
 
-router.post("/edit_postedjobs/:id", function (req, res) {
+router.post("/edit_postedjobs/:id",isCompany, function (req, res) {
   const id = req.params.id;
 
   const job = {
@@ -113,7 +118,7 @@ router.post("/edit_postedjobs/:id", function (req, res) {
   }
 });
 
-router.get("/delete_postedJob/:id", function (req, res) {
+router.get("/delete_postedJob/:id",isCompany, function (req, res) {
   Job.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       req.flash("error_msg", "Error while deleting");
@@ -127,17 +132,27 @@ router.get("/delete_postedJob/:id", function (req, res) {
 });
 
 router.get("/companyDetails/:id", function (req, res) {
+  var loggedIn = req.isAuthenticated() ? true : false;
   Company.findById(req.params.id).exec(function (err, company) {
     if (err) {
       console.log(err);
-    } else {
+    } else {Job.find({ postedBy: company._id }).exec(function (err, jobs) {
+      if (err) {
+        console.log(err);
+      } else {
       console.log(company);
       res.render("companyDetails", {
         company: company,
+        jobs:jobs,
+        loggedIn:loggedIn
       });
     }
   });
+  }
+})
 });
+
+
 
 //to search jobs by location
 router.get("/SearchByLocation", (req, res) => {
