@@ -4,8 +4,13 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
 const User = require("../models/User");
-const Company = require("../models/Company");
+const {Company,Post} = require("../models/Company");
 const Job = require("../models/Job");
+const Grid = require("gridfs-stream");
+const { storage, upload } = require("../config/grid");
+
+Grid.mongo = mongoose.mongo;
+
 
 router.get("/postedJobs", (req, res) => {
   Company.findOne({ creator: req.user._id }, function (err, company) {
@@ -119,10 +124,17 @@ router.get("/delete_postedJob/:id", function (req, res) {
       req.flash("error_msg", "Error while deleting");
       console.log(err);
     } else {
-      // console.log('deleted');
-      req.flash("success_msg", "Job deleted!");
-      res.redirect("/company/postedJobs");
-    }
+      Company.findOneAndUpdate(
+        { "creator": req.user.id },
+        { $pull: { postedJobs: req.params.id } },
+        { new: true },
+        function (err, company) {
+          if (err) console.log(err);
+          else
+     { req.flash("success_msg", "Job deleted!");
+      res.redirect("/company/postedJobs");}
+    });
+  }
   });
 });
 
@@ -180,5 +192,77 @@ router.get("/SearchByName", (req, res) => {
     }
   });
 });
+
+//////////////////////not of any use right now
+router.get("/updates",function(req,res){
+  res.render("updates", {
+    user: req.user,
+  });
+});
+/////////////////
+
+
+
+//to post updates or info regarding company
+router.post("/postUpdate", upload.single("file"), (req, res) => {
+  Company.findOne({'creator':req.user._id},(err,company)=>{
+    
+    if(err)
+    console.log(err);
+
+    else
+    {
+      const post=new Post({
+        title:req.body.title,
+        description:req.body.updates,
+        image:req.file.filename,
+        postedBy:company._id
+      });
+      post.save().then((user) => {
+        req.flash("success_msg", "Posted successfully ");
+        console.log("Successfully posted");
+        res.redirect("/companyProfile");
+      });
+      Company.findOneAndUpdate(
+        { _id: company._id },
+        { $push: { postedUpdates: post._id } },
+        { new: true },
+        function (err, company) {
+          if (err) console.log(err);
+          else {
+            console.log(company._id);
+          }
+        }
+      );
+
+    }
+  });
+});
+
+
+//to delete post
+router.get("/delete_postedUpdate/:id", function (req, res) {
+  Post.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      req.flash("error_msg", "Error while deleting");
+      console.log(err);
+    } else {
+      // console.log('deleted');
+      Company.findOneAndUpdate(
+        { "creator": req.user.id },
+        { $pull: { postedUpdates: req.params.id } },
+        { new: true },
+        function (err, company) {
+          if (err) console.log(err);
+          else {
+      req.flash("success_msg", "Post deleted!");
+      res.redirect("/companyProfile");
+    }
+  });
+  }
+});
+});
+
+
 
 module.exports = router;
