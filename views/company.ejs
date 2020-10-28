@@ -164,7 +164,7 @@
               <!---->
               <div class="form-group">
                 <label for="companyDescription">Description</label>
-                <textarea class="form-control" placeholder="<%=  %>" id="companyDescription" rows="3"
+                <textarea class="form-control ta" placeholder="<%=  %>" id="companyDescription" rows="3"
                   name="companyDescription"
                   value="<%= typeof companyDescription != 'undefined' ? companyDescription :(count>0)? company.companyDescription: '' %>"></textarea>
               </div>
@@ -199,7 +199,8 @@
   integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
   integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+  <script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
+  <script src="/assets/main.js"></script>
 </body>
 
 </html>
