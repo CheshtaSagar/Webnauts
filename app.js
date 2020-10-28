@@ -1,5 +1,6 @@
 //entry point of the project
 const express= require('express');
+const nodemailer = require("nodemailer");
 const path= require('path');
 const mongoose= require('mongoose');
 const config= require('./config/database');

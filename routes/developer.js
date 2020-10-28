@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
@@ -59,7 +60,7 @@ router.get("/apply/:id", function (req, res) {
 ///
 ///////
 ////////
-//to render the page containg info about all the applied jobs
+//to render the page containing info about all the applied jobs
 router.get("/allAppliedJobs", (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("AppliedJobs")
@@ -134,6 +135,8 @@ router.get("/subscribe/:id", function (req, res) {
     }
   );
 });
+
+
 //to render the page containg info about all the applied jobs
 router.get("/followings", (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
@@ -205,8 +208,15 @@ router.get("/portfolio/:id", (req, res) => {
   });
 });
 
+
+
+
+
+
+
 //to set status of job application of developer as accepted
 router.get("/accept/:devId/:jobId", (req, res) => {
+
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
     { $set: { "Status.$.current": "Accepted" } },
@@ -214,6 +224,48 @@ router.get("/accept/:devId/:jobId", (req, res) => {
     function (err, developer) {
       if (err) console.log(err);
       else {
+
+      ////////////////////
+
+   async function main() {
+  
+  let testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, 
+    auth: {
+      user: "infinityjobs3@gmail.com",
+      pass: "***", //clear this field before pushing the code
+    },
+  });
+
+  // send mail with defined transport object
+    let info = await transporter.sendMail({
+    from:'"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
+    to: developer.email, // list of receivers
+    subject: "Hello "+ developer.name, // Subject line
+    html: "Congratulations</br><h6>Your application has been approved and you have been selected!!!You will receive an email from the company in few days.Kindly visit www.infinityJobs.com for more details</h6></br>Regards,InfinityJobs", // html body
+  });
+
+
+  if(info.messageId)
+  console.log('Mail sent');
+
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+
+}
+
+main().catch(console.error);
+//////////////////////////
+
+
         req.flash("success_msg", developer.name + " has been selected");
         console.log(developer.name + "has been selected");
         //redirect HERE
@@ -223,6 +275,12 @@ router.get("/accept/:devId/:jobId", (req, res) => {
   );
 });
 
+
+
+
+
+
+
 router.get("/reject/:devId/:jobId", (req, res) => {
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
@@ -231,104 +289,15 @@ router.get("/reject/:devId/:jobId", (req, res) => {
     function (err, developer) {
       if (err) console.log(err);
       else {
-        req.flash("success_msg", developer.name + " has been Rejected");
-        console.log(developer.name + "has been selected");
+        req.flash("success_msg", developer.name + " has been rejected");
+        console.log(developer.name + "has been rejected");
         //redirect HERE
         res.redirect("/company/postedJobs");
       }
     }
   );
 });
-// router.get('/accept/:devId/:jobId', (req, res) => {
-//     Developer.findOneAndUpdate({ _id: req.params.devId, "Status": {  _id: req.params.jobId, "current": "Rejected" } }, { $set: { "Status": { _id: req.params.jobId,"current": "Accepted" } } }, { new: true },function (err, developer) {
-//         if (err)
-//             console.log(err);
-//         if (developer) {
-//             console.log(developer);
-//             console.log("hii");
-//             // Developer.Update({ $set: { "Status": { _id: req.params.jobId,"current": "Rejected" } } }, { new: true }, function (err, developer) {
-//             //     if (err)
-//             //         console.log(err);
-//                // else {
-//                     req.flash('success_msg', developer.name + ' has been selected');
-//                     console.log(developer.name + 'has been selected');
-//                     //redirect HERE
-//                     res.redirect('/company/postedJobs');
-//                // }
-//             //})
-//         }
-//         if(!developer) {
 
-//             Developer.findOneAndUpdate({ _id: req.params.devId },
-//                 { $push: { "Status": { _id: req.params.jobId,"current": "Accepted" } } },
-//                 { new: true }, function (err, developer) {
-//                     if (err)
-//                         console.log(err);
-//                     else {
-//                         req.flash('success_msg', developer.name + 'has been selected');
-//                         console.log(developer.name + 'has been selected');
-//                         //redirect HERE
-//                         res.redirect('/company/postedJobs');
-//                     }
-
-//                 });
-//         }
-//     })
-// });
-
-//to set status of job application of developer as rejected
-// router.get('/reject/:devId/:jobId', (req, res) => {
-//     Developer.findOneAndUpdate({ _id: req.params.devId, "Status": { _id: req.params.jobId, "current": "Accepted" } }, { $set: { "Status": { _id: req.params.jobId, "current": "Rejected" } } }, { new: true }, function (err, developer) {
-//         if (err)
-//             console.log(err);
-//         if (developer) {
-//             console.log(developer);
-//             // Developer.Update({ $set: { "Status": { _id: req.params.jobId,"current": "Rejected" } } }, { new: true }, function (err, developer) {
-//             //     if (err)
-//             //         console.log(err);
-//             // else {
-//             req.flash('success_msg', developer.name + ' has been rejected');
-//             console.log(developer.name + 'has been rejected');
-//             //redirect HERE
-//             res.redirect('/company/postedJobs');
-//             // }
-//             //})
-//         }
-//         if (!developer) {
-
-//             Developer.findOneAndUpdate({ _id: req.params.devId },
-//                 { $push: { "Status": { _id: req.params.jobId, "current": "Rejected" } } },
-//                 { new: true }, function (err, developer) {
-//                     if (err)
-//                         console.log(err);
-//                     else {
-//                         req.flash('success_msg', developer.name + 'has been rejected');
-//                         console.log(developer.name + 'has been rejected');
-//                         //redirect HERE
-//                         res.redirect('/company/postedJobs');
-//                     }
-
-//                 });
-//         }
-//     })
-// });
-//to set status of job application of developer as rejected
-// router.get('/reject/:devId/:jobId', (req, res) => {
-
-//     Developer.findOneAndUpdate({ _id: req.params.devId },
-//         { $set: { "Status": { "current": "Rejected", "Job": req.params.jobId } } },
-//         { new: true }, function (err, developer) {
-//             if (err)
-//                 console.log(err);
-//             else {
-//                 req.flash('success_msg', developer.name + 'has been rejected');
-//                 console.log(developer.name + 'has been rejected');
-//                 res.redirect('/company/postedJobs');
-//             }
-
-//         });
-
-// });
 
 //to  show accepted or rejected jobs
 router.get("/allStats/:string", (req, res) => {

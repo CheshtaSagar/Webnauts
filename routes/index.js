@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
@@ -373,12 +374,15 @@ router.get("/postJob", (req, res) => {
   });
 });
 
+
+
+
 //for posting job
 router.post("/postJob", async (req, res) => {
   console.log(req.user._id); //user id(not the company id)
 
   //to get company id by comparing creator and userId
-  Company.findOne({ creator: req.user._id }, function (err, docs) {
+  Company.findOne({ creator: req.user._id }).populate('subscribers').exec(function (err, docs) {
     if (err) {
       console.log(err);
     } else {
@@ -416,10 +420,62 @@ router.post("/postJob", async (req, res) => {
             }
           }
         ).catch((err) => console.log(err));
+
+        });
+        ///////////////////SENDING MAIL TO ALL SUBSCRIBERS
+         docs.subscribers.forEach(function(subscriber)
+            {
+           async function main() {
+      
+          let testAccount = await nodemailer.createTestAccount();
+        
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: "infinityjobs3@gmail.com", 
+              pass: "********", // clear this field 
+            },
+          });
+        
+
+         
+          // send mail with defined transport object
+            let info =await transporter.sendMail({
+            from:'"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
+            to: subscriber.email, // list of receivers
+            subject: "New job posted on"+ docs.companyName , // Subject line
+            html: "<b>Developer,Hope you are doing well!!!</br></b><h4>A new job has been posted on our company page.Kindly visit www.infinityJobs.com for more details.</br>Regards InfinityJobs</h4>", // html body
+          });
+        
+        
+          if(info.messageId)
+          console.log('Mail sent');
+        
+        
+          console.log("Message sent: %s", info.messageId);
+          // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+        
+          // Preview only available when sending through an Ethereal account
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+          // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+        }
+        
+        main().catch(console.error);
+        //////////////////////////
       });
     }
-  });
 });
+});
+
+
+
+
+
+
+
 
 //to post developer portfolio
 router.post("/developerPortfolio", async (req, res) => {
