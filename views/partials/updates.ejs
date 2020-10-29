@@ -1,0 +1,23 @@
+<div class="col-md-8" id="Section2">
+    <div class="container shadow p-3 mb-5 bg-white rounded"
+    style="border:2px ; border-radius:10px;">
+    <form method="POST" action="/company/postUpdate" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Title</label>
+            <input type="name" class="form-control" id="title" name="title" aria-describedby="na" 
+            value="<%= typeof title != 'undefined' ? title: '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="updates">Description</label>
+            <textarea class="form-control" id="updates" rows="10" name="updates"
+              placeholder="Write your text here"
+              value="<%= typeof description != 'undefined' ? description: '' %>"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="file">Add Image related to your post</label>
+            <input type="file" data-file_types="jpg|jpeg|png" class="form-control-file" name="file" id="file">
+          </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+      </form>
+      </div>
+</div>

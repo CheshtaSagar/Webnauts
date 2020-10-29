@@ -18,7 +18,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+            <div class="col-lg-4 col-xl-3 bd-sidebar" id="Section1">
                 <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/company"
@@ -53,12 +53,12 @@
                     <br><br>
                     <%- include ('partials/messages') %>
                 <% if(developers.length>0){%>
-
+               
                 <% developers.forEach(function(developer){ %>
-                <div class="container shadow p-3 mb-5 bg-white rounded"
+                <div class="container shadow p-3 ml-4 mb-5 bg-white rounded"
                     style="border:2px solid white; border-radius:10px;">
-                    <div class="row">
-                        <div class="col-lg-2  col-md-4 col-4 ">
+                     <div class="row">
+                        <div class="col-lg-3  col-md-4 col-6 ">
                             <img src="/image/<%= developer.developerIcon %>" width="150px" height="150px"
                                 style=" border-radius:10px;"></img>
                             </br></br>
@@ -68,8 +68,8 @@
                                 href="/developer/portfolio/<%= developer._id %>">See Portfolio</a></button>
                         
                         </div>
-                        </div>
-                        <div class="col-lg-2  col-md-3 col-3 " style="font-style:bold">
+                        
+                        <div class="col-lg-3.5  col-md-3 col-6" style="font-style:bold">
 
                             <h1 style="font-size:1.5em; padding-bottom:5px">Email Id:</h1>
                             <p style="font-style:italic"><%= developer.email %></p>
@@ -82,14 +82,14 @@
 
 
                         </div>
-                        <div class="col-lg-2  col-md-4 col-4" style="font-style:bold">
+                        <div class="col-lg-3  col-md-4 col-6" style="font-style:bold">
 
                             <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2>
                             <p style="font-style:italic"><%= developer.contactNo %></p>
 
                             <p style="font-style:italic"><b>Description: </b><%= developer.description %></p>
                         </div>
-                        <div class="col-lg-2  col-md-4 col-4" style="font-style:bold">
+                        <div class="col-lg-3  col-md-4 col-6" style="font-style:bold">
 
                             <h2 style="font-size:1.5em; padding-bottom:5px">Linked In:</h2>
                             <p style="font-style:italic"><%= developer.linkedIn %></p>
@@ -103,7 +103,7 @@
                 </br>
                 <% }); %>
                 <% }else{ %>
-                <h1>No developers have applied yet</h1>
+                <h1>No developers have registered yet</h1>
                 <% } %>
             </div>
             </div>

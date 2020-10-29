@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
 const User = require("../models/User");
-const Company = require("../models/Company");
+const {Company,post} = require("../models/Company");
 const Developer = require("../models/Developer");
 const Job = require("../models/Job");
 const Resume = require("../models/Resume");
@@ -190,7 +190,7 @@ router.get("/developerProfile",isDeveloper, function (req, res) {
 
 //company main profile
 router.get("/companyProfile",isCompany, (req, res) => {
-  Company.findOne({ creator: req.user._id }, function (err, docs) {
+  Company.findOne({ creator: req.user._id }).populate('postedUpdates').exec(function (err, docs) {
     if (err) {
       console.log(err);
     }
@@ -199,9 +199,9 @@ router.get("/companyProfile",isCompany, (req, res) => {
       res.redirect("company");
     else
       res.render("companyProfile", {
-        title: "company profile",
         user: req.user,
         company: docs,
+        posts:docs.postedUpdates
       });
   });
 });
@@ -381,7 +381,7 @@ router.get("/postJob", isCompany,(req, res) => {
 
 
 //for posting job
-router.post("/postJob",isCompany, async (req, res) => {
+router.post("/postJob",isCompany,(req, res) => {
   console.log(req.user._id); //user id(not the company id)
 
   //to get company id by comparing creator and userId
@@ -422,7 +422,7 @@ router.post("/postJob",isCompany, async (req, res) => {
               console.log(company);
             }
           }
-        ).catch((err) => console.log(err));
+        );
 
         });
         ///////////////////SENDING MAIL TO ALL SUBSCRIBERS

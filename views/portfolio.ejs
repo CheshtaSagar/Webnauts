@@ -70,16 +70,19 @@
                     <% for(var i=0;i< resume.education.Degree.length ;i++){ %>
 
                     <div class="row">
-                        <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+                        <div class="col-lg-8  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
 
                             <p style="font-size:1.25em">Institute: <%= resume.education.University[i] %></p>
                             <p style="font-size:1.25em ">Degree : <%= resume.education.Degree[i] %></p>
                             <p style="font-size:1.25em ">Branch : <%= resume.education.Branch[i] %></p>
+                            </div>
+                             <div class="col-lg-4  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
                             <p style="font-size:1.25em ">Year : <%= resume.education.gradYear[i] %></p>
-                            <hr style="width:950px; background-color:pink">
+                            <hr style="width:1px; background-color:pink">
                             </hr>
                         </div>
-
+                          <hr style="width:950px; background-color:pink">
+                            </hr>
                     </div>
                     </br>
                     <%}%>
@@ -101,14 +104,18 @@
                             <p style="font-size:1.25em">Title: <%= resume.pastExperience.Title[i]%></p>
                             <p style="font-size:1.25em">Institute: <%= resume.pastExperience.Institute[i]%></p>
                             <p style="font-size:1.25em ">From: <%= resume.pastExperience.StartDate[i]%> -
-                                <%= resume.pastExperience.EndDate[i]%></p>
+                                <%= resume.pastExperience.EndDate[i]%></p></div>
+                                <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
                             <p style="font-size:1.25em;">Description: <%= resume.pastExperience.Description[i]%> </p>
-                            <hr style="width:950px; background-color:pink">
+                            <hr style="width:1px; ">
                             </hr>
                         </div>
+                        <hr style="width:950px; background-color:pink">
+                            </hr>
                     </div>
                     </br>
                     <%}%> 
+
           <div class="row">
        <div style="font-style:italic; padding-left:50px ">
                <h1 style="font-size:2em; padding-bottom:5px">Skills</h1>

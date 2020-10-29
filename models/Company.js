@@ -63,6 +63,12 @@ const Job = require('./Job');
 
         }       
     ],
+    postedUpdates:[
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
+        }
+    ],
      companyIcon:{
         type: String,
      },
@@ -78,5 +84,35 @@ const Job = require('./Job');
  });
 
  
+ //schema for posts made by company
+ const PostSchema = new mongoose.Schema({
+    postedBy:
+    {   
+        type: mongoose.Schema.Types.ObjectId,
+        ref:  "Company"  
+    },
+    Date:
+    {
+        type: Date,
+        default:Date.now
+    },
+    title:
+    {
+        type:String
+    },
+    description:
+    {
+        type:String
+    },
+    image:
+    {
+        type:String
+    }
+
+ });
+
+
+
 const Company = mongoose.model("Company", CompanySchema);
-module.exports =Company;
+const Post = mongoose.model("Post",PostSchema);
+module.exports ={Company,Post};

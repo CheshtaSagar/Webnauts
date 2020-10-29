@@ -74,7 +74,7 @@ const DeveloperSchema = new mongoose.Schema({
          ref:'Job'
         }
     ],
-    Status: //stores those jobs that have been accepted or rejected
+    Status:
     [{
         _id:
         {
