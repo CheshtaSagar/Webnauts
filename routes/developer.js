@@ -12,6 +12,12 @@ const Resume = require("../models/Resume");
 var auth = require('../config/auth');
 var isDeveloper = auth.isDeveloper;
 var isCompany = auth.isCompany;
+const Grid = require("gridfs-stream");
+const { storage, upload } = require("../config/grid");
+Grid.mongo = mongoose.mongo;
+
+
+
 
 //to let user apply for an opening
 router.get("/apply/:id",isDeveloper, function (req, res) {
@@ -207,7 +213,8 @@ router.get("/portfolio/:id", (req, res) => {
       Resume.findOne({ creator: developer._id }, function (err, resume) {
         if (err) {
           console.log(err);
-        } else if (!resume) res.send("OOps!!No resume exists");
+        } else if (!resume) 
+        res.redirect('/image/'+developer.resumeUpload);//showing resume which was uploaded by user
         else {
           res.render("portfolio", {
             resume: resume,
@@ -331,5 +338,20 @@ router.get("/allStats/:string", isDeveloper,(req, res) => {
           });
       }
     });
+});
+
+
+//to upload resume
+router.post('/uploadResume', upload.single("file"),(req,res)=>{
+  Developer.findOneAndUpdate({ userDetails: req.user._id },{$set: { "resumeUpload" : req.file.filename}},function (err, developer) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(developer);
+      req.flash("success_msg", "Resume successfully uploaded");
+      res.redirect("/developerPortfolio");
+    }
+  });
+
 });
 module.exports = router;

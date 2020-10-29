@@ -152,14 +152,22 @@ router.get("/companyDetails/:id", function (req, res) {
       if (err) {
         console.log(err);
       } else {
-      console.log(company);
-      res.render("companyDetails", {
+
+        Post.find({ postedBy: company._id }).exec(function (err, posts) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(company);
+        res.render("companyDetails", {
         company: company,
         jobs:jobs,
+        posts:posts,
         loggedIn:loggedIn
       });
     }
   });
+  }
+});
   }
 })
 });

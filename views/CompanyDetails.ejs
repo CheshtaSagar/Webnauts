@@ -10,20 +10,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .companyHeading{
-            color: #0083FF ;
+        .companyHeading {
+            color: #0083FF;
         }
     </style>
 </head>
 
 <body>
 
-    <body class="bg-muted">
+    <body class="bg-muted" >
 
         <%- include ('partials/nav') %>
 
-
-        <div class="row mb-5 mt-3 ml-2">
+<div class="container">
+        <div class="row mb-5 mt-3 ml-2" >
             <div class="col-lg-8 col-md-8 col-12">
                 <img src="/image/<%= company.companyDisplay %> " class="img-fluid"></img>
             </div>
@@ -70,58 +70,153 @@
         </div>
         <br>
         <br>
-        <h1 style="text-align: center; color:#0083FF;">Posted Jobs</h1>
+    
         <br><br>
-        <% if(jobs.length>0){%>
 
-    
-            <% jobs.forEach(function(job){ %>
-    
-            <div class="container shadow p-3 mb-5 bg-white rounded"  style="border:2px; border-radius:10px;">
-                <div class="row">
-                    <div class="col-lg-4  col-md-4 col-4 ">
-                        <img src="/image/<%= company.companyIcon%>" style="border-radius:20px; padding: 30px;" width="200px" height="200px"></img>
-                    </div>
-                    <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
-                        <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
-                        <p>Job Type : <%= job.jobType %> </p>
-                        <p>Experience Required : <%= job.min_exp %> </p>
-                        <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
-                        <p>Skills Required : <%= job.jobSkills %></p>
-                        <p>Minimum Qualification Required : <%= job.jobQualification %></p>
-                        <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>, <%= job.jobCountry %></p>
-                        <p>Last Application Date: <%= job.LastDate %></p>
-                    </div>
-                    <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
-                        
-                        <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
-                        <div class="row">
-                            <div class="col-8">
-                            <p><%= job.jobDescription %> </p> 
-                        </div>
-                        </div>
-                        <% if (loggedIn&& user.userType=='developer') { %>
-                        <p> <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-                            href="/developer/apply/<%= job._id %>" >Apply</a></button></p>
-                        <% }%>
-                             
-                    </div>
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <h4>See Posted Jobs</h4>
+                        </button>
+                    </h2>
                 </div>
-            </div>
-            </br>
-            <% }); %>
-            <% }else{ %>
-                no jobs are found
-            <% } %> 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-            crossorigin="anonymous"></script>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                    data-parent="#accordionExample">
+                    <div class="card-body">
+                        <% if(jobs.length>0){%>
+
+
+                        <% jobs.forEach(function(job){ %>
+
+                        <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px; border-radius:10px;">
+                            <div class="row">
+                                <div class="col-lg-4  col-md-4 col-4 ">
+                                    <img src="/image/<%= company.companyIcon%>"
+                                        style="border-radius:20px; padding:10px;" width="200px" height="200px"></img>
+                                </div>
+                                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                                    <p>Job Type : <%= job.jobType %> </p>
+                                    <p>Experience Required : <%= job.min_exp %> </p>
+                                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                                    <p>Skills Required : <%= job.jobSkills %></p>
+                                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                        <%= job.jobCountry %></p>
+                                    <p>Last Application Date: <%= job.LastDate %></p>
+                                </div>
+                                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+
+                                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <p><%= job.jobDescription %> </p>
+                                        </div>
+                                    </div>
+                                    <% if (loggedIn&& user.userType=='developer') { %>
+                                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                                                href="/developer/apply/<%= job._id %>">Apply</a></button></p>
+                                    <% }%>
+
+                                </div>
+                            </div>
+                        </div>
+                        </br>
+                        <% }); %>
+                        <% }else{ %>
+                        No Jobs have been posted yet!
+                        <% } %>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+
+<br>
+                        <div class="accordion" id="accordionExample2">
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block text-left" type="button"
+                                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                                            aria-controls="collapseTwo">
+                                        <h4>See Company's Posts</h4>
+                                        </button>
+                                    </h2>
+                                </div>
+
+                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                                    data-parent="#accordionExample2">
+                                    <div class="card-body">
+
+                                        <div class="row">
+
+
+                                            <% if(posts.length>0){%>
+
+                                            <% posts.forEach(function(post){ %>
+
+                                            <div class="container shadow p-3 mb-5 bg-white rounded"
+                                                style="border:2px ; border-radius:10px;">
+                                                <div class="row">
+                                                    <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
+                                                        <h3><%= post.title %></h3>
+
+                                                    </div>
+                                                    <div class="col-lg-10  col-md-10 col-10 ">
+                                                        <img src="/image/<%= post.image %>" style="border-radius:20px;"
+                                                            width="150px" height="150px"></img>
+                                                    </div>
+                                                    <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
+                                                        <p1><%= post.description %></p1>
+                                                    </div>
+                                                    </br>
+                                                    </br>
+                                                    <div class="col-lg-10  col-md-10 col-10 "
+                                                        style="font-style:italic; color: grey;">
+                                                        <p1><%= post.Date %></p1>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </br>
+                                        <% }); %>
+                                        <% }else{ %>
+                                        No posts yet
+                                        <% } %>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+                            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                            crossorigin="anonymous"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+                            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+                            crossorigin="anonymous"></script>
+                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+                            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+                            crossorigin="anonymous"></script>
 
     </body>
 

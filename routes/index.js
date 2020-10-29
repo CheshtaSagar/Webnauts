@@ -559,7 +559,7 @@ router.get("/allJobs", function (req, res) {
 router.get("/allCompanies", function (req, res) {
   var loggedIn = req.isAuthenticated() ? true : false;
   Company.find({})
-    .populate("postedJobs")
+    .populate("postedJobs").populate("postedUpdates")
     .exec(function (err, companies) {
       if (err) {
         console.log(err);

@@ -3,125 +3,122 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+  <link rel="stylesheet" href="/assets/home.css" type="text/css">
 </head>
 
 <body>
-    <%- include ('partials/nav') %>
+  <%- include ('partials/nav') %>
 
-    <div>
-        <div class="container-fluid mt-4 mb-3 bg-dark">
-            <h1 class="text-center text-capitalize mt-4 display-4 text-white">PROVIDING JOBS FOR CREATIVE MINDS</h1>
+  <div class="abhi" height="700px">
+
+    <h1 class="text-center text-black font-weight-bold text-capitalize display-3   ">YOUR DREAM</h1>
+    <h1 class="text-center text-black text-capitalize display-4  ">JOB IS WAITING</h1>
+    <div class="aditya"></div>
+  
+  </div>
+
+  <div>
+    <div class=" tom container-fluid  disabled" style="border-radius: 3px;">
+      <h3 class="text-center text-capitalize display-4 text-black">PROVIDING JOBS FOR CREATIVE MINDS</h3>
+    </div>
+  </div>
+
+  <div class=" tom2 bg-white">
+    <h1 text-center font-weight-bold display-4 text-danger>1,000+ browse jobs</h1>
+  </div>
+
+  <div class="jumbotron shadow p-3 mb-5 bg-white rounded"  style="background:rgb(250, 255, 255);border-radius: 10px;">
+    <div class="row">
+      <div class="col xl-10">
+    <h1 class="display-4">Hello, Developers!</h1>
+    <p class=" display-5 lead">Searching For Jobs ? </p>
+    <hr class="my-8">
+    <p class="text-capitalize  font-weight-italic" style="font-size:1.5em"> Now your search is over.</p>
+    <p class="lead">
+      <a class="btn btn-lg rounded-pill" style="background-color:#0083FF" href="/allJobs" role="button">See Jobs</a>
+    </p>
+  </div>
+  <div class="col xl-2">
+    <img src="/images/logo.jpg" class="rounded-circle" width="200px" style="margin-right: 2px; float:right;" >
+  </div>
+</div>
+</div>
+
+
+  <div class="jumbotron shadow p-3 mb-5 bg-white rounded"  style="background:rgb(250, 255, 255);border-radius: 10px;">
+    <div class="row">
+      <div class="col xl-2">
+        <img src="/images/jumbo2.png" class="rounded-circle" width="300px" style="margin-right: 2px; float:left;" >
+      </div>
+      <div class="col xl-10">
+    <h1 class="display-4">Hello, Companies!</h1>
+    <p class=" display-5 lead">Looking For Tech Geeks ? </p>
+    <hr class="my-8">
+    <p class="font-weight-italic" style="font-size:1.5em">You have come to a right place.Register to get more benefits</p>
+    <p class="lead">
+      <a class="btn btn-lg rounded-pill" style="background-color:#0083FF" href="/allDevelopers" role="button">See Developers</a>
+    </p>
+  </div>
+  </div>
+  </div>
+
+  <section class=" mb-5">
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+      <!-- Indicators -->
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+      </ul>
+
+      <!-- The slideshow -->
+      <div class="carousel-inner ">
+        <div class="carousel-item active">
+          <img src="/images/job4.jpg" class="img-fluid" height="100px;" alt="Los Angeles">
         </div>
+        <div class="carousel-item">
+          <img src="/images/job6.jpg" class="img-fluid" height="100px;" alt="Chicago">
+        </div>
+        <div class="carousel-item">
+          <img src="/images/job3.jpg" class="img-fluid" height="100px;" alt="New York">
+        </div>
+
+      </div>
+
+      <!-- Left and right controls -->
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+
     </div>
 
-    <div>
-        <h1 class="text-center text-danger font-weight-bold display-4 text-capitalize">1,000+ browse jobs</h1>
-    </div>
 
-    <section class="mt-4 mb-5">
-        <div id="demo" class="carousel slide" data-ride="carousel">
-
-            <!-- Indicators -->
-            <ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-
-            <!-- The slideshow -->
-            <div class="carousel-inner ">
-                <div class="carousel-item active">
-                    <img src="/images/job4.jpg" class="img-fluid" height="100px;" alt="Los Angeles">
-                </div>
-                <div class="carousel-item">
-                    <img src="/images/job6.jpg" class="img-fluid" height="100px;" alt="Chicago">
-                </div>
-                <div class="carousel-item">
-                    <img src="/images/job3.jpg" class="img-fluid" height="100px;" alt="New York">
-                </div>
-
-            </div>
-
-            <!-- Left and right controls -->
-            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
+  </section>
 
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-        
-    </section>
-    <section>
 
+  <div class="container-fluid" style="height:240px; width:100%;"></div>
 
-        <div class="container-fluid ">
-            <h1 class="text-center text-capitalize ">TEAM WEBNAUTS</h1>
-            <hr class="w-25 mx-auto">
-            </hr>
-            <div class="row text-center ">
-                <div class="col-lg-4 col-md-4 col-12">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <img src="abhii.jpg" alt="Avatar" style="width:400px;height:450px;">
-                            </div>
-                            <div class="flip-card-back">
-                                <h1>Cheshta Sagar</h1>
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <img src="aditya 2.jpg" alt="Avatar" style="width:400px;height:450px;">
-                            </div>
-                            <div class="flip-card-back">
-                                <h1>Abhishek Sharma</h1>
-                               
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <div class="flip-card">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <img src="ab.jpg" alt="Avatar" style="width:400px;height:450px;">
-                            </div>
-                            <div class="flip-card-back">
-                                <h1>Akanksha Verma</h1>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <%- include ('partials/footer') %>
+  <%- include ('partials/footer') %>
 
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+  integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 
 </html>

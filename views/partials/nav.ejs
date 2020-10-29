@@ -1,6 +1,7 @@
 <!--partial template for navigation bar-->
+
 <div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark " style="background: black;">
     <a class="navbar-brand" href="#">
       <img src="/images/logo.jpg" height="40" style="border-radius: 100px;" class="d-inline-block align-top" alt=""
         loading="lazy">
@@ -14,30 +15,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/"><b>Home </b><span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/allCompanies">Companies</a>
+          <a class="nav-link" href="/allCompanies"><b>Companies</b></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/allDevelopers">Developers</a>
+          <a class="nav-link" href="/allDevelopers"><b>Developers</b></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/allJobs">Jobs</a>
+          <a class="nav-link" href="/allJobs"><b>Jobs</b></a>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Pages
-          </a>
-
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">About Us</a>
-            <a class="dropdown-item" href="#">Contact Us</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><b>Contact Us</b></a>
         </li>
         
       </ul>
@@ -50,10 +41,10 @@
             </ul>
         <% } else{%> 
         <ul class="nav-item ">
-          <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-            href="/register" >Register</a></button>
-            <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
-              href="/login" >Login</a></button>          
+          <button class="btn btn-outline-dark my-2 my-sm-0 rounded-pill" style="border-color:white;" ><a class="nav-link"
+            href="/register" style="text-decoration: none; color: rgb(255, 255, 255);" >Register</a></button>
+            <button class="btn btn-outline-dark my-2 my-sm-0 rounded-pill" style="border-color:white;" ><a class="nav-link"
+              href="/login"  style="text-decoration: none; color: rgb(255, 255, 255);">Login</a></button>          
           </ul>
         <% } %> 
       </div>
