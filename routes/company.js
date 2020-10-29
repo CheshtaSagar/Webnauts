@@ -8,6 +8,7 @@ const Company = require("../models/Company");
 const Job = require("../models/Job");
 var auth = require('../config/auth');
 const Developer = require("../models/Developer");
+const { find } = require("../models/User");
 var isDeveloper = auth.isDeveloper;
 var isCompany = auth.isCompany;
 
@@ -55,10 +56,59 @@ router.get("/appliedBy/:id",isCompany, function (req, res) {
       } else {
         res.render("appliedBy", {
           developers: job.appliedBy,
-          job: job,
+          jobId: req.params.id,
+          title:"All Applicants"
         });
       }
     });
+});
+
+router.get("/allStats/:id/:string", isCompany,(req, res) => {
+  
+        if (req.params.string === "Accepted")
+        {
+          Developer.find({"Status":{_id:req.params.id, current:"Accepted"}}).exec(function(err,developers){
+            if (err) {
+              console.log(err);
+            } else { 
+          res.render("applicantsStats", {
+            developers: developers,
+            jobId: req.params.id,
+            title: "Accepted Applicants",
+          });
+        }
+        })
+        }
+        if (req.params.string === "Rejected")
+        {
+          Developer.find({"Status":{_id:req.params.id, current:"Rejected"}}).exec(function(err,developers){
+            if (err) {
+              console.log(err);
+            } else { 
+          res.render("applicantsStats", {
+            developers: developers,
+            jobId: req.params.id,
+            title: "Rejected Applicants",
+          });
+        }
+        })
+        }
+        if (req.params.string === "Pending")
+        {
+          console.log("hii");
+          Developer.find({"Status":{_id:req.params.id, current:"Pending"}}).exec(function(err,developers){
+            if (err) {
+              console.log(err);
+            } else { 
+              console.log(developers)
+          res.render("applicantsStats", {
+            developers: developers,
+            jobId: req.params.id,
+            title: "Pending Applications",
+          });
+        }
+        })
+        }
 });
 
 router.post("/edit_postedjobs/:id",isCompany, function (req, res) {

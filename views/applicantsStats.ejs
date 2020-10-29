@@ -1,0 +1,175 @@
+<!---Applicant list that appears for a particular job in company section-->
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Applicants</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+</head>
+
+<body class="bg-muted">
+
+    <%- include ('partials/nav2') %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+                <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/company"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Edit Profile</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/postJob"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="#"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/logout"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
+            </div>
+
+
+
+            <!---Section 2-->
+            <div class="col-md-8" id="Section2">
+                <div>
+
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Pending' %>">Pending Applications</a></button>
+                        
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Accepted' %>">Accepted Applicants</a></button>
+                        
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Rejected' %>">Rejected Applicants</a></button>
+                        
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                        href="/company/appliedBy/<%= jobId %>">All Applicants</a></button>
+
+
+                    <h2 class="page-title"><%= title %></h2>
+                    <br><br>
+                    <%- include ('partials/messages') %>
+
+
+
+                      
+                <% if(developers.length>0){%>
+
+                <% developers.forEach(function(developer){ %>
+                <div class="container shadow p-3 mb-5 bg-white rounded"
+                    style="border:2px solid white; border-radius:10px;">
+                    <div class="row">
+                        <div class="col-lg-2  col-md-4 col-4 ">
+                            <img src="/image/<%= developer.developerIcon %>" width="150px" height="150px"
+                                style=" border-radius:10px;"></img>
+                            </br></br>
+                            <h1 style="font-size:1.75em;"><%= developer.name %></h1>
+                            </br>
+                            <button class="btn btn-outline-success btn-block my-2 my-sm-0"><a class="nav-link"
+                                href="/developer/portfolio/<%= developer._id %>">See Portfolio</a></button>
+                        
+                        </div>
+                        </div>
+                        <div class="col-lg-2  col-md-3 col-3 " style="font-style:bold">
+
+                            <h1 style="font-size:1.5em; padding-bottom:5px">Email Id:</h1>
+                            <p style="font-style:italic"><%= developer.email %></p>
+                            <p style="font-style:italic"><b>Qualifications:</b> <%= developer.Qualification %> </p>
+
+                            <p style="font-style:italic">
+                                <b> Address:</b>
+                                <%= developer.developerLocation %>,<%= developer.developerCity %>,<%= developer.developerState %>,<%= developer.developerCountry %>
+                            </p>
+
+
+                        </div>
+                        <div class="col-lg-2  col-md-4 col-4" style="font-style:bold">
+
+                            <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2>
+                            <p style="font-style:italic"><%= developer.contactNo %></p>
+
+                            <p style="font-style:italic"><b>Description: </b><%= developer.description %></p>
+                        </div>
+                        <div class="col-lg-2  col-md-4 col-4" style="font-style:bold">
+
+                            <h2 style="font-size:1.5em; padding-bottom:5px">Linked In:</h2>
+                            <p style="font-style:italic"><%= developer.linkedIn %></p>
+
+
+
+                            <div class="row">
+                                <% if(title==='Accepted Applicants'){%>
+                                
+                                <div class="sm-12">
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="reject"><a class="nav-link"
+                                            href="/developer/reject/<%= developer._id %>/<%= jobId%>">Reject</a></button>
+                                </div>
+                            <% } %> 
+                                <% if(title==='Rejected Applicants'){%>
+                                <div class="sm-12">
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="accept" value="Accept"><a class="nav-link"
+                                            href="/developer/accept/<%= developer._id %>/<%= jobId%>">Accept</a></button>
+                                </div>
+                                
+                            <% } %> 
+                                <% if(title==='Pending Applications'){%>
+                                <div class="sm-12">
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="accept" value="Accept"><a class="nav-link"
+                                            href="/developer/accept/<%= developer._id %>/<%= jobId%>">Accept</a></button>
+                                </div>
+                                </br>
+                                <div class="sm-12">
+                                    <button class="btn btn-outline-success btn-block my-2 my-sm-0" id="reject"><a class="nav-link"
+                                            href="/developer/reject/<%= developer._id %>/<%= jobId%>">Reject</a></button>
+                                </div>
+                            <% } %> 
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </br>
+                
+                    <% }); %>
+                    <% }else{ %>
+                        <% if(title==='Accepted Applicants'){%>
+                        <h1>no applicants have been accepted yet</h1>
+                    <% } %> 
+                        <% if(title==='Rejected Applicants'){%>
+                        <h1>no applicants have been Rejected yet</h1>
+                    <% } %> 
+                        <% if(title==='Pending Applications'){%>
+                        <h1>No applications are pending</h1>
+                    <% } %> 
+                    <% } %> 
+
+
+
+
+                   
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
