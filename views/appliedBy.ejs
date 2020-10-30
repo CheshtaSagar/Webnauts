@@ -38,18 +38,20 @@
             <!---Section 2-->
             <div class="col-md-8" id="Section2">
                 <div>
-
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Pending' %>">Pending Applicants</a></button>
+                    <div class="row">
+                        <div class="col md-5">
+                    <button type="button" class="btn btn-outline-dark rounded-pill"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Pending' %>" style="text-decoration: none;">Pending Applicants</a></button>
                         
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Accepted' %>">Accepted Applicants</a></button>
+                    <button type="button" class="btn btn-outline-dark rounded-pill"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Accepted' %>" style="text-decoration: none;">Accepted Applicants</a></button>
                         
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Rejected' %>">Rejected Applicants</a></button>
+                    <button type="button" class="btn btn-outline-dark rounded-pill"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Rejected' %>" style="text-decoration: none;">Rejected Applicants</a></button>
 
-
-                    <h2 class="page-title"><%= title %></h2>
+                    </div>
+                </div>
+                    <h4 class="page-title" style="color:rgb(44, 89, 238);"><%= title %></h4>
                     <br><br>
                     <%- include ('partials/messages') %>
                 <% if(developers.length>0){%>
@@ -106,7 +108,7 @@
                 <h1>No developers have registered yet</h1>
                 <% } %>
             </div>
-            </div>
+        
         </div>
     </div>
 

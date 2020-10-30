@@ -7,6 +7,7 @@ const config= require('./config/database');
 const bodyParser= require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
+const async = require('async');
 const passport = require('passport');
 const crypto=require('crypto'); //to generate file names
 const multer=require('multer');

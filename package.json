@@ -9,6 +9,7 @@
   "author": "\"webnauts\"",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "ckeditor": "^4.12.1",

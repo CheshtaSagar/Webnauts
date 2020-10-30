@@ -39,20 +39,24 @@
             <div class="col-md-8" id="Section2">
                 <div>
 
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Pending' %>">Pending Applications</a></button>
-                        
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Accepted' %>">Accepted Applicants</a></button>
-                        
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/allStats/<%= jobId %>/<%= 'Rejected' %>">Rejected Applicants</a></button>
-                        
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/company/appliedBy/<%= jobId %>">All Applicants</a></button>
 
+                    <div class="row">
+                        <div class="col md-5">
+                    <button type="button" class="btn btn-outline-dark rounded-pill" ><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Pending' %>" style="text-decoration: none;">Pending Applications</a></button>
+                    
+                    <button type="button" class="btn btn-outline-dark rounded-pill" ><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Accepted' %>" style="text-decoration: none;">Accepted Applicants</a></button>
+                        
+                    <button type="button" class="btn btn-outline-dark rounded-pill"><a class="nav-link"
+                        href="/company/allStats/<%= jobId %>/<%= 'Rejected' %>" style="text-decoration: none;">Rejected Applicants</a></button>
+                        
+                    <button type="button" class="btn btn-outline-dark rounded-pill"><a class="nav-link"
+                        href="/company/appliedBy/<%= jobId %>" style="text-decoration: none;">All Applicants</a></button>
+                    </div>
+                    </div>
 
-                    <h2 class="page-title"><%= title %></h2>
+                    <h4 class="page-title" style="color:rgb(44, 89, 238);"><%= title %></h4>
                     <br><br>
                     <%- include ('partials/messages') %>
 
@@ -62,10 +66,10 @@
                 <% if(developers.length>0){%>
 
                 <% developers.forEach(function(developer){ %>
-                <div class="container shadow p-3 mb-5 bg-white rounded"
+                <div class="container shadow p-3 ml-4 mb-5 bg-white rounded"
                     style="border:2px solid white; border-radius:10px;">
                     <div class="row">
-                        <div class="col-lg-2  col-md-4 col-4 ">
+                        <div class="col-lg-3  col-md-4 col-6 ">
                             <img src="/image/<%= developer.developerIcon %>" width="150px" height="150px"
                                 style=" border-radius:10px;"></img>
                             </br></br>
@@ -75,8 +79,8 @@
                                 href="/developer/portfolio/<%= developer._id %>">See Portfolio</a></button>
                         
                         </div>
-                        </div>
-                        <div class="col-lg-2  col-md-3 col-3 " style="font-style:bold">
+                        
+                        <div class="col-lg-3.5  col-md-3 col-6 " style="font-style:bold">
 
                             <h1 style="font-size:1.5em; padding-bottom:5px">Email Id:</h1>
                             <p style="font-style:italic"><%= developer.email %></p>
@@ -89,7 +93,7 @@
 
 
                         </div>
-                        <div class="col-lg-2  col-md-4 col-4" style="font-style:bold">
+                        <div class="col-lg-3  col-md-4 col-6" style="font-style:bold">
 
                             <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2>
                             <p style="font-style:italic"><%= developer.contactNo %></p>

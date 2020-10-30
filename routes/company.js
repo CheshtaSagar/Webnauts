@@ -203,7 +203,7 @@ router.get("/companyDetails/:id", function (req, res) {
         console.log(err);
       } else {
 
-        Post.find({ postedBy: company._id }).exec(function (err, posts) {
+        Post.find({ postedBy: company._id }).sort({Date:-1}).exec(function (err, posts) {
           if (err) {
             console.log(err);
           } else {
@@ -265,6 +265,7 @@ router.get("/SearchByName", (req, res) => {
     }
   });
 });
+
 
 //////////////////////not of any use right now
 router.get("/updates",function(req,res){

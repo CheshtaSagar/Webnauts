@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const User = require("../models/User");
-const Company = require("../models/Company");
+const {Company,Post} = require("../models/Company");
 const Developer = require("../models/Developer");
 const Job = require("../models/Job");
 var auth = require('../config/auth');
@@ -56,7 +56,48 @@ router.get("/SearchByTitle", (req, res) => {
     });
 });
 
-//  router.get('/SearchByCompany',(req, res)=>{
+
+router.get("/SearchByLastDate", (req, res) => {
+  const searchFields = req.query.byLastDate;
+  //if one of the field matches
+  Job.find({ LastDate: { $regex: searchFields, $options: "$i" } })
+    .populate("postedBy")
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+          });
+        }
+      });
+    });
+});
+
+
+
+router.get("/SearchByPostedDate", (req, res) => {
+  const searchFields = req.query.byPostDate;
+  //if one of the field matches
+  Job.find({ postedOn: { $regex: searchFields, $options: "$i" } })
+    .populate("postedBy")
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+          });
+        }
+      });
+    });
+});
+
+ //router.get('/SearchByCompany',(req, res)=>{
 
 //   const searchFields=req.query.byCompany;
 //   //if one of the field matches

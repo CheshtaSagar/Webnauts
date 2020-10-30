@@ -34,22 +34,39 @@
             <h1 class=" text-capitalise text-white pl-5 pt-5">Jobs List </h1>
         </div>
         </br>
-        <div class="conatiner">
-       <div class="row" style="margin:15px ;">
-        <div class="col-lg-6  col-md-6 col-6 ">
-        <form class="form my-2 my-lg-0" action="/job/SearchByLocation" method="GET">
-            <input class="form-control mr-sm-2" type="search" name="byLocation" placeholder="Search by Location" aria-label="Search">
+        <div class="conatiner shadow p-3 mb-5 rounded" style="background: black; border-radius: 6px;">
+       <div class="row" style="margin:2px ;">
+        <div class="col-lg-3  col-md-6 col-6 ">
+        <form class="form" action="/job/SearchByLocation" method="GET">
+            <input class="form-control " type="search" name="byLocation" placeholder="Search by Location" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
           </form>
         </div>
 
-        <div class="col-lg-6  col-md-6 col-6 ">
-            <form class="form my-2 my-lg-0" action="/job/SearchByTitle" method="GET">
-                <input class="form-control mr-sm-2" type="search" name="byTitle" placeholder="Search by Title" aria-label="Search">
+        <div class="col-lg-3  col-md-6 col-6 ">
+            <form class="form" action="/job/SearchByTitle" method="GET">
+                <input class="form-control " type="search" name="byTitle" placeholder="Search by Title" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
               </form>
             </div>
-        </div>
+
+            <div class="col-lg-3  col-md-6 col-6 ">
+                <form class="form" action="/job/SearchByLastDate" method="GET">
+                    <input class="form-control " type="search" name="byLastDate" placeholder="Search by Last Application Date" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
+                  </form>
+                </div>
+           
+                <div class="col-lg-3  col-md-6 col-6 ">
+                    <form class="form" action="/job/SearchByPostedDate" method="GET">
+                        <input class="form-control " type="search" name="byPostDate" placeholder="Search by Posted Date" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search </button>
+                      </form>
+                    </div>
+           </div>
+           
+           
+            </div>
 
 
          <!-----  <div class="col-lg-4  col-md-4 col-4 ">
@@ -95,7 +112,7 @@
                                  
                     <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
                     <p><%= job.postedBy.companyName %></p>
-                    <% if (loggedIn&& user.userType=='developer') { %>
+                    <% if (loggedIn && user.userType=='developer') { %>
                     <p> <button class="btn btn-outline-success my-2 my-sm-0" ><a class="nav-link"
                         href="/developer/apply/<%= job._id %>" >Apply</a></button></p>
                     <% }%>

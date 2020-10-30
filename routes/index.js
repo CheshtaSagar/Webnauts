@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const { check, validationResult } = require('express-validator');
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
+const async = require('async');
 const User = require("../models/User");
-const {Company,post} = require("../models/Company");
+const {Company,Post} = require("../models/Company");
 const Developer = require("../models/Developer");
 const Job = require("../models/Job");
 const Resume = require("../models/Resume");
@@ -36,14 +38,32 @@ router.get("/register", function (req, res) {
   res.render("register");
 });
 
+//forget password route
+router.get('/forgetPassword',function(req,res){
+  res.render('forgetPassword',{
+    user:req.user
+  });
+});
+
+
 //Register post Handling
 router.post("/register", (req, res) => {
   const { email, userType, password, password2 } = req.body;
   let errors = [];
+//validation for email
+  function isLowerCase(str) {
+    return str === str.toLowerCase();
+}
+
 
   //Validations for registration form
   if (!email || !userType || !password || !password2) {
     errors.push({ msg: "Please enter all fields" });
+  }
+
+  if(!isLowerCase(email))
+  {
+    errors.push({ msg: "Email cannot be in upper case" });
   }
 
   if (password != password2) {
@@ -113,6 +133,153 @@ router.post("/login", (req, res, next) => {
     failureFlash: true,
   })(req, res, next);
 });
+
+
+
+//for forget password token generation and sending mail on the required email id
+router.post('/forgetPassword', function(req, res, next) {
+  async.waterfall([
+    function(done) {
+      crypto.randomBytes(20, function(err, buf) {      //will generate random string which will act as a token
+        var token = buf.toString('hex');
+        done(err, token);
+      });
+    },
+    function(token, done) {
+      User.findOne({ email:req.body.email}, function(err, user) {
+        if (!user) {
+          req.flash('error', 'No account with that email address exists.');
+          return res.redirect('/forgetPassword');
+        }
+
+        user.resetToken = token;
+        user.tokenExpires = Date.now() + 7200000; // valid for 2 hours
+
+        user.save(function(err) {
+          done(err, token, user);
+        });
+      });
+    },
+    function(token, user, done) {
+    
+      async function main() {
+      
+        let testAccount = await nodemailer.createTestAccount();
+      
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+          host: "smtp.gmail.com",
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: "infinityjobs3@gmail.com", 
+            pass: "webnauts", // clear this field 
+          },
+        });
+      
+
+       
+        // send mail with defined transport object
+          let info =await transporter.sendMail({
+          from:'"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
+          to: req.body.email, // list of receivers
+          subject: "Password Reset" , // Subject line
+          text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+        });
+      
+      
+        if(info.messageId)
+        {
+        console.log('Mail sent');
+        req.flash('success_msg', 'An e-mail has been sent to ' + req.body.email + ' with further instructions.');
+        res.redirect('/forgetPassword');
+        }
+      console.log("Message sent: %s", info.messageId);
+      }
+      
+      main().catch(console.error);
+     
+    }
+  ], function(err) {
+    if (err) return next(err);
+    res.redirect('/forgetPassword');
+  });
+});
+
+
+
+//once the user clicks on the link given in email,he will be redirected here
+router.get('/reset/:token', function(req, res) {
+  User.findOne({ resetToken: req.params.token, tokenExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      req.flash('error', 'Password reset token is invalid or has expired.');
+      res.redirect('/forgetPassword');
+    }
+    res.render('resetPassword',{  'user': req.user });
+     
+      //redirecting user to setting new password page
+  });
+  });
+
+
+
+//to set new password 
+router.post('/reset/:token', function(req, res) {
+  async.waterfall([
+    function(done) {
+      User.findOne({ resetToken: req.params.token, tokenExpires: { $gt: Date.now() } }, function(err, user) {
+        if (!user) {
+          req.flash('error', 'Password reset token is invalid or has expired.');//to check token is valid or not
+          return res.redirect('back');
+        }
+
+        const {password,password2}=req.body;
+
+        user.resetToken = undefined;  //once token has been used,initialize it to undefined again
+        user.tokenExpires = undefined;
+
+        if (!password || !password2) {
+          errors.push({ msg: "Please enter all fields" });
+        }
+      
+        if (password != password2) {
+          errors.push({ msg: "Passwords do not match" });
+        }
+      
+        if (password.length < 5) {
+          errors.push({ msg: "Password must be at least 5 characters" });
+        }
+      
+
+        bcrypt.genSalt(10, (err, salt) =>
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+          if (err) throw err;
+          //set password to hash
+          user.password = hash;
+      
+          user
+            .save()
+            .then((user) => {
+              console.log('password updated');
+              res.redirect("/login");
+            })
+        })
+        );
+      });
+    }
+    ], function(err) {
+    res.redirect('/');
+  }
+  
+  );
+});
+
+
+
+
 
 //developer profile
 router.get("/profile", (req, res) => {
@@ -190,7 +357,7 @@ router.get("/developerProfile",isDeveloper, function (req, res) {
 
 //company main profile
 router.get("/companyProfile",isCompany, (req, res) => {
-  Company.findOne({ creator: req.user._id }).populate('postedUpdates').exec(function (err, docs) {
+  Company.findOne({ creator: req.user._id }).populate({path: 'postedUpdates', options: { sort:{Date:-1}}}).exec(function (err, docs) {
     if (err) {
       console.log(err);
     }
@@ -233,11 +400,19 @@ router.get("/company",isCompany, (req, res) => {
 //post request for edit company profile
 router.post(
   "/company",isCompany,
+  [ check('contactNo', 'Mobile number should contains 10 digits') 
+                    .isLength({ min: 10, max: 10 }) ],
   upload.fields([
     { name: "logo", maxCount: 1 },
     { name: "display", maxCount: 1 },
   ]),
   (req, res) => {
+    
+
+
+    const errors = validationResult(req); 
+    let err=[];
+
     //console.log(req.user._id);//for debugging
     //console.log(req.body);   //for debugging
     const id = req.user._id;
@@ -256,6 +431,27 @@ router.post(
       companyIcon: req.files["logo"][0].filename,
       companyDisplay: req.files["display"][0].filename,
     };
+
+ 
+// If some error occurs
+ if (!errors.isEmpty()) { 
+  console.log(errors);
+  req.flash("error_msg",'Please enter a valid contact number');
+  res.redirect('/company'); 
+} 
+if(!company.email||!company.companyCity||!company.companyLocation||!company.companyCountry||!company.companyName||!company.companyUrl
+  ||!company.establishmentDate||!company.companyUrl||company.contactNo||!company.companyDisplay)
+  {
+    errors.push({ msg: "Please enter all fields" });
+  }
+
+  if (errors.length > 0) {
+    res.render("company", {
+      company: company,
+      id: req.user.id,
+    });
+  }
+else{
 
     Company.findOneAndUpdate(
       { creator: req.user._id },
@@ -302,12 +498,26 @@ router.post(
       }
     );
   }
+}
 );
 
 //post request for edit developer profile
-router.post("/developerProfile",isDeveloper, upload.single("file"), (req, res) => {
+router.post("/developerProfile",isDeveloper,
+[ check('contactNo', 'Mobile number should contains 10 digits') 
+.isLength({ min: 10, max: 10 }) ],
+  upload.single("file"), (req, res) => {
   console.log(req.user._id); //for debugging
   console.log(req.body); //for debugging
+
+  const errors = validationResult(req); 
+  
+  // If some error occurs
+  if (!errors.isEmpty()) { 
+      console.log(errors);
+      res.redirect('/developerProfile'); 
+  } 
+  else{
+
 
   var developer = {
     email: req.user.email,
@@ -368,6 +578,7 @@ router.post("/developerProfile",isDeveloper, upload.single("file"), (req, res) =
       }
     }
   );
+  }
 });
 
 //rendering postJob page
@@ -406,7 +617,32 @@ router.post("/postJob",isCompany,(req, res) => {
         jobCountry: req.body.jobCountry,
         postedBy: docs._id, //storing id of current company in this field
       });
+      let errors = [];
 
+      //Validations for registration form
+      if (
+        !job.jobTitle ||
+        !job.jobType ||
+        !job.min_exp ||
+        !job.min_salary ||
+        !job.max_salary ||
+        !job.jobDescription ||
+        !job.jobSkills ||
+        !job.jobQualification ||
+        !job.jobLocation ||
+        !job.jobCity ||
+        !job.jobState ||
+        !job.jobCountry ||
+        !job.LastDate
+      ) {
+        errors.push({ msg: "Please enter all fields" });
+      }
+    
+      if (errors.length > 0) {
+        res.render("postJob");
+      } 
+      
+      else {
       job.save().then((user) => {
         req.flash("success_msg", "job posted ");
         res.redirect("/company/postedJobs"); //include msg.ejs wherever you want to see this msg
@@ -470,6 +706,7 @@ router.post("/postJob",isCompany,(req, res) => {
         //////////////////////////
       });
     }
+  }
 });
 });
 
@@ -538,10 +775,9 @@ router.post("/developerPortfolio", isDeveloper,async (req, res) => {
 
 //for rendering all jobs
 router.get("/allJobs", function (req, res) {
-  var loggedIn = req.isAuthenticated() ? true : false;
+  const loggedIn = req.isAuthenticated() ? true : false;
   Job.find({})
-    .populate("postedBy")
-    .exec(function (err, jobs) {
+    .populate("postedBy").sort({postedOn:-1}).exec(function (err, jobs) {
       if (err) {
         console.log(err);
       } else {
@@ -557,7 +793,7 @@ router.get("/allJobs", function (req, res) {
 });
 
 router.get("/allCompanies", function (req, res) {
-  var loggedIn = req.isAuthenticated() ? true : false;
+  const loggedIn = req.isAuthenticated() ? true : false;
   Company.find({})
     .populate("postedJobs").populate("postedUpdates")
     .exec(function (err, companies) {

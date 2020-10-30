@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
 const User = require("../models/User");
-const {Company,post} = require("../models/Company");
+const {Company,Post} = require("../models/Company");
 const Job = require("../models/Job");
 const Developer = require("../models/Developer");
 const Resume = require("../models/Resume");
@@ -225,10 +225,6 @@ router.get("/portfolio/:id", (req, res) => {
     }
   });
 });
-
-
-
-
 
 
 

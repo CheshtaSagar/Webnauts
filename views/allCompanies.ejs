@@ -30,62 +30,67 @@
         </div>
         </br>
 
-
+<div class="container shadow p-3 mb-5 rounded" style="border:2px; border-radius:10px; background:black;">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-6 ">
-                <form class="form-inline my-2 my-lg-0" action="/company/SearchByLocation" method="GET">
-                    <input class="form-control mr-sm-2" type="search" name="byLocation" placeholder="Search by Location"
+                <form class="form-inline" action="/company/SearchByLocation" method="GET">
+                    <input class="form-control" type="search" name="byLocation" placeholder="Search by Location"
                         aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
                 </form>
             </div>
 
             <div class="col-lg-6  col-md-6 col-6 ">
-                <form class="form-inline my-2 my-lg-0" action="/company/SearchByName" method="GET">
-                    <input class="form-control mr-sm-2" type="search" name="byName" placeholder="Search by Name"
+                <form class="form-inline" action="/company/SearchByName" method="GET">
+                    <input class="form-control" type="search" name="byName" placeholder="Search by Name"
                         aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
                 </form>
             </div>
 
         </div>
-        <%- include ('partials/messages') %>
-<% if(companies.length>0){%>
 
-        <% companies.forEach(function(company){ %>
+        
 
-        <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ; border-radius:10px;">
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-12 ">
-                    <img src="/image/<%= company.companyIcon %>" style="border-radius:20px;" width="100px"
-                        height="100px"></img>
-                </div>
-                <div class="col-lg-4  col-md-4 col-6 " style="font-style:italic">
-                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
-                    <h5><%= company.companyName %> </h5>
-                    <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>, <%= company.companyCountry %></p>
-                    <p>Open Jobs :<%= company.postedJobs.length %> </p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-6" style="font-style:italic">
-                    <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+    </div>
+    <%- include ('partials/messages') %>
+    <% if(companies.length>0){%>
+
+    <% companies.forEach(function(company){ %>
+
+    <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ; border-radius:10px;">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-12 ">
+                <img src="/image/<%= company.companyIcon %>" style="border-radius:20px;" width="100px"
+                    height="100px"></img>
+            </div>
+            <div class="col-lg-4  col-md-4 col-6 " style="font-style:italic">
+                <!-- <h1 style="font-size:1.5em; padding-bottom:5px">title</h1> -->
+                <h5><%= company.companyName %> </h5>
+                <p>Address: <%= company.companyLocation %>, <%= company.companyCity %>, <%= company.companyState %>,
+                    <%= company.companyCountry %></p>
+                <p>Open Jobs :<%= company.postedJobs.length %> </p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-6" style="font-style:italic">
+                <!-- <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
                     <p></p>                   
                     <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
                     <p></p> -->
-                    <br>
-                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
-                                href="/company/companyDetails/<%= company._id %>">View Company Details</a></button></p>
-                                <% if (loggedIn&& user.userType=='developer') { %>
-                    <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
-                                href="/developer/subscribe/<%= company._id %>">Subscribe</a></button></p>
-                    <% } %> 
-                </div>
+                <br>
+                <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                            href="/company/companyDetails/<%= company._id %>">View Company Details</a></button></p>
+                <% if (loggedIn&& user.userType=='developer') { %>
+                <p> <button class="btn btn-outline-success my-2 my-sm-0"><a class="nav-link"
+                            href="/developer/subscribe/<%= company._id %>">Subscribe</a></button></p>
+                <% } %>
             </div>
         </div>
-        </br>
-        <% }); %>
-    <% }else{ %> 
-        No companies are found
-    <% } %> 
+    </div>
+    </br>
+    <% }); %>
+    <% }else{ %>
+    No companies are found
+    <% } %>
     </div>
     <%- include ('partials/footer') %>
 
