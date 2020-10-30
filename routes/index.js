@@ -400,8 +400,6 @@ router.get("/company",isCompany, (req, res) => {
 //post request for edit company profile
 router.post(
   "/company",isCompany,
-  [ check('contactNo', 'Mobile number should contains 10 digits') 
-                    .isLength({ min: 10, max: 10 }) ],
   upload.fields([
     { name: "logo", maxCount: 1 },
     { name: "display", maxCount: 1 },
@@ -409,9 +407,7 @@ router.post(
   (req, res) => {
     
 
-
-    const errors = validationResult(req); 
-    let err=[];
+    let errors=[];
 
     //console.log(req.user._id);//for debugging
     //console.log(req.body);   //for debugging
@@ -432,13 +428,7 @@ router.post(
       companyDisplay: req.files["display"][0].filename,
     };
 
- 
-// If some error occurs
- if (!errors.isEmpty()) { 
-  console.log(errors);
-  req.flash("error_msg",'Please enter a valid contact number');
-  res.redirect('/company'); 
-} 
+
 if(!company.email||!company.companyCity||!company.companyLocation||!company.companyCountry||!company.companyName||!company.companyUrl
   ||!company.establishmentDate||!company.companyUrl||company.contactNo||!company.companyDisplay)
   {
@@ -502,21 +492,9 @@ else{
 );
 
 //post request for edit developer profile
-router.post("/developerProfile",isDeveloper,
-[ check('contactNo', 'Mobile number should contains 10 digits') 
-.isLength({ min: 10, max: 10 }) ],
-  upload.single("file"), (req, res) => {
+router.post("/developerProfile",isDeveloper,upload.single("file"), (req, res) => {
   console.log(req.user._id); //for debugging
   console.log(req.body); //for debugging
-
-  const errors = validationResult(req); 
-  
-  // If some error occurs
-  if (!errors.isEmpty()) { 
-      console.log(errors);
-      res.redirect('/developerProfile'); 
-  } 
-  else{
 
 
   var developer = {
@@ -578,7 +556,7 @@ router.post("/developerProfile",isDeveloper,
       }
     }
   );
-  }
+  
 });
 
 //rendering postJob page
@@ -786,7 +764,7 @@ router.get("/allJobs", function (req, res) {
         //console.log(companies);
         res.render("allJobs", {
           jobs: jobs,
-          loggedIn: loggedIn,
+          loggedIn: loggedIn
         });
       }
     });

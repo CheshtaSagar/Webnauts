@@ -21,7 +21,7 @@
 <div class="container-fluid">
 
 <div class="row">
-    <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+    <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1" style="background: black;">
         <button type="button" class="btn btn-dark btn-block"><a href="/companyProfile"
                 style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
         <button type="button" class="btn btn-dark btn-block"><a href="/company"
@@ -30,8 +30,7 @@
                 style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
         <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
                     style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>        
-        <button type="button" class="btn btn-dark btn-block"><a href="/portfolio"
-                style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+    
         <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                 style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
     </div>
@@ -43,11 +42,10 @@
 
     <!----section containing the form starts here-->
     <div class="container-fluid">
-        <div class="form-row" style="border-radius: 8px;background-color:rgb(201, 201, 201); text-align:justify;">
-            <div class="form-group col-md-12">
-               <h4>Post Job Here</h4>
-            </div>
-        </div>
+        
+               <h4 style="font-family: Georgia, 'Times New Roman', Times, serif;">Post Job Here</h4>
+            </br>
+            <div class="container shadow p-3 mb-5  rounded">
         <form action="/postJob" method="POST">
             <div class="form-row">
                 <div class="form-group col-md-12">
@@ -146,7 +144,7 @@
             
             <button type="submit" class="btn btn-primary">Post Job</button>
         </form>
-
+</div>
     </div>
 </div>
 </div>

@@ -13,6 +13,7 @@ var isCompany = auth.isCompany;
 //to search jobs by location
 router.get("/SearchByLocation", (req, res) => {
   const searchFields = req.query.byLocation;
+  const loggedIn = req.isAuthenticated() ? true : false;
   //if one of the field matches
   Job.find({
     $or: [
@@ -31,6 +32,7 @@ router.get("/SearchByLocation", (req, res) => {
           res.render("allJobs", {
             jobs: jobs,
             companies: companies,
+            loggedIn:loggedIn
           });
         }
       });
@@ -39,8 +41,10 @@ router.get("/SearchByLocation", (req, res) => {
 
 router.get("/SearchByTitle", (req, res) => {
   const searchFields = req.query.byTitle;
+  const loggedIn = req.isAuthenticated() ? true : false;
   //if one of the field matches
-  Job.find({ $or: [{ jobTitle: { $regex: searchFields, $options: "$i" } }] })
+  Job.find({ $or: [{ jobTitle: { $regex: searchFields, $options: "$i" } },
+  {jobSkills: { $regex: searchFields, $options: "$i" }}] })
     .populate("postedBy")
     .exec(function (err, jobs) {
       Company.find({}).exec(function (err, companies) {
@@ -50,18 +54,20 @@ router.get("/SearchByTitle", (req, res) => {
           res.render("allJobs", {
             jobs: jobs,
             companies: companies,
+            loggedIn:loggedIn
           });
         }
       });
     });
 });
 
-
-router.get("/SearchByLastDate", (req, res) => {
-  const searchFields = req.query.byLastDate;
+//to sort jobs according to date of posting
+router.get("/sortByPostDate/:type", (req, res) => {
+  const loggedIn = req.isAuthenticated() ? true : false;
+  if(req.params.type==='Ascending'){
   //if one of the field matches
-  Job.find({ LastDate: { $regex: searchFields, $options: "$i" } })
-    .populate("postedBy")
+  Job.find({})
+    .populate("postedBy").sort({postedOn:1})
     .exec(function (err, jobs) {
       Company.find({}).exec(function (err, companies) {
         if (err) {
@@ -70,19 +76,17 @@ router.get("/SearchByLastDate", (req, res) => {
           res.render("allJobs", {
             jobs: jobs,
             companies: companies,
+            loggedIn:loggedIn
           });
         }
       });
     });
-});
+  }
 
+  else{
 
-
-router.get("/SearchByPostedDate", (req, res) => {
-  const searchFields = req.query.byPostDate;
-  //if one of the field matches
-  Job.find({ postedOn: { $regex: searchFields, $options: "$i" } })
-    .populate("postedBy")
+    Job.find({})
+    .populate("postedBy").sort({postedOn:-1})
     .exec(function (err, jobs) {
       Company.find({}).exec(function (err, companies) {
         if (err) {
@@ -91,26 +95,62 @@ router.get("/SearchByPostedDate", (req, res) => {
           res.render("allJobs", {
             jobs: jobs,
             companies: companies,
+            loggedIn:loggedIn
           });
         }
       });
     });
+
+  }
 });
 
- //router.get('/SearchByCompany',(req, res)=>{
 
-//   const searchFields=req.query.byCompany;
-//   //if one of the field matches
-//   Job.find().populate({
-//     path:'postedBy',
-//     match:{
-//       companyName:{$regex:searchFields,$options:'$i'}
-//     }}).exec(function(err, jobs) {
-//       res.render('allJobs', {
-//         jobs: jobs
-//            });
+//to sort jobs according to last date of application
+router.get("/sortByLastDate/:type", (req, res) => {
+  const loggedIn = req.isAuthenticated() ? true : false;
+  if(req.params.type==='Ascending'){
+  //if one of the field matches
+  Job.find({})
+    .populate("postedBy").sort({postedOn:1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+  }
 
-//   });
-// });
+  else{
+
+    Job.find({})
+    .populate("postedBy").sort({postedOn:-1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+
+  }
+});
+
+
+
+
+
 
 module.exports = router;

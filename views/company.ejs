@@ -25,7 +25,7 @@
 
     <div class="row">
 
-      <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1">
+      <div class="col-lg-1 col-xl-3 bd-sidebar" id="Section1" style="background: black;">
         <% if(count>0){%>
         <button type="button" class="btn btn-dark btn-block "><a href="/companyProfile"
             style="text-decoration: none; color: rgb(255, 255, 255);">Profile</a></button>
@@ -36,45 +36,43 @@
             style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
         <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
             style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
-            <button type="button" class="btn btn-dark btn-block"><a href="#"
-              style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+   
           <%}%>     
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
             </div>
-            
+          
             <div class="col-md-8" id="Section2">
-                <div class="form-row" style="border-radius: 8px;text-align:justify; margin:10px;padding:5px;">
-                    <div class="form-group col-md-12">
                 
-                       <h4>Edit Profile</h4>
-                    </div>
-                </div>
+                       <h4 style="font-family:Georgia, 'Times New Roman', Times, serif">Edit Profile</h4>
+                  
                 <%- include ('partials/messages') %>
                 <!---->
-                <!---->
-                <!---to be inserted dynamically using ejs-->
-                <%if(count>0){%>
-                  <h3><%= company.companyName%></h3>
-                <%}%>
-                <h4><%= user.email%></h4>
-            <!---->
-            <!---->
-            <!---->
-
+            </br>
+                <div class="container shadow p-3 mb-5  rounded">
             <form action="/company" method="POST" enctype="multipart/form-data">
-
+              <div class="container shadow"  style="background-color: black; color: white; border-radius: 10px;">
               <div>
+                <br>
                 <% if(count>0){%>
-                <img src="/image/<%= company.companyIcon %>" height="180" style="border-radius:50%;">
+                <img src="/image/<%= company.companyIcon %>" class="rounded" height="150px" width="150px">
                 <%} else {%>
                 <img src="/images/developerIcon.jpg" height="100" style="border-radius:50%;">
                 <%}%>
-                  </div>
-                </br>
+                    
               </br>
-  
+                <%if(count>0){%>
+                  <h5 class="text-capitalize" style="color: cornflowerblue;"><%= company.companyName%></h5>
+                <%}%>
+              
+                <h6><%= user.email%></h6>
+                  </div>
+                
+              </br>
+  </div>
+
+</br>
               <h6>Upload Company Logo</h6>
             <div class="custom-file">
                 <input type="file" data-file_types="jpg|jpeg|png" class="custom-file-input" id="logo" name="logo" onchange="readSingleFile(this.files)">
@@ -173,7 +171,7 @@
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
       </div>
-
+</div>
 
     </div>
   </div>

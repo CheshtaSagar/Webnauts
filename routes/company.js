@@ -227,6 +227,7 @@ router.get("/companyDetails/:id", function (req, res) {
 //to search jobs by location
 router.get("/SearchByLocation", (req, res) => {
   const searchFields = req.query.byLocation;
+  const loggedIn = req.isAuthenticated() ? true : false;
   //if one of the field matches
   Company.find({
     $or: [
@@ -241,12 +242,14 @@ router.get("/SearchByLocation", (req, res) => {
     } else {
       res.render("allCompanies", {
         companies: companies,
+        loggedIn: loggedIn
       });
     }
   });
 });
 
 router.get("/SearchByName", (req, res) => {
+  const loggedIn = req.isAuthenticated() ? true : false;
   const searchFields = req.query.byName;
   //if one of the field matches
   Company.find({
@@ -261,6 +264,7 @@ router.get("/SearchByName", (req, res) => {
     else {
       res.render("allCompanies", {
         companies: companies,
+        loggedIn :loggedIn
       });
     }
   });
