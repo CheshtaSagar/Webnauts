@@ -36,24 +36,24 @@
         </br>
         <div class="conatiner shadow p-3 mb-5 rounded" style="background: black; border-radius: 6px;">
        <div class="row" style="margin:2px ;">
-        <div class="col-lg-3  col-md-6 col-6 ">
+        <div class="col-lg-2 col-xl-2  col-md-6 col-6 ">
         <form class="form" action="/job/SearchByLocation" method="GET">
             <input class="form-control " type="search" name="byLocation" placeholder="Search by Location" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
           </form>
         </div>
 
-        <div class="col-lg-3  col-md-6 col-6 ">
+        <div class="col-lg-2 col-xl-2  col-md-6 col-6 ">
             <form class="form" action="/job/SearchByTitle" method="GET">
                 <input class="form-control " type="search" name="byTitle" placeholder="Search by Title or skills" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search </button>
               </form>
             </div>
 
-            <div class="col-lg-3  col-md-6  col-sm-6  ">
+            <div class="col-lg-2  col-xl-2 col-md-6  col-sm-6  ">
                 <div class="btn-group" role="group">
                     <button id="btnGroup1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Sort By Last Application Date
+                      Sort By Last Date
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroup1">
                       <a class="dropdown-item" href="/job/sortByLastDate/Ascending">Ascending</a>
@@ -62,7 +62,7 @@
                   </div>
             </div>
            
-                <div class="col-lg-3  col-md-6  col-sm-6 ">
+                <div class="col-lg-2  col-xl-2 col-md-6  col-sm-6 ">
                     <div class="btn-group" role="group">
                         <button id="btnGroup2" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Sort By Posted Date
@@ -76,11 +76,44 @@
                 </div>
           
           
+                <div class="col-lg-2 col-xl-2  col-md-6  col-sm-6  ">
+                    <div class="btn-group" role="group">
+                        <button id="btnGroup1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Sort By Salary
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroup1">
+                          <a class="dropdown-item" href="/job/sortBySalary/MinumumAscending">Minimum Salary-Ascending</a>
+                          <a class="dropdown-item" href="/job/sortBySalary/MinimumDescending">Minimum Salary-Descending</a>
+                          <a class="dropdown-item" href="/job/sortBySalary/MaximumAscending">Maximum Salary-Ascending</a>
+                          <a class="dropdown-item" href="/job/sortBySalary/MaximumDescending">Maximum Salary-Descending</a>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-2 col-xl-2  col-md-6  col-sm-6  ">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroup1" type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Sort By Experience
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroup1">
+                              <a class="dropdown-item" href="/job/sortByExperience/Ascending">Ascending</a>
+                              <a class="dropdown-item" href="/job/sortByExperience/Descending">Descending</a>
+                             
+                            </div>
+                            </div>
+                          </div>
+
+
+                </div>
+
+                 
+
+
           
                 </div>
            
            
-            </div>
+    
 
 
          <!-----  <div class="col-lg-4  col-md-4 col-4 ">
@@ -137,7 +170,7 @@
         </br>
         <% }); %>
         <% }else{ %>
-            no jobs are found
+            no jobs found
         <% } %> 
         </div>
         <%- include ('partials/footer') %>

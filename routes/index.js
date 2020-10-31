@@ -302,6 +302,7 @@ router.get("/developer", isDeveloper, function (req, res) {
     else {
       //condition to give resume button if it exists
       var exist;
+      
       Resume.findOne({ creator: docs._id }, function (err, resume) {
         if (err) {
           console.log(err);
@@ -664,7 +665,7 @@ router.post("/postJob",isCompany,(req, res) => {
             from:'"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
             to: subscriber.email, // list of receivers
             subject: "New job posted on"+ docs.companyName , // Subject line
-            html: "<b>Developer,Hope you are doing well!!!</br></b><h4>A new job has been posted on our company page.Kindly visit www.infinityJobs.com for more details.</br>Regards InfinityJobs</h4>", // html body
+            text:'Hello '+subscriber.name+'\n'+'Hope you are doing well!!!A new job of '+job.jobTitle +' has been posted by '+docs.companyName +'.Kindly visit www.infinityJobs.com for more details.\n\n'+'Regards InfinityJobs'
           });
         
         

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/styles.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 </head>
 
@@ -151,8 +152,8 @@
                                                     <p1><%= post.Date %></p1>
                                                 </div>
                                                 <div class="col-lg-10  col-md-10 col-10 " style="font-style:italic">
-                                                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                                                        href="/company/delete_postedUpdate/<%= post._id %>">Delete this Post</a></button> 
+                                                    <a class="nav-link"
+                                                        href="/company/delete_postedUpdate/<%= post._id %>"><i class="fas fa-trash-alt"></i></a>
                                                 </div>
 
 
@@ -177,6 +178,7 @@
             </div>
         </div>
     </div>
+    <%- include ('partials/footer') %>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

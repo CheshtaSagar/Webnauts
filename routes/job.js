@@ -151,6 +151,134 @@ router.get("/sortByLastDate/:type", (req, res) => {
 
 
 
+//to sort jobs according to last date of application
+router.get("/sortBySalary/:type", (req, res) => {
+  const loggedIn = req.isAuthenticated() ? true : false;
+  if(req.params.type==='MinimumAscending'){
+  //if one of the field matches
+  Job.find({})
+    .populate("postedBy").sort({min_salary:1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+  }
 
+  else if(req.params.type==="MinimumDescending")
+  {
+
+    Job.find({})
+    .populate("postedBy").sort({min_salary:-1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+
+  }
+
+  else if(req.params.type==="MaximumAscending")
+  {
+
+    Job.find({})
+    .populate("postedBy").sort({max_salary:1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+
+  }
+  else
+  {
+
+    Job.find({})
+    .populate("postedBy").sort({max_salary:-1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+
+  }
+});
+
+
+
+//to sort jobs according to Experience
+router.get("/sortByExperience/:type", (req, res) => {
+  const loggedIn = req.isAuthenticated() ? true : false;
+  if(req.params.type==='Ascending'){
+  //if one of the field matches
+  Job.find({})
+    .populate("postedBy").sort({min_exp:1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+  }
+
+  else{
+
+    Job.find({})
+    .populate("postedBy").sort({min_exp:-1})
+    .exec(function (err, jobs) {
+      Company.find({}).exec(function (err, companies) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("allJobs", {
+            jobs: jobs,
+            companies: companies,
+            loggedIn : loggedIn
+          });
+        }
+      });
+    });
+
+  }
+});
 
 module.exports = router;

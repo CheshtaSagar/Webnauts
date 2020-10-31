@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <style>
         .img {
             width: 100%;
@@ -45,8 +46,7 @@
                 </div>
                 <div class="col-lg-3  col-md-6 col-6 " style="font-style:bold">
 
-                    <h1 style="font-size:1.5em; padding-bottom:5px">Email Id:</h1>
-                    <p style="font-style:italic"><%= developer.email %></p>
+                    <h3 style="font-size:1.5em; padding-bottom:5px"><p style="font-style:italic"><i class="fas fa-envelope"></i> : <%= developer.email %></p></h3>
                     <p style="font-style:italic"><b>Qualifications:</b> <%= developer.Qualification %> </p>
 
                     <p style="font-style:italic">
@@ -57,8 +57,9 @@
                 </div>
                 <div class="col-lg-4  col-md-6 col-6" style="font-style:bold">
 
-                    <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2>
-                    <p style="font-style:italic"><%= developer.contactNo %></p>
+                    <!-- <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2> -->
+                    
+                    <p style="font-style:italic ;font-size:20px;" ><i class="fas fa-phone-square"></i> : <%= developer.contactNo %></p>
 
                     <p style="font-style:italic"><b>Description: </b><%= developer.description %></p>
                 </div>
