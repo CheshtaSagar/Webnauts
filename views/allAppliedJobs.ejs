@@ -32,6 +32,10 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/updatePassword"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Update Password</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -51,10 +55,10 @@
                 <div>
 
                     <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/developer/allStats/<%= 'Accepted' %>">Accepted Applications</a></button>
-                        
+                            href="/developer/allStats/<%= 'Accepted' %>">Accepted Applications</a></button>
+
                     <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/developer/allStats/<%= 'Rejected' %>">Rejected Applications</a></button>
+                            href="/developer/allStats/<%= 'Rejected' %>">Rejected Applications</a></button>
 
 
                     <h2 class="page-title"><%= title %></h2>
@@ -92,8 +96,8 @@
                     </br>
                     <% }); %>
                     <% }else{ %>
-                        <h1>no jobs are applied yet</h1>
-                    <% } %> 
+                    <h1>No jobs are applied yet</h1>
+                    <% } %>
                 </div>
             </div>
         </div>

@@ -32,8 +32,10 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Applied Jobs</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/developerPortfolio"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
-                        <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
-                            style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
+                <button type="button" class="btn btn-dark btn-block"><a href="/updatePassword"
+                        style="text-decoration: none; color: rgb(255, 255, 255);">Update Password</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -53,32 +55,32 @@
                 <div>
 
                     <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/developer/allStats/<%= 'Accepted' %>">Accepted Applications</a></button>
-                        
-                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                        href="/developer/allStats/<%= 'Rejected' %>">Rejected Applications</a></button>
-                    
-                        <button type="button" class="btn btn-outline-dark"><a class="nav-link"
-                            href="/developer/allAppliedJobs">All Applied Jobs</a></button> 
-        
+                            href="/developer/allStats/<%= 'Accepted' %>">Accepted Applications</a></button>
 
-                            <br>
-                    <h2 class="page-title" style="font-family: Georgia, 'Times New Roman', Times, serif;"><%= title %></h2>
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                            href="/developer/allStats/<%= 'Rejected' %>">Rejected Applications</a></button>
+
+                    <button type="button" class="btn btn-outline-dark"><a class="nav-link"
+                            href="/developer/allAppliedJobs">All Applied Jobs</a></button>
+
+
+                    <br>
+                    <h2 class="page-title" style="font-family: Georgia, 'Times New Roman', Times, serif;"><%= title %>
+                    </h2>
                     <br><br>
                     <%- include ('partials/messages') %>
-       <!--------------------->
-       <!--------------------->
-       <!--------------------->             
-                    
-                    <% if(title==='Accepted Applications'){%>
-                    <% if(Status.length>0) {%>
+                    <!--------------------->
+                    <!--------------------->
+                    <!--------------------->
 
-                    <% Status.forEach(function(status){ %>
-                    <%if(status.current==='Accepted'){ var job=status._id;%>
+                    <% if(title==='Accepted Applications'){%>
+                    <% if(jobs.length>0) {%>
+
+                    <% jobs.forEach(function(job){ %>
                     <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
                         <div class="row">
                             <div class="col-lg-4  col-md-4 col-4 ">
-                                <!-- <img src="/image/ job.postedBy.companyIcon  " width="100px" height="100px"></img> -->
+                                <img src="/image/<%= job.postedBy.companyIcon %> " width="100px" height="100px"></img>
                             </div>
                             <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
                                 <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
@@ -102,12 +104,11 @@
                         </div>
                     </div>
                     </br>
-                    <%}%>
-                
+
                     <% }); %>
                     <% }else{ %>
-                        <h1>no applications have been accepted yet</h1>
-                    <% } %> 
+                    <h1>no applications have been accepted yet</h1>
+                    <% } %>
 
                     <%}%>
 
@@ -115,45 +116,43 @@
 <!--------------------->
 <!--------------------->
                     <% if(title==='Rejected Applications'){%>
-                        <% if(Status.length>0) {%>
-    
-                        <% Status.forEach(function(status){ %>
-                        <%if(status.current==='Rejected'){ var job=status._id;%>
-                        <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
-                            <div class="row">
-                                <div class="col-lg-4  col-md-4 col-4 ">
-                                    <!-- <img src="/image/ job.postedBy.companyIcon " width="100px" height="100px"></img> -->
-                                </div>
-                                <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
-                                    <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
-                                    <p>Job Type : <%= job.jobType %> </p>
-                                    <p>Experience Required : <%= job.min_exp %> </p>
-                                    <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
-                                    <p>Skills Required : <%= job.jobSkills %></p>
-                                    <p>Minimum Qualification Required : <%= job.jobQualification %></p>
-                                    <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
-                                        <%= job.jobCountry %></p>
-                                </div>
-    
-                                <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
-                                    <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
-                                    <p><%= job.jobDescription %></p>
-                                    </br>
-                                    <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
-                                    <p><%= job.postedBy.companyName %></p>
-    
-                                </div>
+                    <% if(jobs.length>0) {%>
+
+                    <% jobs.forEach(function(job){ %>
+                    <div class="container shadow p-3 mb-5 bg-white rounded" style="border:2px ;border-radius:10px;">
+                        <div class="row">
+                            <div class="col-lg-4  col-md-4 col-4 ">
+                                <img src="/image/<%= job.postedBy.companyIcon%> " width="100px" height="100px"></img>
+                            </div>
+                            <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic">
+                                <h1 style="font-size:1.5em; padding-bottom:5px"><%= job.jobTitle %></h1>
+                                <p>Job Type : <%= job.jobType %> </p>
+                                <p>Experience Required : <%= job.min_exp %> </p>
+                                <p>Salary : <%= job.min_salary %> - <%= job.max_salary %></p>
+                                <p>Skills Required : <%= job.jobSkills %></p>
+                                <p>Minimum Qualification Required : <%= job.jobQualification %></p>
+                                <p>Location: <%= job.jobLocation %>, <%= job.jobCity %>, <%= job.jobState %>,
+                                    <%= job.jobCountry %></p>
+                            </div>
+
+                            <div class="col-lg-4  col-md-4 col-4" style="font-style:italic">
+                                <h1 style="font-size:1.5em; padding-bottom:5px">Job Description</h1>
+                                <p><%= job.jobDescription %></p>
+                                </br>
+                                <h5 style="font-size:1.5em; padding-bottom:5px">Company Name:</h5>
+                                <p><%= job.postedBy.companyName %></p>
+
                             </div>
                         </div>
-                        </br>
-                        <%}%>
-                    
-                        <% }); %>
-                        <% }else{ %>
-                            <h1>no applications have been rejected yet</h1>
-                        <% } %> 
-    
-                        <%}%>
+                    </div>
+                    </br>
+
+                    <% }); %>
+                    <% }else{ %>
+                    <h1>no applications have been rejected yet</h1>
+                    <% } %>
+
+                    <%}%>
     
     
 <!--------------------->

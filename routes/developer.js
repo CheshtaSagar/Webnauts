@@ -5,22 +5,19 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
 const User = require("../models/User");
-const {Company,Post} = require("../models/Company");
+const { Company, Post } = require("../models/Company");
 const Job = require("../models/Job");
 const Developer = require("../models/Developer");
 const Resume = require("../models/Resume");
-var auth = require('../config/auth');
+var auth = require("../config/auth");
 var isDeveloper = auth.isDeveloper;
 var isCompany = auth.isCompany;
 const Grid = require("gridfs-stream");
 const { storage, upload } = require("../config/grid");
 Grid.mongo = mongoose.mongo;
 
-
-
-
 //to let user apply for an opening
-router.get("/apply/:id",isDeveloper, function (req, res) {
+router.get("/apply/:id", isDeveloper, function (req, res) {
   Developer.findOne(
     { userDetails: req.user._id, AppliedJobs: req.params.id },
     function (err, developer) {
@@ -29,56 +26,60 @@ router.get("/apply/:id",isDeveloper, function (req, res) {
         throw err;
       }
       if (developer) {
-       // console.log("80");
+        // console.log("80");
         //console.log(developer);
         req.flash("success_msg", "Already applied for the job");
         res.redirect("/allJobs");
       }
       if (!developer) {
-  //finding developer with same logged in user id
-  Developer.findOneAndUpdate(
-    { userDetails: req.user.id },
-    {
-      $push: {
-        AppliedJobs: req.params.id,
-        Status: { _id: req.params.id, current: "Pending" },
-      },
-    },
-    { new: true },
-    function (err, docs) {
-      if (err) {
-        console.log(err);
-        throw err;
-      } else {
-        console.log(docs); //shows reqd developer
-        console.log(req.params.id);
-        //finding job having same id as current job
-        Job.findOneAndUpdate(
-          { _id: req.params.id },
-          { $push: { appliedBy: docs._id } },
+        //finding developer with same logged in user id
+        Developer.findOneAndUpdate(
+          { userDetails: req.user.id },
+          {
+            $push: {
+              AppliedJobs: req.params.id,
+              Status: { _id: req.params.id, current: "Pending" },
+            },
+          },
           { new: true },
-          function (err, job) {
-            if (err) console.log(err);
-            else {
-              console.log(job);
-              console.log("Successfully applied for the job");
-              req.flash("success_msg", "Successfully applied for the job");
-              res.redirect("/developer/allAppliedJobs"); //CHANGE THIS LATER
+          function (err, docs) {
+            if (err) {
+              console.log(err);
+              throw err;
+            } else {
+              console.log(docs); //shows reqd developer
+              console.log(req.params.id);
+              //finding job having same id as current job
+              Job.findOneAndUpdate(
+                { _id: req.params.id },
+                { $push: { appliedBy: docs._id } },
+                { new: true },
+                function (err, job) {
+                  if (err) console.log(err);
+                  else {
+                    console.log(job);
+                    console.log("Successfully applied for the job");
+                    req.flash(
+                      "success_msg",
+                      "Successfully applied for the job"
+                    );
+                    res.redirect("/developer/allAppliedJobs"); //CHANGE THIS LATER
+                  }
+                }
+              );
             }
           }
         );
       }
     }
   );
-  }
-}) 
 });
 
 ///
 ///////
 ////////
 //to render the page containing info about all the applied jobs
-router.get("/allAppliedJobs",isDeveloper, (req, res) => {
+router.get("/allAppliedJobs", isDeveloper, (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("AppliedJobs")
     .exec(function (err, developer) {
@@ -100,7 +101,7 @@ router.get("/allAppliedJobs",isDeveloper, (req, res) => {
     });
 });
 
-router.get("/subscribe/:id",isDeveloper, function (req, res) {
+router.get("/subscribe/:id", isDeveloper, function (req, res) {
   Developer.findOne(
     { userDetails: req.user._id, following: req.params.id },
     function (err, developer) {
@@ -153,9 +154,8 @@ router.get("/subscribe/:id",isDeveloper, function (req, res) {
   );
 });
 
-
 //to render the page containg info about all the applied jobs
-router.get("/followings",isDeveloper, (req, res) => {
+router.get("/followings", isDeveloper, (req, res) => {
   Developer.findOne({ userDetails: req.user._id })
     .populate("following")
     .exec(function (err, developer) {
@@ -171,7 +171,7 @@ router.get("/followings",isDeveloper, (req, res) => {
     });
 });
 
-router.get("/unsubscribe/:id",isDeveloper, function (req, res) {
+router.get("/unsubscribe/:id", isDeveloper, function (req, res) {
   //finding developer with same logged in user id
   Developer.findOneAndUpdate(
     { userDetails: req.user.id },
@@ -213,8 +213,8 @@ router.get("/portfolio/:id", (req, res) => {
       Resume.findOne({ creator: developer._id }, function (err, resume) {
         if (err) {
           console.log(err);
-        } else if (!resume) 
-        res.redirect('/image/'+developer.resumeUpload);//showing resume which was uploaded by user
+        } else if (!resume) res.redirect("/image/" + developer.resumeUpload);
+        //showing resume which was uploaded by user
         else {
           res.render("portfolio", {
             resume: resume,
@@ -226,11 +226,8 @@ router.get("/portfolio/:id", (req, res) => {
   });
 });
 
-
-
 //to set status of job application of developer as accepted
-router.get("/accept/:devId/:jobId", isCompany,(req, res) => {
-
+router.get("/accept/:devId/:jobId", isCompany, (req, res) => {
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
     { $set: { "Status.$.current": "Accepted" } },
@@ -238,47 +235,41 @@ router.get("/accept/:devId/:jobId", isCompany,(req, res) => {
     function (err, developer) {
       if (err) console.log(err);
       else {
+        ////////////////////
 
-      ////////////////////
+        async function main() {
+          let testAccount = await nodemailer.createTestAccount();
 
-   async function main() {
-  
-  let testAccount = await nodemailer.createTestAccount();
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            auth: {
+              user: "infinityjobs3@gmail.com",
+              pass: "***", //clear this field before pushing the code
+            },
+          });
 
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, 
-    auth: {
-      user: "infinityjobs3@gmail.com",
-      pass: "***", //clear this field before pushing the code
-    },
-  });
+          // send mail with defined transport object
+          let info = await transporter.sendMail({
+            from: '"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
+            to: developer.email, // list of receivers
+            subject: "Hello " + developer.name, // Subject line
+            html:
+              "Congratulations</br><h6>Your application has been approved and you have been selected!!!You will receive an email from the company in few days.Kindly visit www.infinityJobs.com for more details</h6></br>Regards,InfinityJobs", // html body
+          });
 
-  // send mail with defined transport object
-    let info = await transporter.sendMail({
-    from:'"Infinity Jobs"<infinityjobs3@gmail.com>', // sender address
-    to: developer.email, // list of receivers
-    subject: "Hello "+ developer.name, // Subject line
-    html: "Congratulations</br><h6>Your application has been approved and you have been selected!!!You will receive an email from the company in few days.Kindly visit www.infinityJobs.com for more details</h6></br>Regards,InfinityJobs", // html body
-  });
+          if (info.messageId) console.log("Mail sent");
 
+          console.log("Message sent: %s", info.messageId);
+          // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  if(info.messageId)
-  console.log('Mail sent');
+          console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+        }
 
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-
-}
-
-main().catch(console.error);
-//////////////////////////
-
+        main().catch(console.error);
+        //////////////////////////
 
         req.flash("success_msg", developer.name + " has been selected");
         console.log(developer.name + "has been selected");
@@ -289,13 +280,7 @@ main().catch(console.error);
   );
 });
 
-
-
-
-
-
-
-router.get("/reject/:devId/:jobId",isCompany, (req, res) => {
+router.get("/reject/:devId/:jobId", isCompany, (req, res) => {
   Developer.findOneAndUpdate(
     { _id: req.params.devId, "Status._id": req.params.jobId },
     { $set: { "Status.$.current": "Rejected" } },
@@ -312,42 +297,64 @@ router.get("/reject/:devId/:jobId",isCompany, (req, res) => {
   );
 });
 
-
 //to  show accepted or rejected jobs
-router.get("/allStats/:string", isDeveloper,(req, res) => {
+router.get("/allStats/:string", isDeveloper, (req, res) => {
+  var acceptedIds = [];
+  var rejectedIds = [];
   Developer.findOne({ userDetails: req.user._id })
     .populate("Status._id")
     .exec(function (err, developer) {
       if (err) {
         console.log(err);
       } else {
-        console.log(developer.Status);
-        if (req.params.string === "Accepted")
-          res.render("allStats", {
-            Status: developer.Status,
-            title: "Accepted Applications",
-          });
-        if (req.params.string === "Rejected")
-          res.render("allStats", {
-            Status: developer.Status,
-            title: "Rejected Applications",
-          });
+        var status = developer.Status;
+        status.forEach(function (status) {
+          if (status.current == "Accepted") {
+            acceptedIds.push(status._id);
+          }
+          if (status.current == "Rejected") {
+            rejectedIds.push(status._id);
+          }
+        });
+        //console.log(developer.Status);
+        if (req.params.string === "Accepted") {
+          Job.find({ _id: acceptedIds })
+            .populate("postedBy")
+            .exec(function (err, jobs) {
+              res.render("allStats", {
+                jobs: jobs,
+                title: "Accepted Applications",
+              });
+            });
+        }
+        if (req.params.string === "Rejected") {
+          Job.find({ _id: rejectedIds })
+            .populate("postedBy")
+            .exec(function (err, jobs) {
+              res.render("allStats", {
+                jobs: jobs,
+                title: "Rejected Applications",
+              });
+            });
+        }
       }
     });
 });
 
-
 //to upload resume
-router.post('/uploadResume', upload.single("file"),(req,res)=>{
-  Developer.findOneAndUpdate({ userDetails: req.user._id },{$set: { "resumeUpload" : req.file.filename}},function (err, developer) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(developer);
-      req.flash("success_msg", "Resume successfully uploaded");
-      res.redirect("/developerPortfolio");
+router.post("/uploadResume", upload.single("file"), (req, res) => {
+  Developer.findOneAndUpdate(
+    { userDetails: req.user._id },
+    { $set: { resumeUpload: req.file.filename } },
+    function (err, developer) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(developer);
+        req.flash("success_msg", "Resume successfully uploaded");
+        res.redirect("/developerPortfolio");
+      }
     }
-  });
-
+  );
 });
 module.exports = router;
