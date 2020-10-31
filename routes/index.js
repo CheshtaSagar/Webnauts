@@ -20,6 +20,8 @@ const { storage, upload } = require("../config/grid");
 var auth = require('../config/auth');
 var isDeveloper = auth.isDeveloper;
 var isCompany = auth.isCompany;
+var isUser = auth.isUser;
+
 
 Grid.mongo = mongoose.mongo;
 
@@ -41,6 +43,13 @@ router.get("/register", function (req, res) {
 //forget password route
 router.get('/forgetPassword',function(req,res){
   res.render('forgetPassword',{
+    user:req.user
+  });
+});
+
+//Update password route
+router.get('/updatePassword',function(req,res){
+  res.render('updatePassword',{
     user:req.user
   });
 });
@@ -276,6 +285,75 @@ router.post('/reset/:token', function(req, res) {
   
   );
 });
+
+
+router.post('/updatePassword',isUser, function(req, res) {
+  const { oldPassword, password, password2 } = req.body;
+  let errors = [];
+
+  if ( !oldPassword || !password || !password2) {
+    errors.push({ msg: "Please enter all fields" });
+  }
+  if (password != password2) {
+    errors.push({ msg: "Passwords do not match" });
+  }
+
+  if (password.length < 5) {
+    errors.push({ msg: "Password must be at least 5 characters" });
+  }
+
+
+  if (errors.length > 0) {
+    console.log(errors.length);
+    res.render("updatePassword", {
+      user:req.user,
+      errors:errors //    if entries are not according to validation render filled fields
+      
+    });
+  }
+
+
+
+  User.findOne({_id: req.user._id},function(err, user) {
+
+    // Match password
+    bcrypt.compare(oldPassword, user.password, (err, isMatch) => { 
+      if (err) throw err;
+
+      else if (!isMatch) {
+        console.log("Don't match");
+        errors.push("Old password is wrong");
+        console.log(errors);
+        res.render('updatePassword',{user :req.user,
+        errors:errors});
+      }
+      else {
+        console.log("match");
+          //if Validations passed
+    bcrypt.genSalt(10, (err, salt) =>
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) throw err;
+      else{
+        User.findOneAndUpdate({ _id: req.user._id}, { $set: {password:hash} }, function (err,user) {
+          if (err) console.log(err);
+          else {
+            console.log(user);
+            req.flash("success_msg", "Passsword updated successfully");
+            if(req.user.userType=="developer")
+            res.redirect("/developer");
+            else{
+              res.redirect("/companyProfile");
+            }
+          }
+        });
+      }
+    })
+    );
+      
+      }
+    });
+  });
+  });
 
 
 

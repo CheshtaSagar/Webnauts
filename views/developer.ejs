@@ -29,6 +29,8 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Portfolio</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/developer/followings"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Following Companies</a></button>
+                        <button type="button" class="btn btn-dark btn-block"><a href="/updatePassword"
+                            style="text-decoration: none; color: rgb(255, 255, 255);">Update Password</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
 
@@ -45,6 +47,7 @@
             <div class="col-md-8" id="Section2">
                 <div class="row mb-5 mt-3 ml-2">
                     <div class="col-lg-8 col-md-8 col-12">
+                        <%- include ('partials/messages') %>
                         <img src="/image/<%= developer.developerIcon %> " class="img-fluid"  height="200px"></img>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12 font-italic ">
