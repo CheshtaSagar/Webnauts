@@ -111,7 +111,7 @@ router.get("/sortByLastDate/:type", (req, res) => {
   if(req.params.type==='Ascending'){
   //if one of the field matches
   Job.find({})
-    .populate("postedBy").sort({postedOn:1})
+    .populate("postedBy").sort({LastDate:1})
     .exec(function (err, jobs) {
       Company.find({}).exec(function (err, companies) {
         if (err) {
@@ -130,7 +130,7 @@ router.get("/sortByLastDate/:type", (req, res) => {
   else{
 
     Job.find({})
-    .populate("postedBy").sort({postedOn:-1})
+    .populate("postedBy").sort({LastDate:-1})
     .exec(function (err, jobs) {
       Company.find({}).exec(function (err, companies) {
         if (err) {

@@ -27,8 +27,8 @@
                         style="text-decoration: none; color: rgb(255, 255, 255);">Post a Job</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/company/postedJobs"
                         style="text-decoration: none; color: rgb(255, 255, 255);">All posted Jobs</a></button>
-                <button type="button" class="btn btn-dark btn-block"><a href="#"
-                        style="text-decoration: none; color: rgb(255, 255, 255);">Anything here</a></button>
+                        <button type="button" class="btn btn-dark btn-block"><a href="/updatePassword"
+                            style="text-decoration: none; color: rgb(255, 255, 255);">Update Password</a></button>
                 <button type="button" class="btn btn-dark btn-block"><a href="/logout"
                         style="text-decoration: none; color: rgb(255, 255, 255);">Log Out</a></button>
             </div>
@@ -77,21 +77,22 @@
                             <p style="font-style:italic"><%= developer.email %></p>
                             <p style="font-style:italic"><b>Qualifications:</b> <%= developer.Qualification %> </p>
 
-                            <p style="font-style:italic">
+                            <p style="font-style:italic; white-space: break-word;
+                            word-break: break-all;">
                                 <b> Address:</b>
                                 <%= developer.developerLocation %>,<%= developer.developerCity %>,<%= developer.developerState %>,<%= developer.developerCountry %>
                             </p>
 
 
                         </div>
-                        <div class="col-lg-3  col-md-4 col-6" style="font-style:bold">
+                        <div class="col-lg-2  col-md-4 col-6" style="font-style:bold">
 
                             <h2 style="font-size:1.5em; padding-bottom:5px">Contact No:</h2>
                             <p style="font-style:italic"><%= developer.contactNo %></p>
 
                             <p style="font-style:italic"><b>Description: </b><%= developer.description %></p>
                         </div>
-                        <div class="col-lg-3  col-md-4 col-6" style="font-style:bold">
+                        <div class="col-lg-4  col-md-4 col-6" style="font-style:bold">
 
                             <h2 style="font-size:1.5em; padding-bottom:5px">Linked In:</h2>
                             <p style="font-style:italic"><%= developer.linkedIn %></p>
