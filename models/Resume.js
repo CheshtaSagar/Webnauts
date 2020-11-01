@@ -1,71 +1,73 @@
-const User = require('./Developer');
-const mongoose = require('mongoose');
+const User = require("./Developer");
+const mongoose = require("mongoose");
 
 const ResumeSchema = new mongoose.Schema({
-  creator:      //information of developer whose resume is this
-  {
+  //information of developer whose resume is this
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Developer"
+    ref: "Developer",
   },
-  skills: [{
-    type: String
-  }],
+  skills: [
+    {
+      type: String,
+    },
+  ],
 
-  education:
+  education: {
+    Degree: [
+      {
+        type: String,
+      },
+    ],
+    University: [
+      {
+        type: String,
+      },
+    ],
+    gradYear: [
+      {
+        type: String,
+      },
+    ],
+    Branch: [
+      {
+        type: String,
+      },
+    ],
+  },
 
-  {
-    Degree: [{
-      type: String
-    }],
-    University:
-      [{
-        type: String
-      }],
-    gradYear:
-      [{
-        type: String
-      }],
-    Branch:
-      [{
-        type: String
-      }]
-  }
-
-  ,
-
-  githubLink:
-  {
+  githubLink: {
     type: String,
-    required: true
+    required: true,
   },
-  pastExperience:
-
-  {
-    Institute:
-      [{
-        type: String
-      }]
-    ,
-    Title:
-      [{
-        type: String
-      }],
-    StartDate:
-      [{
-        type: String
-      }],
-    EndDate:
-      [{
-        type: String
-      }],
-    Description:
-      [{
-        type: String
-      }]
-  }
- 
-
+  pastExperience: {
+    Institute: [
+      {
+        type: String,
+      },
+    ],
+    Title: [
+      {
+        type: String,
+      },
+    ],
+    StartDate: [
+      {
+        type: String,
+      },
+    ],
+    EndDate: [
+      {
+        type: String,
+      },
+    ],
+    Description: [
+      {
+        type: String,
+      },
+    ],
+  },
 });
 
-const Resume = mongoose.model('Resume', ResumeSchema);
+const Resume = mongoose.model("Resume", ResumeSchema);
 module.exports = Resume;
