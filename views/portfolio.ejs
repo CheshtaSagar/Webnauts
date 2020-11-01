@@ -13,21 +13,17 @@
 
 </head>
 
-<body>
-    
-    <div class="container-fluid">
 
-        <body style="background-color:rgb(22, 21, 21);">
+  <body style="background-color:rgb(22, 21, 21);">
             <%- include ('partials/messages') %>
             <h1 class="text-center" style="font-size:75px; font-style:italic ;font-weight:100; color:white">Portfolio
             </h1>
-            <hr style="width:600px; background-color:white">
-            </hr>
+           
             <div class="container"
                 style="border:2px solid white; border-radius:10px;background-color:white;margin-bottom:40px">
                 <div class="row mt-5">
 
-                    <div class="col-lg-4  col-md-4 col-4 " style="font-style:italic; padding-left:50px ">
+                    <div class="col-lg-4  col-md-4 " style="font-style:italic; padding-left:50px ">
                         <h1 style="font-size:2em; padding-bottom:5px"><%= developer.name %></h1>
                         <hr style="width:300px; background-color:black">
                         </hr>
@@ -44,10 +40,10 @@
 
 
                     </div>
-                    <div class="col-lg-5 col-md-6 col-6" style="font-style:italic">
+                    <div class="col-lg-3 col-md-6 " style="font-style:italic">
                     </div>
 
-                    <div class="col-lg-3 col-md-6 col-6" style="font-style:italic">
+                    <div class="col-lg-4 col-md-6 col-6" style="font-style:italic">
                         <img src="/image/<%= developer.developerIcon %>" width="200px" height="200px"
                             style="border:2px solid white; border-radius:25px;"></img>
                         </br></br>
@@ -70,18 +66,18 @@
                     <% for(var i=0;i< resume.education.Degree.length ;i++){ %>
 
                     <div class="row">
-                        <div class="col-lg-8  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+                        <div class="col-lg-8  col-md-6 " style="font-style:italic; padding-left:50px ">
 
                             <p style="font-size:1.25em">Institute: <%= resume.education.University[i] %></p>
                             <p style="font-size:1.25em ">Degree : <%= resume.education.Degree[i] %></p>
                             <p style="font-size:1.25em ">Branch : <%= resume.education.Branch[i] %></p>
                             </div>
-                             <div class="col-lg-4  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+                             <div class="col-lg-4  col-md-6 " style="font-style:italic; padding-left:50px ">
                             <p style="font-size:1.25em ">Year : <%= resume.education.gradYear[i] %></p>
                             <hr style="width:1px; background-color:pink">
                             </hr>
                         </div>
-                          <hr style="width:950px; background-color:pink">
+                          <hr style="width:500px; background-color:pink">
                             </hr>
                     </div>
                     </br>
@@ -99,18 +95,18 @@
 
 <% for(var i=0;i< resume.pastExperience.Title.length ;i++){ %>
                     <div class="row">
-                        <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+                        <div class="col-lg-6  col-md-6" style="font-style:italic; padding-left:50px ">
 
                             <p style="font-size:1.25em">Title: <%= resume.pastExperience.Title[i]%></p>
                             <p style="font-size:1.25em">Institute: <%= resume.pastExperience.Institute[i]%></p>
                             <p style="font-size:1.25em ">From: <%= resume.pastExperience.StartDate[i]%> -
                                 <%= resume.pastExperience.EndDate[i]%></p></div>
-                                <div class="col-lg-6  col-md-6 col-6 " style="font-style:italic; padding-left:50px ">
+                                <div class="col-lg-6  col-md-6 " style="font-style:italic; padding-left:50px ">
                             <p style="font-size:1.25em;">Description: <%= resume.pastExperience.Description[i]%> </p>
                             <hr style="width:1px; ">
                             </hr>
                         </div>
-                        <hr style="width:950px; background-color:pink">
+                        <hr style="width:500px; background-color:pink">
                             </hr>
                     </div>
                     </br>
@@ -119,19 +115,24 @@
           <div class="row">
        <div style="font-style:italic; padding-left:50px ">
                <h1 style="font-size:2em; padding-bottom:5px">Skills</h1>
-         <hr style="width:300px;margin-right:780px; background-color:black" ></hr>
+         <hr style="width:300px; background-color:black" ></hr>
          <% for(var i=0;i<resume.skills.length;i++) {%>
                     <p style="font-size:1.5em"><%= i+1 %> <%= resume.skills[i]%> </p>
                     <%}%>
            </br>
-
+        </div>
+        
+        <div class="row ">
+            <div style="font-style:italic; padding-left:50px ">
         <h1 style="font-size:2em; padding-bottom:5px">Description:-</h1>
-         <hr style="width:300px;margin-right:780px; background-color:black" ></hr>
+         <hr style="width:400px;align-items: flex-start; background-color:black;" ></hr>
+        
         <p style="font-size:1.25em;"><%= developer.description%></p>
+</div>
+</div>
+         </div>     </div>
 
-                </div>
-
-            </div>
+            
     </div>
     </div>
     </div>

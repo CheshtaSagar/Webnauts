@@ -508,16 +508,18 @@ router.post(
     };
 
 
-if(!company.email||!company.companyCity||!company.companyLocation||!company.companyCountry||!company.companyName||!company.companyUrl
-  ||!company.establishmentDate||!company.companyUrl||company.contactNo||!company.companyDisplay)
+ if(!company.companyCity||!company.companyLocation||!company.companyCountry||!company.companyName||!company.companyHeadName||!company.companyUrl
+  ||!company.establishmentDate||!company.companyState||!company.contactNo||!company.companyDisplay)
   {
     errors.push({ msg: "Please enter all fields" });
-  }
+     }
 
   if (errors.length > 0) {
     res.render("company", {
       company: company,
       id: req.user.id,
+      count:0,
+      errors:errors
     });
   }
 else{
@@ -674,32 +676,7 @@ router.post("/postJob",isCompany,(req, res) => {
         jobCountry: req.body.jobCountry,
         postedBy: docs._id, //storing id of current company in this field
       });
-      let errors = [];
-
-      //Validations for registration form
-      if (
-        !job.jobTitle ||
-        !job.jobType ||
-        !job.min_exp ||
-        !job.min_salary ||
-        !job.max_salary ||
-        !job.jobDescription ||
-        !job.jobSkills ||
-        !job.jobQualification ||
-        !job.jobLocation ||
-        !job.jobCity ||
-        !job.jobState ||
-        !job.jobCountry ||
-        !job.LastDate
-      ) {
-        errors.push({ msg: "Please enter all fields" });
-      }
-    
-      if (errors.length > 0) {
-        res.render("postJob");
-      } 
       
-      else {
       job.save().then((user) => {
         req.flash("success_msg", "job posted ");
         res.redirect("/company/postedJobs"); //include msg.ejs wherever you want to see this msg
@@ -763,7 +740,7 @@ router.post("/postJob",isCompany,(req, res) => {
         //////////////////////////
       });
     }
-  }
+  
 });
 });
 
@@ -822,7 +799,7 @@ router.post("/developerPortfolio", isDeveloper,async (req, res) => {
         .save()
         .then((user) => {
           req.flash("success_msg", "resume posted ");
-          res.redirect("developer/portfolio/docs._id"); //include msg.ejs wherever you want to see this msg
+          res.redirect("developer/portfolio/"+ docs._id); //include msg.ejs wherever you want to see this msg
           console.log("resume successfully posted");
         })
         .catch((err) => console.log(err));
