@@ -1,4 +1,4 @@
-
+//authentication for Developer
 exports.isDeveloper = function(req, res, next) {
     if (req.isAuthenticated()&& res.locals.user.userType == 'developer') {
         next();
@@ -8,6 +8,7 @@ exports.isDeveloper = function(req, res, next) {
     }
 }
 
+//authentication for Company
 exports.isCompany = function(req, res, next) {
     if (req.isAuthenticated() && res.locals.user.userType == 'company') {
         next();
@@ -17,6 +18,7 @@ exports.isCompany = function(req, res, next) {
     }
 }
 
+//authentication for both Developer and Company
 exports.isUser = function(req, res, next) {
     if (req.isAuthenticated()) {
         next();

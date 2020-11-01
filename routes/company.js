@@ -4,20 +4,21 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs"); //for storing encrypted password
 const passport = require("passport");
 const User = require("../models/User");
-const {Company,Post} = require("../models/Company");
+const { Company, Post } = require("../models/Company");
 const Job = require("../models/Job");
 const Grid = require("gridfs-stream");
 const { storage, upload } = require("../config/grid");
 
 Grid.mongo = mongoose.mongo;
 
-var auth = require('../config/auth');
+var auth = require("../config/auth");
 const Developer = require("../models/Developer");
 const { find } = require("../models/User");
 var isDeveloper = auth.isDeveloper;
 var isCompany = auth.isCompany;
 
-router.get("/postedJobs", isCompany,(req, res) => {
+//route for getting all the jobs posted by a Company
+router.get("/postedJobs", isCompany, (req, res) => {
   Company.findOne({ creator: req.user._id }, function (err, company) {
     if (err) {
       console.log(err);
@@ -34,10 +35,10 @@ router.get("/postedJobs", isCompany,(req, res) => {
       });
     }
   });
-
 });
 
-router.get("/edit_postedJobs/:id", isCompany,function (req, res) {
+//route for getting edit job paste
+router.get("/edit_postedJobs/:id", isCompany, function (req, res) {
   //:id for getting arbitratry value which id related things to be edited
 
   Job.findById(req.params.id, function (err, job) {
@@ -52,7 +53,7 @@ router.get("/edit_postedJobs/:id", isCompany,function (req, res) {
 });
 
 //see applicants of a particular job
-router.get("/appliedBy/:id",isCompany, function (req, res) {
+router.get("/appliedBy/:id", isCompany, function (req, res) {
   Job.findById(req.params.id)
     .populate("appliedBy")
     .exec(function (err, job) {
@@ -62,63 +63,67 @@ router.get("/appliedBy/:id",isCompany, function (req, res) {
         res.render("appliedBy", {
           developers: job.appliedBy,
           jobId: req.params.id,
-          title:"All Applicants"
+          title: "All Applicants",
         });
       }
     });
 });
 
-router.get("/allStats/:id/:string", isCompany,(req, res) => {
-  
-        if (req.params.string === "Accepted")
-        {
-          Developer.find({"Status":{_id:req.params.id, current:"Accepted"}}).exec(function(err,developers){
-            if (err) {
-              console.log(err);
-            } else { 
-          res.render("applicantsStats", {
-            developers: developers,
-            jobId: req.params.id,
-            title: "Accepted Applicants",
-          });
-        }
-        })
-        }
-        if (req.params.string === "Rejected")
-        {
-          Developer.find({"Status":{_id:req.params.id, current:"Rejected"}}).exec(function(err,developers){
-            if (err) {
-              console.log(err);
-            } else { 
-          res.render("applicantsStats", {
-            developers: developers,
-            jobId: req.params.id,
-            title: "Rejected Applicants",
-          });
-        }
-        })
-        }
-        if (req.params.string === "Pending")
-        {
-          console.log("hii");
-          Developer.find({"Status":{_id:req.params.id, current:"Pending"}}).exec(function(err,developers){
-            if (err) {
-              console.log(err);
-            } else { 
-              console.log(developers)
+//for seeing all stats of a particular Job
+router.get("/allStats/:id/:string", isCompany, (req, res) => {
+  if (req.params.string === "Accepted") {
+    Developer.find({
+      Status: { _id: req.params.id, current: "Accepted" },
+    }).exec(function (err, developers) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("applicantsStats", {
+          developers: developers,
+          jobId: req.params.id,
+          title: "Accepted Applicants",
+        });
+      }
+    });
+  }
+  if (req.params.string === "Rejected") {
+    Developer.find({
+      Status: { _id: req.params.id, current: "Rejected" },
+    }).exec(function (err, developers) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("applicantsStats", {
+          developers: developers,
+          jobId: req.params.id,
+          title: "Rejected Applicants",
+        });
+      }
+    });
+  }
+  if (req.params.string === "Pending") {
+    console.log("hii");
+    Developer.find({ Status: { _id: req.params.id, current: "Pending" } }).exec(
+      function (err, developers) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(developers);
           res.render("applicantsStats", {
             developers: developers,
             jobId: req.params.id,
             title: "Pending Applications",
           });
         }
-        })
-        }
+      }
+    );
+  }
 });
 
-router.post("/edit_postedjobs/:id",isCompany, function (req, res) {
-  const id = req.params.id;
 
+//for editng a particular job
+router.post("/edit_postedjobs/:id", isCompany, function (req, res) {
+  const id = req.params.id;
   const job = {
     jobTitle: req.body.jobTitle,
     jobType: req.body.jobType,
@@ -173,56 +178,60 @@ router.post("/edit_postedjobs/:id",isCompany, function (req, res) {
   }
 });
 
-router.get("/delete_postedJob/:id",isCompany, function (req, res) {
+//for deleting a particular posted jobs 
+router.get("/delete_postedJob/:id", isCompany, function (req, res) {
   Job.findByIdAndRemove(req.params.id, function (err) {
     if (err) {
       req.flash("error_msg", "Error while deleting");
       console.log(err);
     } else {
       Company.findOneAndUpdate(
-        { "creator": req.user.id },
+        { creator: req.user.id },
         { $pull: { postedJobs: req.params.id } },
         { new: true },
         function (err, company) {
           if (err) console.log(err);
-          else
-     { req.flash("success_msg", "Job deleted!");
-      res.redirect("/company/postedJobs");}
-    });
-  }
+          else {
+            req.flash("success_msg", "Job deleted!");
+            res.redirect("/company/postedJobs");
+          }
+        }
+      );
+    }
   });
 });
 
+//public company page
 router.get("/companyDetails/:id", function (req, res) {
   var loggedIn = req.isAuthenticated() ? true : false;
   Company.findById(req.params.id).exec(function (err, company) {
     if (err) {
       console.log(err);
-    } else {Job.find({ postedBy: company._id }).exec(function (err, jobs) {
-      if (err) {
-        console.log(err);
-      } else {
-
-        Post.find({ postedBy: company._id }).sort({Date:-1}).exec(function (err, posts) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(company);
-        res.render("companyDetails", {
-        company: company,
-        jobs:jobs,
-        posts:posts,
-        loggedIn:loggedIn
+    } else {
+      Job.find({ postedBy: company._id }).exec(function (err, jobs) {
+        if (err) {
+          console.log(err);
+        } else {
+          Post.find({ postedBy: company._id })
+            .sort({ Date: -1 })
+            .exec(function (err, posts) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(company);
+                res.render("companyDetails", {
+                  company: company,
+                  jobs: jobs,
+                  posts: posts,
+                  loggedIn: loggedIn,
+                });
+              }
+            });
+        }
       });
     }
   });
-  }
 });
-  }
-})
-});
-
-
 
 //to search jobs by location
 router.get("/SearchByLocation", (req, res) => {
@@ -242,7 +251,7 @@ router.get("/SearchByLocation", (req, res) => {
     } else {
       res.render("allCompanies", {
         companies: companies,
-        loggedIn: loggedIn
+        loggedIn: loggedIn,
       });
     }
   });
@@ -264,37 +273,30 @@ router.get("/SearchByName", (req, res) => {
     else {
       res.render("allCompanies", {
         companies: companies,
-        loggedIn :loggedIn
+        loggedIn: loggedIn,
       });
     }
   });
 });
 
-
 //////////////////////not of any use right now
-router.get("/updates",function(req,res){
+router.get("/updates", function (req, res) {
   res.render("updates", {
     user: req.user,
   });
 });
 /////////////////
 
-
-
 //to post updates or info regarding company
 router.post("/postUpdate", upload.single("file"), (req, res) => {
-  Company.findOne({'creator':req.user._id},(err,company)=>{
-    
-    if(err)
-    console.log(err);
-
-    else
-    {
-      const post=new Post({
-        title:req.body.title,
-        description:req.body.updates,
-        image:req.file.filename,
-        postedBy:company._id
+  Company.findOne({ creator: req.user._id }, (err, company) => {
+    if (err) console.log(err);
+    else {
+      const post = new Post({
+        title: req.body.title,
+        description: req.body.updates,
+        image: req.file.filename,
+        postedBy: company._id,
       });
       post.save().then((user) => {
         req.flash("success_msg", "Posted successfully ");
@@ -312,11 +314,9 @@ router.post("/postUpdate", upload.single("file"), (req, res) => {
           }
         }
       );
-
     }
   });
 });
-
 
 //to delete post
 router.get("/delete_postedUpdate/:id", function (req, res) {
@@ -327,20 +327,19 @@ router.get("/delete_postedUpdate/:id", function (req, res) {
     } else {
       // console.log('deleted');
       Company.findOneAndUpdate(
-        { "creator": req.user.id },
+        { creator: req.user.id },
         { $pull: { postedUpdates: req.params.id } },
         { new: true },
         function (err, company) {
           if (err) console.log(err);
           else {
-      req.flash("success_msg", "Post deleted!");
-      res.redirect("/companyProfile");
+            req.flash("success_msg", "Post deleted!");
+            res.redirect("/companyProfile");
+          }
+        }
+      );
     }
   });
-  }
 });
-});
-
-
 
 module.exports = router;

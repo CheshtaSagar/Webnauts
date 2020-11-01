@@ -24,7 +24,7 @@ require('./config/passport')(passport);
 // DB Config
 const db = require('./config/database').mongoURI;
 mongoose.set('useUnifiedTopology', true);
-// Connect to MongoDB atlas server
+// Connect to MongoDB 
 mongoose
   .connect(
     db,
@@ -90,7 +90,7 @@ app.use(function(req, res, next) {
 //for using static files
 app.use(express.static('public'));
 
-
+//image route
 app.get("/image/:filename", (req, res) => {
   // console.log('id', req.params.id)
   const file = gfs
@@ -112,7 +112,7 @@ app.use('/', require('./routes/index'));
 app.use('/developer', require('./routes/developer'));
 app.use('/company', require('./routes/company'));
 app.use('/job',require('./routes/job'));
-//app.use('/postJob', require('./routes/postJob'));
+
 
 app.listen(3000);
 console.log('server is running at port 3000');
