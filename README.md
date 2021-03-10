@@ -16,7 +16,8 @@ The project contains following features:
 - Both companies and developers can upload pictures for their profile(done using GridFs).
 
 ##  ▶️ How to Run the Project
-**1.** Clone the project
+**1.** Clone the project.
+
 **2.** Navigate to the project directory.
 
 ```bash
@@ -32,15 +33,14 @@ Server starts running at https://localhost:3000
 
 🛈**Note**🛈
 
-Open "database.js" and add your MongoDB URI, local or Atlas
+Open "config/database.js" and add your MongoDB URI, local or Atlas
 
 ## ✨ Contributors
 
 **Team Webnauts**
 
 <table>
-   
-    <tr>
+     <tr>
         <td align="center">
             <a href="https://github.com/CheshtaSagar">
         </td>
@@ -55,5 +55,4 @@ Open "database.js" and add your MongoDB URI, local or Atlas
             <a href="https://github.com/Abhis687">
         </td>
      </tr>
-
 </table>
