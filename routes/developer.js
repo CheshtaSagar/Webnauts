@@ -247,7 +247,7 @@ router.get("/accept/:devId/:jobId", isCompany, (req, res) => {
             secure: false,
             auth: {
               user: "infinityjobs3@gmail.com",
-              pass: "***", //clear this field before pushing the code
+              pass: "*****", //clear this field before pushing the code
             },
           });
 
@@ -257,7 +257,7 @@ router.get("/accept/:devId/:jobId", isCompany, (req, res) => {
             to: developer.email, // list of receivers
             subject: "Hello " + developer.name, // Subject line
             html:
-              "Congratulations</br><h6>Your application has been approved and you have been selected!!!You will receive an email from the company in few days.Kindly visit www.infinityJobs.com for more details</h6></br>Regards,InfinityJobs", // html body
+              "<b>Congratulations</b></br><h4>Your application has been approved and you have been selected!!!You will receive an email from the company in few days.Kindly visit www.infinityJobs.com for more details</h4></br>Regards,InfinityJobs", // html body
           });
 
           if (info.messageId) console.log("Mail sent");

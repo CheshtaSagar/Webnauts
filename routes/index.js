@@ -182,7 +182,7 @@ router.post('/forgetPassword', function(req, res, next) {
           secure: false, // true for 465, false for other ports
           auth: {
             user: "infinityjobs3@gmail.com", 
-            pass: "****", // clear this field 
+            pass: "*****", // clear this field 
           },
         });
       
@@ -709,7 +709,7 @@ router.post("/postJob",isCompany,(req, res) => {
             secure: false, // true for 465, false for other ports
             auth: {
               user: "infinityjobs3@gmail.com", 
-              pass: "****", // clear this field 
+              pass: "webnauts", // clear this field 
             },
           });
         
