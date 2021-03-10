@@ -39,20 +39,6 @@ Open "config/database.js" and add your MongoDB URI, local or Atlas
 
 **Team Webnauts**
 
-<table>
-     <tr>
-        <td align="center">
-            <a href="https://github.com/CheshtaSagar">
-        </td>
-     </tr>
-     <tr>
-        <td align="center">
-            <a href="https://github.com/Akanksha3454Verma">
-        </td>
-     </tr>
-      <tr>
-        <td align="center">
-            <a href="https://github.com/Abhis687">
-        </td>
-     </tr>
-</table>
+- [Cheshta Sagar](https://github.com/CheshtaSagar)
+- [Akanksha Verma](https://github.com/Akanksha3454Verma)
+- [Abhishek Sharma](https://github.com/Abhis687)
